@@ -1,0 +1,34 @@
+spring:
+  main.allow-bean-definition-overriding: true
+  
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url:               jdbc:mysql://localhost/batch?allowPublicKeyRetrieval=true&useSSL=false
+    username:          federico
+    password:          MedinaAzahara2468@
+    
+  batch.job.enabled: false
+  
+  data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
+  
+batch:
+  jdbc:
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    batch.jdbc.pool.size: 6
+  
+  database:
+    incrementer:
+      class: org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer
+      parent: columnIncrementerParent
+
+  lob.handler.class: org.springframework.jdbc.support.lob.DefaultLobHandler
+  grid.size: 50
+  verify.cursor.position: true
+  initialize-schema: always
+  
+application:
+  url: https://www.chguadalquivir.es/saih/EmbalNiv.aspx
+  excludeHeader: true
+  importJob.cron: 0 45 9 ? * 1,2,3,4,5 
+    
