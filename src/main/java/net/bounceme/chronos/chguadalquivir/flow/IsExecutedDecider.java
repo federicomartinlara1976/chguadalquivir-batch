@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
 
@@ -20,6 +21,7 @@ import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
  *
  */
 @Component
+@Slf4j
 public class IsExecutedDecider implements JobExecutionDecider {
 
 	@Autowired
@@ -31,9 +33,14 @@ public class IsExecutedDecider implements JobExecutionDecider {
 	@Override
 	public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
 		Date date = new Date();
-		List<Execution> executions = executionsRepository.findByDate(dateFormat.format(date));
-
-		String isExecuted = (CollectionUtils.isEmpty(executions)) ? "NO_EXECUTED" : "EXECUTED";
+		String fecha = dateFormat.format(date);
+		List<Execution> executions = executionsRepository.findByDate(fecha);
+		
+		String isExecuted = "NO_EXECUTED";
+		if (CollectionUtils.isEmpty(executions)) {
+			log.info("Ya se ha ejecutado para la fecha {}", fecha);
+			isExecuted = "EXECUTED";
+		}
 
 		return new FlowExecutionStatus(isExecuted);
 	}
