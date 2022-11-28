@@ -12,7 +12,7 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,10 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 public class PeriodicTasks {
 	
 	@Autowired
-	private ApplicationContext ctx;
+	private JobLauncher jobLauncher;
 	
 	@Autowired
-	private JobLauncher jobLauncher;
+	@Qualifier("importJob")
+	private Job importJob;
 
 	@Scheduled(cron = "${application.importJob.cron}")
     public void importJobTask() {
@@ -36,9 +37,7 @@ public class PeriodicTasks {
 	        JobParametersBuilder builder = new JobParametersBuilder();
 			builder.addDate("date", new Date());
 			
-			Job job = ctx.getBean("importJob", Job.class);
-			
-			JobExecution result = jobLauncher.run(job, builder.toJobParameters());
+			JobExecution result = jobLauncher.run(importJob, builder.toJobParameters());
 			
 			// Exit on failure
 			if (ExitStatus.FAILED.equals(result.getExitStatus())) {
