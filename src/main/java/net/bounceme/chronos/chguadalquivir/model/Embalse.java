@@ -3,6 +3,8 @@ package net.bounceme.chronos.chguadalquivir.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,13 +26,23 @@ public class Embalse implements Serializable {
 	private String id;
 
 	private String Embalse;
-	private Float porcentaje;
 	private String cod_zona;
 	private String zona;
 	private String codigo;
+	
+	@NotNull
+	private Float porcentaje;
+	
+	@NotNull
 	private Float Capacidad;
+	
+	@NotNull
 	private Float Volumen;
+	
+	@NotNull
 	private Float MEN;
+	
+	@NotNull
 	private Float Nivel;
 	
 	@Transient
