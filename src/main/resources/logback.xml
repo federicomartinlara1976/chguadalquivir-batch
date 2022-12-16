@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<property name="HOME_LOG" value="logs/chguadalquivir-batch.log"/>
+	<property name="HOME_LOG" value="chguadalquivir-batch.log"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
