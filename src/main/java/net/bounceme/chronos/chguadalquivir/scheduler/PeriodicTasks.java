@@ -43,6 +43,10 @@ public class PeriodicTasks {
 			if (ExitStatus.FAILED.equals(result.getExitStatus())) {
 				log.error("importJob failed!");
 			}
+			
+			if (ExitStatus.COMPLETED.equals(result.getExitStatus())) {
+				log.info("importJob completed");
+			}
 		} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
 				| JobParametersInvalidException e) {
 			log.error("ERROR:", e);
