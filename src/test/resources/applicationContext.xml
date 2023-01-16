@@ -25,15 +25,4 @@
 		<property name="jobRepository" ref="jobRepository" />
 	</bean>
 
-	<mongo:mongo-client host="${application.mongo.host}" port="${application.mongo.port}">
-		<mongo:client-settings
-			connection-pool-max-connection-life-time="${application.mongo.connectionPoolMaxConnectionLifeTime}"
-			connection-pool-min-size="${application.mongo.connectionPoolMinSize}" 
-			connection-pool-max-size="${application.mongo.connectionPoolMaxSize}"
-			connection-pool-maintenance-frequency="${application.mongo.connectionPoolMaintenanceFrequency}"
-			connection-pool-maintenance-initial-delay="${application.mongo.connectionPoolMaintenanceInitialDelay}"
-			connection-pool-max-connection-idle-time="${application.mongo.connectionPoolMaxConnectionIdleTime}"
-			connection-pool-max-wait-time="${application.mongo.connectionPoolMaxWaitTime}" />
-	</mongo:mongo-client>
-
 </beans>

@@ -9,6 +9,8 @@ spring:
     
   batch.job.enabled: false
   
+  data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
+  
 batch:
   jdbc:
     testWhileIdle: true
@@ -28,15 +30,5 @@ batch:
 application:
   url: https://www.chguadalquivir.es/saih/EmbalNiv.aspx
   excludeHeader: true
-  
-  mongo:
-    host: localhost
-    port: 27017
-    connectionPoolMaxConnectionLifeTime: 10
-    connectionPoolMinSize: 10
-    connectionPoolMaxSize: 20
-    connectionPoolMaintenanceFrequency: 10
-    connectionPoolMaintenanceInitialDelay: 11
-    connectionPoolMaxConnectionIdleTime: 30
-    connectionPoolMaxWaitTime: 15
-
+  importJob.cron: 0 45 9 ? * 1,2,3,4,5 
+    
