@@ -22,4 +22,6 @@ public class Execution implements Serializable {
 	private String id;
 
 	private Integer value;
+	
+	private Long executionTime;
 }

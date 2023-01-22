@@ -31,6 +31,10 @@
 					</batch:listeners>
 				</batch:chunk>
 			</batch:tasklet>
+			
+			<batch:listeners>
+				<batch:listener ref="timeStepListener" />
+			</batch:listeners>
 		</batch:step>
 		
 		<batch:step id="countExecutionStep">

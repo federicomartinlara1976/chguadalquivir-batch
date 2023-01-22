@@ -3,6 +3,7 @@ package net.bounceme.chronos.chguadalquivir.tasklet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -41,6 +42,9 @@ public class UpdateExecutionTasklet implements Tasklet {
         	execution = new Execution();
         	execution.setId(dateFormat.format(date));
         	execution.setValue(1);
+        	
+        	Long duration = getDuration(chunkContext, "importStep");
+        	execution.setExecutionTime(duration);
         }
 		else {
 			execution = executions.get(0);
@@ -51,6 +55,18 @@ public class UpdateExecutionTasklet implements Tasklet {
 		executionsRepository.save(execution);
 		
 		log.info("Execution count updated");
+		
 		return RepeatStatus.FINISHED;
+	}
+
+	/**
+	 * @param chunkContext
+	 * @param step
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private Long getDuration(ChunkContext chunkContext, String step) {
+		Map<String, Long> stepTimes = (Map<String, Long>) chunkContext.getStepContext().getJobExecutionContext().get("STEP_TIMES");
+		return stepTimes.get(step);
 	}
 }
