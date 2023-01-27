@@ -16,12 +16,12 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import net.bounceme.chronos.chguadalquivir.model.Ejecucion;
+import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-  basePackageClasses = Ejecucion.class,
+  basePackageClasses = ExecutionStats.class,
   entityManagerFactoryRef = "postgresEntityManagerFactory",
   transactionManagerRef = "postgresTransactionManager"
 )
@@ -44,7 +44,7 @@ public class PostgresDataSourceConfiguration {
       EntityManagerFactoryBuilder builder) {
         return builder
           .dataSource(postgresDataSource())
-          .packages(Ejecucion.class)
+          .packages(ExecutionStats.class)
           .build();
     }
 

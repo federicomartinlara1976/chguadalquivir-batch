@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class Ejecucion implements Serializable {
+public class ExecutionStats implements Serializable {
 	
 	/**
 	 * 
@@ -31,11 +31,7 @@ public class Ejecucion implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private Integer value;
-	
 	private Date initDate;
 	
-	private Long executionTime;
-	
-	private String taskName;
+	private Double average;
 }
