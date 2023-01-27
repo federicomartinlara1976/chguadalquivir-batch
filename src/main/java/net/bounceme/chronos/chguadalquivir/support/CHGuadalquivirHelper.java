@@ -17,6 +17,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 
 @Component
+@Scope("prototype")
 @Slf4j
 public class CHGuadalquivirHelper {
 	
