@@ -46,7 +46,7 @@ public class GenericConfiguration {
 	@Bean
 	@Scope("prototype")
 	public ValidatorService<Embalse> embalseValidatorService() {
-		return new ValidatorServiceImpl<Embalse>();
+		return new ValidatorServiceImpl<>();
 	}
 	
 	@Bean
