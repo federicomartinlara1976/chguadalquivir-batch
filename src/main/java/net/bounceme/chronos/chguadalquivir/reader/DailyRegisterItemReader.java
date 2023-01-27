@@ -38,20 +38,17 @@ public class DailyRegisterItemReader<T> implements ItemReader<T>, InitializingBe
 
 	@Autowired
 	private ObjectMapper mapper;
+	
+	@Autowired
+	private CHGuadalquivirHelper helper;
 
 	@Getter
 	@Setter
 	private ElementMapper<T> elementMapper;
 
-	private CHGuadalquivirHelper helper;
-
 	private List<ZonaElement> records;
 
 	private Integer index = 0;
-
-	public DailyRegisterItemReader() {
-		helper = new CHGuadalquivirHelper();
-	}
 
 	@Override
 	public void afterPropertiesSet() {

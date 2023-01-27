@@ -2,7 +2,10 @@ package net.bounceme.chronos.chguadalquivir.support;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 
+@Component
 @Slf4j
 public class CHGuadalquivirHelper {
 
@@ -89,5 +94,20 @@ public class CHGuadalquivirHelper {
 			log.error(e.getMessage());
 			throw e;
 		}
+	}
+	
+	/**
+	 * @param d
+	 * @param numOfDays
+	 * @return
+	 */
+	public Date subtractDays(Date date, Integer numOfDays) {
+		LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        // minus numOfDays
+        localDateTime = localDateTime.minusDays(numOfDays);
+
+        // convert LocalDateTime to date
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 	}
 }
