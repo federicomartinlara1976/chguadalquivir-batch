@@ -11,4 +11,6 @@ public interface ExecutionsRepository extends MongoRepository<Execution, String>
 
 	@Query("{ '_id' : ?0 }")
 	List<Execution> findByDate(String id);
+	
+	List<Execution> listExecutions(String from, String to);
 }
