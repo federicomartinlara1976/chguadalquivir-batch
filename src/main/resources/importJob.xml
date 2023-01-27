@@ -19,7 +19,7 @@
 		<batch:step id="importStep" next="countExecutionStep">
 			<batch:tasklet>
 				<batch:chunk reader="embalseImporterReader"
-					processor="processor"
+					processor="embalseProcessor"
 					writer="embalseImporterWriter" commit-interval="5" skip-limit="2">
 					
 					<batch:skippable-exception-classes>
@@ -53,7 +53,7 @@
 		<property name="elementMapper" ref="embalseRowMapper" />
 	</bean>
 	
-	<bean id="processor" class="org.springframework.batch.item.validator.ValidatingItemProcessor">
+	<bean id="embalseProcessor" class="org.springframework.batch.item.validator.ValidatingItemProcessor">
 		<property name="filter" value="false" />
 		<property name="validator" ref="embalseValidator"/>
 	</bean>

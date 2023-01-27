@@ -11,6 +11,14 @@
 
 	<!-- Batch que obtiene datos de las últimas 5 ejecuciones de mongo y crea un CSV con ellas -->
 	<batch:job id="lastExecutions" job-repository="jobRepository">
+	
+		<batch:step id="lastExecutionsStep">
+			<batch:tasklet>
+				<batch:chunk reader="executionsItemReader"
+					processor="executionProcessor"
+					writer="executionsWriter" commit-interval="5" skip-limit="2"/>
+			</batch:tasklet>
+		</batch:step>
 		
 		<batch:listeners>
 			<batch:listener ref="lastExecutionsListener" />
