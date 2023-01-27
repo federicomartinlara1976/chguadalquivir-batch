@@ -30,22 +30,38 @@ public class PeriodicTasks {
 	@Autowired
 	@Qualifier("importJob")
 	private Job importJob;
+	
+	@Autowired
+	@Qualifier("lastExecutions")
+	private Job lastExecutions;
 
 	@Scheduled(cron = "${application.importJob.cron}")
     public void importJobTask() {
+		executeJob(importJob);
+    }
+	
+	@Scheduled(cron = "${application.lastExecutions.cron}")
+    public void lastExecutionsTask() {
+		executeJob(lastExecutions);
+    }
+	
+	/**
+	 * @param job
+	 */
+	private void executeJob(Job job) {
 		try {
 	        JobParametersBuilder builder = new JobParametersBuilder();
 			builder.addDate("date", new Date());
 			
-			JobExecution result = jobLauncher.run(importJob, builder.toJobParameters());
+			JobExecution result = jobLauncher.run(job, builder.toJobParameters());
 			
 			// Exit on failure
 			if (ExitStatus.FAILED.equals(result.getExitStatus())) {
-				log.error("importJob failed!");
+				log.error("{} failed!", job.getName());
 			}
 			
 			if (ExitStatus.COMPLETED.equals(result.getExitStatus())) {
-				log.info("importJob completed");
+				log.info("{} completed", job.getName());
 			}
 		} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
 				| JobParametersInvalidException e) {
