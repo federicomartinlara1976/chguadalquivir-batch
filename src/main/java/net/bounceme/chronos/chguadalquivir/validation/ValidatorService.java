@@ -1,15 +1,13 @@
 package net.bounceme.chronos.chguadalquivir.validation;
 
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
-
 /**
  * @author federico
  *
  */
-public interface ValidatorService {
+public interface ValidatorService<T> {
 	
 	/**
-	 * @param embalse
+	 * @param T
 	 */
-	void validate(Embalse embalse);
+	void validate(T obj);
 }

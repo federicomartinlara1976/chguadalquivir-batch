@@ -8,22 +8,18 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.springframework.stereotype.Service;
-
 import lombok.SneakyThrows;
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
 
-@Service
-public class ValidatorServiceImpl implements ValidatorService {
+public class ValidatorServiceImpl<T> implements ValidatorService<T> {
 
 	@Override
 	@SneakyThrows(ConstraintViolationException.class)
-	public void validate(Embalse embalse) {
+	public void validate(T obj) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		
-		Set<ConstraintViolation<Embalse>> violations = validator.validate(embalse);
+		Set<ConstraintViolation<T>> violations = validator.validate(obj);
 		
 		if (!violations.isEmpty()) {
 			throw new ConstraintViolationException(violations);

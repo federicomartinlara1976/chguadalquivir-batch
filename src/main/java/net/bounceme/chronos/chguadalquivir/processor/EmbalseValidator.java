@@ -21,7 +21,7 @@ import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
 public class EmbalseValidator implements Validator<Embalse> {
 	
 	@Autowired
-	private ValidatorService validatorService;
+	private ValidatorService<Embalse> validatorService;
 
 	@Override
 	public void validate(Embalse value) throws ValidationException {

@@ -8,7 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.support.Constants;
+import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
+import net.bounceme.chronos.chguadalquivir.validation.impl.ValidatorServiceImpl;
 
 @Configuration
 @EnableBatchProcessing
@@ -22,5 +25,10 @@ public class GenericConfiguration {
 	@Bean
 	public SimpleDateFormat dateFormat() {
 		return new SimpleDateFormat(Constants.DATE_FORMAT);
+	}
+	
+	@Bean
+	public ValidatorService<Embalse> embalseValidatorService() {
+		return new ValidatorServiceImpl<Embalse>();
 	}
 }
