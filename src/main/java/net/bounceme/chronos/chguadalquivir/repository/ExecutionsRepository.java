@@ -12,5 +12,6 @@ public interface ExecutionsRepository extends MongoRepository<Execution, String>
 	@Query("{ '_id' : ?0 }")
 	List<Execution> findByDate(String id);
 	
+	@Query("{ $and : [ { '_id' : { $gte : ?0 } }, { '_id' : { $lte : ?1 } } ] }")
 	List<Execution> listExecutions(String from, String to);
 }

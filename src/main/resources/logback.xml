@@ -57,11 +57,11 @@
     </appender>
 
     <logger name="net.bounceme.chronos.chguadalquivir" level="info" additivity="false">
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
     </logger>
 
     <root level="error">
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
     </root>
 
 </configuration>

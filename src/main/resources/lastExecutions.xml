@@ -15,8 +15,7 @@
 		<batch:step id="lastExecutionsStep">
 			<batch:tasklet>
 				<batch:chunk reader="executionsItemReader"
-					processor="executionProcessor"
-					writer="executionsWriter" commit-interval="5" skip-limit="2"/>
+					writer="executionsWriter" commit-interval="1"/>
 			</batch:tasklet>
 		</batch:step>
 		

@@ -30,10 +30,10 @@ import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
 @Slf4j
 public class DailyRegisterItemReader<T> implements ItemReader<T>, InitializingBean {
 
-	@Value("${application.url}")
+	@Value("${application.importJob.url}")
 	private String url;
 
-	@Value("${application.excludeHeader}")
+	@Value("${application.importJob.excludeHeader}")
 	private Boolean excludeHeader;
 
 	@Autowired
