@@ -38,5 +38,5 @@ application:
   excludeHeader: true
   
   importJob.cron: 0 45 9 ? * 1,2,3,4,5 
-  lastExecutions.cron: 0 5 10 ? * 5
+  lastExecutions.cron: 0 0 10 ? * 5
     
