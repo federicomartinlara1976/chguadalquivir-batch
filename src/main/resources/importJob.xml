@@ -43,7 +43,7 @@
 		</batch:step>
 		
 		<batch:listeners>
-			<batch:listener ref="customJobListener" />
+			<batch:listener ref="importJobListener" />
 		</batch:listeners>
 	</batch:job>
 

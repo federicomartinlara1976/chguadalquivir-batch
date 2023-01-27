@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class CustomJobListener implements JobExecutionListener {
+public class ImportJobListener implements JobExecutionListener {
 
 	private Long startTime;
 
