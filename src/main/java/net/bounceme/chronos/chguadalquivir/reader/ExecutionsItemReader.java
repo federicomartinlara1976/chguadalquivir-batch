@@ -46,6 +46,11 @@ public class ExecutionsItemReader implements ItemReader<Execution>, Initializing
 			Date currentDate = (Date) jobExecution.getExecutionContext().get("CURRENT_DATE");
 			Date beforeDate = helper.subtractDays(currentDate, 5);
 			
+			String from = helper.parseDate(beforeDate);
+			String to = helper.parseDate(currentDate);
+			
+			records = executionsRepository.listExecutions(from, to);
+			
 			index = 0;
 		} catch (Exception e) {
 			log.error("ERROR: ", e);

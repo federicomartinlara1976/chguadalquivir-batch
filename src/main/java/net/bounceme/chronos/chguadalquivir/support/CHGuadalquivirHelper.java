@@ -2,6 +2,7 @@ package net.bounceme.chronos.chguadalquivir.support;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collections;
@@ -26,6 +27,8 @@ import net.bounceme.chronos.chguadalquivir.model.Zona;
 @Component
 @Slf4j
 public class CHGuadalquivirHelper {
+	
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(Constants.DATE_FORMAT);
 
 	/**
 	 * @param mapper
@@ -109,5 +112,13 @@ public class CHGuadalquivirHelper {
 
         // convert LocalDateTime to date
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	/**
+	 * @param date
+	 * @return
+	 */
+	public String parseDate(Date date) {
+		return DATE_FORMAT.format(date);
 	}
 }
