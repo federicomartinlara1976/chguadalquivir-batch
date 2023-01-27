@@ -22,13 +22,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
 
 @Slf4j
-public class DailyRegisterItemReader<T> implements ItemReader<T>, InitializingBean {
+public class DailyRegisterItemReader implements ItemReader<Embalse>, InitializingBean {
 
 	@Value("${application.importJob.url}")
 	private String url;
@@ -44,7 +45,7 @@ public class DailyRegisterItemReader<T> implements ItemReader<T>, InitializingBe
 
 	@Getter
 	@Setter
-	private ElementMapper<T> elementMapper;
+	private ElementMapper<Embalse> elementMapper;
 
 	private List<ZonaElement> records;
 
@@ -100,9 +101,9 @@ public class DailyRegisterItemReader<T> implements ItemReader<T>, InitializingBe
 	 *
 	 */
 	@Override
-	public T read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException,
+	public Embalse read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException,
 			SelectorParseException {
-		T nextElement = null;
+		Embalse nextElement = null;
 
 		if (index < records.size()) {
 			ZonaElement ze = records.get(index);
