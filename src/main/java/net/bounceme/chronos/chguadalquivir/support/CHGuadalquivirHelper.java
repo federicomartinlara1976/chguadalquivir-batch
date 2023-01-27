@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -28,7 +29,8 @@ import net.bounceme.chronos.chguadalquivir.model.Zona;
 @Slf4j
 public class CHGuadalquivirHelper {
 	
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(Constants.DATE_FORMAT);
+	@Autowired
+	private SimpleDateFormat dateFormat;
 
 	/**
 	 * @param mapper
@@ -119,6 +121,6 @@ public class CHGuadalquivirHelper {
 	 * @return
 	 */
 	public String parseDate(Date date) {
-		return DATE_FORMAT.format(date);
+		return dateFormat.format(date);
 	}
 }
