@@ -2,10 +2,16 @@ spring:
   main.allow-bean-definition-overriding: true
   
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url:               jdbc:mysql://localhost/batch?allowPublicKeyRetrieval=true&useSSL=false
-    username:          federico
-    password:          MedinaAzahara2468@
+    batch:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url:               jdbc:mysql://localhost/batch?allowPublicKeyRetrieval=true&useSSL=false
+      username:          federico
+      password:          MedinaAzahara2468@
+    postgres:
+      driver-class-name: org.postgresql.Driver
+      url:               jdbc:postgresql://localhost/prueba
+      username:          federico
+      password:          MedinaAzahara2468
     
   batch.job.enabled: false
   

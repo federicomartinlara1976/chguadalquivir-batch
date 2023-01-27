@@ -42,6 +42,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -73,6 +78,14 @@
 			<version>4.0.2</version>
 			<scope>compile</scope>
 		</dependency>
+		
+		<!-- Postgresql, for testing funcionalities -->
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>42.5.1</version>
+		</dependency>
+		
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
