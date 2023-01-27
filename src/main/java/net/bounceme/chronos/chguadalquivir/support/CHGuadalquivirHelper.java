@@ -53,6 +53,7 @@ public class CHGuadalquivirHelper {
 		try {
 			Map<String, String> data = new HashMap<>();
 	
+			// Datos requeridos para hacer el POST
 			String eventValidation = document.select("input[name=__EVENTVALIDATION]").first().attr("value");
 		    String viewState = document.select("input[name=__VIEWSTATE]").first().attr("value");
 		    String viewStateGen = document.select("input[name=__VIEWSTATEGENERATOR]").first().attr("value");
