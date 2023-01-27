@@ -2,11 +2,9 @@ package net.bounceme.chronos.chguadalquivir.listener;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
-import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Component
 @Slf4j
 public abstract class AbstractListener implements JobExecutionListener {
 
