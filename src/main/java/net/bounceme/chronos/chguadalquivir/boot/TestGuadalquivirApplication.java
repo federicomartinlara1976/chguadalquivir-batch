@@ -21,7 +21,7 @@ import org.springframework.context.annotation.ImportResource;
 
 import lombok.extern.slf4j.Slf4j;
 
-@SpringBootApplication(exclude={BatchAutoConfiguration.class})
+//@SpringBootApplication(exclude={BatchAutoConfiguration.class})
 @ImportResource({
     "classpath:applicationContext.xml",
 	"classpath:importJob.xml",
