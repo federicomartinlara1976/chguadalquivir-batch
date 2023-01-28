@@ -1,5 +1,6 @@
 package net.bounceme.chronos.chguadalquivir.tasklet;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.batch.core.StepContribution;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
+import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 /**
@@ -20,19 +22,29 @@ import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 @Component
 @Slf4j
 public class SummarizeStatsExecutionTasklet implements Tasklet {
-	
+
 	@Autowired
 	private CHGuadalquivirHelper helper;
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-		List<Execution> executions = (List<Execution>) chunkContext.getStepContext().getJobExecutionContext().get("EXECUTIONS");
-		
-		Double average = calculateAvg(executions);
-		log.info("Average: {}", helper.round(average, 2));
-		
+		List<Execution> executions = (List<Execution>) chunkContext.getStepContext().getJobExecutionContext()
+				.get("EXECUTIONS");
+
+		Double average = helper.round(calculateAvg(executions), 2);
+
+		saveExecutionStats(average);
+
 		return RepeatStatus.FINISHED;
+	}
+
+	/**
+	 * @param average
+	 */
+	private void saveExecutionStats(Double average) {
+		ExecutionStats executionStats = ExecutionStats.builder().initDate(new Date()).average(average).build();
+		log.info("{}", executionStats);
 	}
 
 	/**
@@ -44,7 +56,7 @@ public class SummarizeStatsExecutionTasklet implements Tasklet {
 		for (Execution execution : executions) {
 			average += execution.getExecutionTime();
 		}
-		
+
 		return average / executions.size();
 	}
 }
