@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- Batch que obtiene datos de las últimas 5 ejecuciones de mongo y crea un CSV con ellas -->
+	<batch:job id="statExecutions" job-repository="jobRepository">
+		<batch:step id="statExecutionsStep" next="summarizeStatsStep">
+			<batch:tasklet allow-start-if-complete="true">
+				<batch:chunk reader="statExecutionsFileItemReader"
+					writer="statsExecutionWriter" commit-interval="1"/>
+			</batch:tasklet>
+		</batch:step>
+		
+		<batch:step id="summarizeStatsStep">
+			<batch:tasklet ref="summarizeStatsExecutionTasklet"/>
+		</batch:step>
+		
+		<batch:listeners>
+			<batch:listener ref="statExecutionsListener" />
+		</batch:listeners>		
+	</batch:job>
+
+</beans>

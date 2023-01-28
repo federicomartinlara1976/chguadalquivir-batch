@@ -19,7 +19,7 @@ import net.bounceme.chronos.chguadalquivir.model.Execution;
 
 @Component
 @Slf4j
-public class CSVExecutionsFileItemReader extends FlatFileItemReader<Execution> implements InitializingBean {
+public class StatExecutionsFileItemReader extends FlatFileItemReader<Execution> implements InitializingBean {
 
 	@Autowired
 	private Environment environment;

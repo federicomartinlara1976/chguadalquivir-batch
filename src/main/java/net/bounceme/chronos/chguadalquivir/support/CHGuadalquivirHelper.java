@@ -2,6 +2,8 @@ package net.bounceme.chronos.chguadalquivir.support;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -124,5 +126,15 @@ public class CHGuadalquivirHelper {
 	 */
 	public String parseDate(Date date) {
 		return dateFormat.format(date);
+	}
+	
+	/**
+	 * @param input
+	 * @param scale
+	 * @return
+	 */
+	public Double round(Double input, Integer scale) {
+		BigDecimal bd = new BigDecimal(input).setScale(scale, RoundingMode.HALF_EVEN);
+		return bd.doubleValue();
 	}
 }

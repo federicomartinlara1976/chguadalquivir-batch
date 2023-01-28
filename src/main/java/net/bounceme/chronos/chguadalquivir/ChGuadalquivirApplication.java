@@ -5,11 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration;
 import org.springframework.context.annotation.ImportResource;
 
-@SpringBootApplication(exclude={BatchAutoConfiguration.class})
+//@SpringBootApplication(exclude={BatchAutoConfiguration.class})
 @ImportResource({
     "classpath:applicationContext.xml",
 	"classpath:importJob.xml",
-	"classpath:lastExecutions.xml"
+	"classpath:lastExecutions.xml",
+	"classpath:statExecutions.xml"
 })
 public class ChGuadalquivirApplication {
 
