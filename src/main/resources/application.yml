@@ -43,7 +43,7 @@ application:
     cron: 0 0 10 ? * 5
     export:
       file:
-        header: ID;VALUE;EXECUTIONTIME
+        header: ID,VALUE,EXECUTIONTIME
         path: /home/federico/logs/lastExecutions
         suffix: csv
     

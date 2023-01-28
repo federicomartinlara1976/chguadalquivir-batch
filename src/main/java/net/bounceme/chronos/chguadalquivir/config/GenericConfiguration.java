@@ -73,7 +73,7 @@ public class GenericConfiguration {
 	
 	private LineAggregator<Execution> createExecutionLineAggregator() {
         DelimitedLineAggregator<Execution> lineAggregator = new DelimitedLineAggregator<>();
-        lineAggregator.setDelimiter(";");
+        lineAggregator.setDelimiter(",");
 
         FieldExtractor<Execution> fieldExtractor = createExecutionFieldExtractor();
         lineAggregator.setFieldExtractor(fieldExtractor);
