@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
+import net.bounceme.chronos.chguadalquivir.services.ExecutionStatsService;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 /**
@@ -25,6 +26,9 @@ public class SummarizeStatsExecutionTasklet implements Tasklet {
 
 	@Autowired
 	private CHGuadalquivirHelper helper;
+	
+	@Autowired
+	private ExecutionStatsService executionStatsService; 
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
@@ -44,6 +48,7 @@ public class SummarizeStatsExecutionTasklet implements Tasklet {
 	 */
 	private void saveExecutionStats(Double average) {
 		ExecutionStats executionStats = ExecutionStats.builder().initDate(new Date()).average(average).build();
+		executionStatsService.save(executionStats);
 		log.info("{}", executionStats);
 	}
 

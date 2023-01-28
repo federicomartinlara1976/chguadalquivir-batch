@@ -1,7 +1,6 @@
 package net.bounceme.chronos.chguadalquivir.config;
 
-import java.util.Objects;
-
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +20,7 @@ import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-  basePackageClasses = ExecutionStats.class,
+  basePackages = {"net.bounceme.chronos.chguadalquivir.repository"},
   entityManagerFactoryRef = "postgresEntityManagerFactory",
   transactionManagerRef = "postgresTransactionManager"
 )
@@ -33,24 +32,24 @@ public class PostgresDataSourceConfiguration {
 		return new DataSourceProperties();
 	}
 
-	@Bean
+	@Bean(name = "postgresDataSource")
 	public DataSource postgresDataSource() {
 		return postgresDataSourceProperties().initializeDataSourceBuilder().build();
 	}
 	
-	@Bean
+	@Bean(name = "postgresEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean postgresEntityManagerFactory(
       @Qualifier("postgresDataSource") DataSource dataSource,
       EntityManagerFactoryBuilder builder) {
         return builder
-          .dataSource(postgresDataSource())
+          .dataSource(dataSource)
           .packages(ExecutionStats.class)
           .build();
     }
 
-    @Bean
+    @Bean(name = "postgresTransactionManager")
     public PlatformTransactionManager postgresTransactionManager(
-      @Qualifier("postgresEntityManagerFactory") LocalContainerEntityManagerFactoryBean postgresEntityManagerFactory) {
-        return new JpaTransactionManager(Objects.requireNonNull(postgresEntityManagerFactory.getObject()));
+      @Qualifier("postgresEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 }
