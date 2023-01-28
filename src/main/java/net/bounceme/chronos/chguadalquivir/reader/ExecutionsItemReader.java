@@ -3,8 +3,6 @@ package net.bounceme.chronos.chguadalquivir.reader;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +14,8 @@ import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 @Component
-@StepScope
 @Slf4j
 public class ExecutionsItemReader implements ItemReader<Execution>, InitializingBean {
-	
-	@Autowired
-	private JobExecution jobExecution;
 	
 	@Autowired
 	private CHGuadalquivirHelper helper;
@@ -43,7 +37,7 @@ public class ExecutionsItemReader implements ItemReader<Execution>, Initializing
 	 */
 	private void initialize() {
 		try {
-			Date currentDate = (Date) jobExecution.getExecutionContext().get("CURRENT_DATE");
+			Date currentDate = new Date();
 			Date beforeDate = helper.subtractDays(currentDate, 5);
 			
 			String from = helper.parseDate(beforeDate);

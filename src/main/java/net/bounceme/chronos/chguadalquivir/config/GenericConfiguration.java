@@ -50,7 +50,6 @@ public class GenericConfiguration {
 	}
 	
 	@Bean
-	@StepScope
     public ItemWriter<Execution> executionsWriter(Environment environment, SimpleDateFormat dateFormat) {
         String exportFilePath = environment.getRequiredProperty("application.lastExecutions.export.file.path");
         String suffix = environment.getRequiredProperty("application.lastExecutions.export.file.suffix");

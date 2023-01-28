@@ -44,6 +44,6 @@ application:
     export:
       file:
         header: ID;VALUE;EXECUTIONTIME
-        path: ~/logs/lastExecutions
+        path: /home/federico/logs/lastExecutions
         suffix: csv
     
