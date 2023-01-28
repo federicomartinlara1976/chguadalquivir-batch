@@ -34,6 +34,10 @@ public class PeriodicTasks {
 	@Autowired
 	@Qualifier("lastExecutions")
 	private Job lastExecutions;
+	
+	@Autowired
+	@Qualifier("statExecutions")
+	private Job statExecutions;
 
 	@Scheduled(cron = "${application.importJob.cron}")
     public void importJobTask() {
@@ -43,6 +47,11 @@ public class PeriodicTasks {
 	@Scheduled(cron = "${application.lastExecutions.cron}")
     public void lastExecutionsTask() {
 		executeJob(lastExecutions);
+    }
+	
+	@Scheduled(cron = "${application.statExecutions.cron}")
+    public void statExecutionsTask() {
+		executeJob(statExecutions);
     }
 	
 	/**

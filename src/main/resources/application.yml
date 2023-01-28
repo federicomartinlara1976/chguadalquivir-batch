@@ -46,4 +46,7 @@ application:
         header: ID,VALUE,EXECUTIONTIME
         path: /home/federico/logs/lastExecutions
         suffix: csv
+        
+  statExecutions:
+    cron: 0 30 10 ? * 5
     
