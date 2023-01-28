@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
