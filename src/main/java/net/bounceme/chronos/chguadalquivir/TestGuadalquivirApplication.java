@@ -1,4 +1,4 @@
-package net.bounceme.chronos.chguadalquivir.boot;
+package net.bounceme.chronos.chguadalquivir;
 
 import java.util.Date;
 
