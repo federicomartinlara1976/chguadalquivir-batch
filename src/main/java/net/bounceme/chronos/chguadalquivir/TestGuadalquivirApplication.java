@@ -25,7 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @ImportResource({
     "classpath:applicationContext.xml",
 	"classpath:importJob.xml",
-	"classpath:lastExecutions.xml"
+	"classpath:lastExecutions.xml",
+	"classpath:statExecutions.xml"
 })
 @Slf4j
 public class TestGuadalquivirApplication implements CommandLineRunner {
@@ -40,6 +41,10 @@ public class TestGuadalquivirApplication implements CommandLineRunner {
 	@Autowired
 	@Qualifier("lastExecutions")
 	private Job lastExecutions;
+	
+	@Autowired
+	@Qualifier("statExecutions")
+	private Job statExecutions;
 
 	public static void main(String[] args) {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(TestGuadalquivirApplication.class);
@@ -49,7 +54,7 @@ public class TestGuadalquivirApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		executeJob(lastExecutions);
+		executeJob(statExecutions);
 		
 		System.exit(0);
 	}
