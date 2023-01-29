@@ -32,4 +32,8 @@ public class ExecutionStats implements Serializable {
 	private Date initDate;
 	
 	private Double average;
+	
+	private Double deviation;
+	
+	private Double variation;
 }

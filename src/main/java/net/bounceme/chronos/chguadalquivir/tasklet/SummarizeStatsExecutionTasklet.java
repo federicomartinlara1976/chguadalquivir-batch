@@ -15,6 +15,7 @@ import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 import net.bounceme.chronos.chguadalquivir.services.ExecutionStatsService;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
+import net.bounceme.chronos.chguadalquivir.support.StatsCalculations;
 
 /**
  * @author fxm105
@@ -26,9 +27,12 @@ public class SummarizeStatsExecutionTasklet implements Tasklet {
 
 	@Autowired
 	private CHGuadalquivirHelper helper;
-	
+
 	@Autowired
-	private ExecutionStatsService executionStatsService; 
+	private StatsCalculations stats;
+
+	@Autowired
+	private ExecutionStatsService executionStatsService;
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
@@ -36,32 +40,25 @@ public class SummarizeStatsExecutionTasklet implements Tasklet {
 		List<Execution> executions = (List<Execution>) chunkContext.getStepContext().getJobExecutionContext()
 				.get("EXECUTIONS");
 
-		Double average = helper.round(calculateAvg(executions), 2);
+		Double average = helper.round(stats.calculateAverage(executions), 2);
+		Double deviation = helper.round(stats.calculateDeviation(executions, average), 2);
+		Double variation = helper.round(stats.calculateVariation(deviation), 2);
 
-		saveExecutionStats(average);
+		saveExecutionStats(average, deviation, variation);
 
 		return RepeatStatus.FINISHED;
 	}
 
 	/**
 	 * @param average
+	 * @param deviation
+	 * @param variation
 	 */
-	private void saveExecutionStats(Double average) {
-		ExecutionStats executionStats = ExecutionStats.builder().initDate(new Date()).average(average).build();
+	private void saveExecutionStats(Double average, Double deviation, Double variation) {
+		ExecutionStats executionStats = ExecutionStats.builder().initDate(new Date()).average(average)
+				.deviation(deviation).variation(variation).build();
 		executionStatsService.save(executionStats);
 		log.info("{}", executionStats);
 	}
 
-	/**
-	 * @param executions
-	 * @return
-	 */
-	private Double calculateAvg(List<Execution> executions) {
-		Double average = 0.0;
-		for (Execution execution : executions) {
-			average += execution.getExecutionTime();
-		}
-
-		return average / executions.size();
-	}
 }
