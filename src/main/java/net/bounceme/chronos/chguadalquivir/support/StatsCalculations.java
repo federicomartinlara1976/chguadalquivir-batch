@@ -13,7 +13,7 @@ public class StatsCalculations {
 	 * @param executions
 	 * @return
 	 */
-	public Double calculateAverage(List<Numerical> values) {
+	public Double calculateAverage(List<? extends Numerical> values) {
 		Double average = 0.0;
 		for (Numerical number : values) {
 			average += number.getNumber();
@@ -27,7 +27,7 @@ public class StatsCalculations {
 	 * @param average
 	 * @return
 	 */
-	public Double calculateDeviation(List<Numerical> values, Double average) {
+	public Double calculateDeviation(List<? extends Numerical> values, Double average) {
 		Double sum = 0.0;
 		
 		for (Numerical number : values) {
