@@ -7,11 +7,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
+@Data
 @Document(collection = "Executions")
-public class Execution extends Numerical implements Serializable {
+public class Execution implements Serializable, Numerical {
 
 	/**
 	 * 
@@ -20,19 +21,12 @@ public class Execution extends Numerical implements Serializable {
 	
 	@Id
     @Field("_id")
-	@Getter
-	@Setter
 	private String id;
 
-	@Getter
-	@Setter
 	private Integer value;
 	
-	@Getter
-	@Setter
 	private Long executionTime;
 	
-	public Double getNumber() {
-		return (new BigDecimal(executionTime)).doubleValue();
-	}
+	@Getter(lazy=true) 
+	private final Double number = (new BigDecimal(executionTime)).doubleValue();
 }
