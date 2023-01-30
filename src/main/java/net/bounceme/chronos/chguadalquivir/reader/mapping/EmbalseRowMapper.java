@@ -22,12 +22,12 @@ public class EmbalseRowMapper implements ElementMapper<Embalse> {
 		String info = zonaElement.getElement().select("tr > td.MaquetacionLeft").first().html();
 		
 		String cod = info.substring(0, 3);
-		String cod_zona = zonaElement.getZona().getCodigo();
+		String codZona = zonaElement.getZona().getCodigo();
 		
 		// Datos generales
 		embalse.setEmbalse(info);
-		embalse.setCod_zona(cod_zona);
-		embalse.setCodigo(cod_zona + "-" + cod);
+		embalse.setCod_zona(codZona);
+		embalse.setCodigo(codZona + "-" + cod);
 		embalse.setZona(zonaElement.getZona().getDescripcion());
 		embalse.setFecha(new Date());
 		

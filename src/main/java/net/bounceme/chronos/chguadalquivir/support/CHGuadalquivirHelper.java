@@ -33,6 +33,8 @@ import net.bounceme.chronos.chguadalquivir.model.Zona;
 @Slf4j
 public class CHGuadalquivirHelper {
 	
+	private static final String VALUE = "value";
+	
 	@Autowired
 	private SimpleDateFormat dateFormat;
 
@@ -43,10 +45,9 @@ public class CHGuadalquivirHelper {
 	 */
 	public List<Zona> getZonesFromJsonResource(ObjectMapper mapper, String zonasJson) {
 		try (InputStream istream = getClass().getResourceAsStream("/" + zonasJson)) {
-			List<Zona> zonas = mapper.readValue(istream, new TypeReference<List<Zona>>() {
+			return mapper.readValue(istream, new TypeReference<List<Zona>>() {
 			});
 
-			return zonas;
 		} catch (IOException e) {
 			log.error(e.getMessage());
 			return Collections.emptyList();
@@ -63,14 +64,14 @@ public class CHGuadalquivirHelper {
 		return Jsoup.connect(url).get();
 	}
 
-	public Map<String, String> initFormData(Document document) throws Exception {
+	public Map<String, String> initFormData(Document document) {
 		try {
 			Map<String, String> data = new HashMap<>();
 	
 			// Datos requeridos para hacer el POST
-			String eventValidation = document.select("input[name=__EVENTVALIDATION]").first().attr("value");
-		    String viewState = document.select("input[name=__VIEWSTATE]").first().attr("value");
-		    String viewStateGen = document.select("input[name=__VIEWSTATEGENERATOR]").first().attr("value");
+			String eventValidation = document.select("input[name=__EVENTVALIDATION]").first().attr(VALUE);
+		    String viewState = document.select("input[name=__VIEWSTATE]").first().attr(VALUE);
+		    String viewStateGen = document.select("input[name=__VIEWSTATEGENERATOR]").first().attr(VALUE);
 		    
 		    data.put("__EVENTVALIDATION", eventValidation);
 		    data.put("__VIEWSTATE", viewState);
@@ -90,7 +91,7 @@ public class CHGuadalquivirHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public String getNameFrom(Document document, String idForm, String idSelect) throws Exception {
+	public String getNameFrom(Document document, String idForm, String idSelect) {
 		try {
 			Element formElement = document.getElementById(idForm);
 			if (!Objects.isNull(formElement)) {

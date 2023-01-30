@@ -15,5 +15,5 @@ public class ZonaElement implements Serializable {
 	private static final long serialVersionUID = -1887374261691607915L;
 	
 	private Zona zona;
-	private Element element;
+	private transient Element element;
 }

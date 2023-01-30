@@ -21,7 +21,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
-import net.bounceme.chronos.chguadalquivir.support.Constants;
 import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
 import net.bounceme.chronos.chguadalquivir.validation.impl.ValidatorServiceImpl;
 import net.bounceme.chronos.chguadalquivir.writer.StringHeaderWriter;
@@ -29,6 +28,8 @@ import net.bounceme.chronos.chguadalquivir.writer.StringHeaderWriter;
 @Configuration
 @EnableBatchProcessing
 public class GenericConfiguration {
+	
+	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
 	@Bean
 	@Scope("prototype")
@@ -39,7 +40,7 @@ public class GenericConfiguration {
 	@Bean
 	@Scope("prototype")
 	public SimpleDateFormat dateFormat() {
-		return new SimpleDateFormat(Constants.DATE_FORMAT);
+		return new SimpleDateFormat(DATE_FORMAT);
 	}
 	
 	@Bean

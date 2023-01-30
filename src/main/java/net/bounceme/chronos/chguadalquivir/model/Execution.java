@@ -33,6 +33,6 @@ public class Execution implements Serializable, Numerical {
 	private Long executionTime;
 	
 	public Double getNumber() {
-		return (new BigDecimal(executionTime)).doubleValue();
+		return BigDecimal.valueOf(executionTime).doubleValue();
 	}
 }
