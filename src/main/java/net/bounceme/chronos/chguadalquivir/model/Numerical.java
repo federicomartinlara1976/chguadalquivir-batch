@@ -4,7 +4,7 @@ package net.bounceme.chronos.chguadalquivir.model;
  * @author federico
  *
  */
-public interface Numerical {
+public abstract class Numerical {
 	
-	Double getNumber();
+	public abstract Double getNumber();
 }

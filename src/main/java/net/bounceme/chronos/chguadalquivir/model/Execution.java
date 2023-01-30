@@ -7,12 +7,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(toBuilder = true)
 @Document(collection = "Executions")
-public class Execution implements Serializable, Numerical {
+public class Execution extends Numerical implements Serializable {
 
 	/**
 	 * 
@@ -27,6 +32,7 @@ public class Execution implements Serializable, Numerical {
 	
 	private Long executionTime;
 	
-	@Getter(lazy=true) 
-	private final Double number = (new BigDecimal(executionTime)).doubleValue();
+	public Double getNumber() {
+		return (new BigDecimal(executionTime)).doubleValue();
+	}
 }
