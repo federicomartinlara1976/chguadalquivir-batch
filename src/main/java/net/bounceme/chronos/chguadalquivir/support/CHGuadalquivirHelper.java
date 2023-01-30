@@ -134,7 +134,7 @@ public class CHGuadalquivirHelper {
 	 * @return
 	 */
 	public Double round(Double input, Integer scale) {
-		BigDecimal bd = new BigDecimal(input).setScale(scale, RoundingMode.HALF_EVEN);
+		BigDecimal bd = BigDecimal.valueOf(input).setScale(scale, RoundingMode.HALF_EVEN);
 		return bd.doubleValue();
 	}
 }

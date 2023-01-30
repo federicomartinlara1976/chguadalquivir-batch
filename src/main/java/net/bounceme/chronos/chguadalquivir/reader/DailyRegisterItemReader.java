@@ -7,11 +7,7 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.jsoup.select.Selector.SelectorParseException;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -101,8 +97,7 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 	 *
 	 */
 	@Override
-	public Embalse read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException,
-			SelectorParseException {
+	public Embalse read() throws Exception {
 		Embalse nextElement = null;
 
 		if (index < records.size()) {

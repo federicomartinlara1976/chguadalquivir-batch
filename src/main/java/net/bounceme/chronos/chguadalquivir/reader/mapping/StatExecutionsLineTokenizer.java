@@ -13,6 +13,7 @@ public class StatExecutionsLineTokenizer extends DelimitedLineTokenizer implemen
 	}
 	
 	private void initialize() {
-		setNames(new String[] { "id", "value", "executionTime" });
+		String[] names = new String[] { "id", "value", "executionTime" };
+		setNames(names);
 	}
 }

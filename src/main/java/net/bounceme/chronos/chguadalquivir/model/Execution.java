@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Document(collection = "Executions")
-public class Execution extends Numerical implements Serializable {
+public class Execution implements Serializable, Numerical {
 
 	/**
 	 * 
