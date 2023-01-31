@@ -3,7 +3,10 @@ package net.bounceme.chronos.chguadalquivir;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -19,19 +22,29 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
+import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
 import net.bounceme.chronos.chguadalquivir.services.ExecutionStatsService;
 import net.bounceme.chronos.chguadalquivir.tasklet.SummarizeStatsExecutionTasklet;
+import net.bounceme.chronos.chguadalquivir.tasklet.UpdateExecutionTasklet;
 
 @SpringBootTest
+@Slf4j
 public class TestTasklets {
 	
 	@Autowired
 	private SummarizeStatsExecutionTasklet summarizeStatsExecutionTasklet;
 	
+	@Autowired
+	private UpdateExecutionTasklet updateExecutionTasklet; 
+	
 	@MockBean
 	private ExecutionStatsService executionStatsService;
+	
+	@MockBean
+	private ExecutionsRepository executionsRepository;
 	
 	@Value("${application.importJob.url}")
 	private String url;
@@ -39,13 +52,7 @@ public class TestTasklets {
 	@Test
 	public void testSummarizeStatsExecutionTasklet() {
 		try {
-			List<Execution> executions = buildExecutions();
-			
-			JobExecution jobExecution = MetaDataInstanceFactory.createJobExecution();
-			jobExecution.getExecutionContext().put("EXECUTIONS", executions);
-			
-			StepContext stepContext = new StepContext(new StepExecution("summarizeStatsStep", jobExecution));
-			ChunkContext chunkContext = new ChunkContext(stepContext);
+			ChunkContext chunkContext = createChunkContext("summarizeStatsStep", buildExecutions());
 			
 			Mockito.doNothing().when(executionStatsService).save(Mockito.isA(ExecutionStats.class));
 			
@@ -54,6 +61,44 @@ public class TestTasklets {
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
+	}
+	
+	@Test
+	public void testUpdateExecutionTasklet() {
+		try {
+			ChunkContext chunkContext = createChunkContext("countExecutionStep", buildStepTimes());
+			
+			Mockito.doReturn(Collections.emptyList()).when(executionsRepository).findByDate(Mockito.isA(String.class));
+			Mockito.doReturn(new Execution()).when(executionsRepository).save(Mockito.isA(Execution.class));
+			
+			RepeatStatus status = updateExecutionTasklet.execute(null, chunkContext);
+			assertEquals(RepeatStatus.FINISHED, status);
+			
+			Mockito.doReturn(buildExecution()).when(executionsRepository).findByDate(Mockito.isA(String.class));
+			status = updateExecutionTasklet.execute(null, chunkContext);
+			assertEquals(RepeatStatus.FINISHED, status);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	private ChunkContext createChunkContext(String name, List<Execution> executions) {
+		JobExecution jobExecution = MetaDataInstanceFactory.createJobExecution();
+		jobExecution.getExecutionContext().put("EXECUTIONS", executions);
+		
+		StepContext stepContext = new StepContext(new StepExecution(name, jobExecution));
+		ChunkContext chunkContext = new ChunkContext(stepContext);
+		return chunkContext;
+	}
+	
+	private ChunkContext createChunkContext(String name, Map<String, Long> stepTimes) {
+		JobExecution jobExecution = MetaDataInstanceFactory.createJobExecution();
+		jobExecution.getExecutionContext().put("STEP_TIMES", stepTimes);
+		
+		StepContext stepContext = new StepContext(new StepExecution(name, jobExecution));
+		ChunkContext chunkContext = new ChunkContext(stepContext);
+		return chunkContext;
 	}
 	
 	private List<Execution> buildExecutions() {
@@ -78,5 +123,22 @@ public class TestTasklets {
 		executions.add(execution);
 		
 		return executions;
+	}
+	
+	private List<Execution> buildExecution() {
+		List<Execution> executions = new ArrayList<>();
+		
+		Execution execution = Execution.builder().id("2023-01-23").value(1).executionTime(1896L).build();
+		executions.add(execution);
+		
+		return executions;
+	}
+	
+	private Map<String, Long> buildStepTimes() {
+		Map<String, Long> map = new HashMap<>();
+		
+		map.put("importStep", 1L);
+		
+		return map;
 	}
 }
