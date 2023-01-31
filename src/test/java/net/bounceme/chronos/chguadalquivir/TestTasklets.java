@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.job.flow.FlowExecutionStatus;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.scope.context.StepContext;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -23,6 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import lombok.extern.slf4j.Slf4j;
+import net.bounceme.chronos.chguadalquivir.flow.IsExecutedDecider;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
@@ -34,11 +36,17 @@ import net.bounceme.chronos.chguadalquivir.tasklet.UpdateExecutionTasklet;
 @Slf4j
 public class TestTasklets {
 	
+	private static final FlowExecutionStatus NO_EXECUTED = new FlowExecutionStatus("NO_EXECUTED");
+	private static final FlowExecutionStatus EXECUTED = new FlowExecutionStatus("EXECUTED");
+	
 	@Autowired
 	private SummarizeStatsExecutionTasklet summarizeStatsExecutionTasklet;
 	
 	@Autowired
 	private UpdateExecutionTasklet updateExecutionTasklet; 
+	
+	@Autowired
+	private IsExecutedDecider isExecutedDecider;
 	
 	@MockBean
 	private ExecutionStatsService executionStatsService;
@@ -83,8 +91,27 @@ public class TestTasklets {
 		}
 	}
 	
+	@Test
+	public void testIsExecutedDecider() {
+		try {
+			Mockito.doReturn(Collections.emptyList()).when(executionsRepository).findByDate(Mockito.isA(String.class));
+			JobExecution jobExecution = createJobExecution();
+			StepExecution stepExecution = createStepExecution("stepFlowDecider", jobExecution);
+			
+			FlowExecutionStatus status = isExecutedDecider.decide(jobExecution, stepExecution);
+			assertEquals(NO_EXECUTED, status);
+			
+			Mockito.doReturn(buildExecution()).when(executionsRepository).findByDate(Mockito.isA(String.class));
+			status = isExecutedDecider.decide(jobExecution, stepExecution);
+			assertEquals(EXECUTED, status);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			Assert.fail(e.getMessage());
+		}
+	}
+	
 	private ChunkContext createChunkContext(String name, List<Execution> executions) {
-		JobExecution jobExecution = MetaDataInstanceFactory.createJobExecution();
+		JobExecution jobExecution = createJobExecution();
 		jobExecution.getExecutionContext().put("EXECUTIONS", executions);
 		
 		StepContext stepContext = new StepContext(new StepExecution(name, jobExecution));
@@ -93,12 +120,20 @@ public class TestTasklets {
 	}
 	
 	private ChunkContext createChunkContext(String name, Map<String, Long> stepTimes) {
-		JobExecution jobExecution = MetaDataInstanceFactory.createJobExecution();
+		JobExecution jobExecution = createJobExecution();
 		jobExecution.getExecutionContext().put("STEP_TIMES", stepTimes);
 		
-		StepContext stepContext = new StepContext(new StepExecution(name, jobExecution));
+		StepContext stepContext = new StepContext(createStepExecution(name, jobExecution));
 		ChunkContext chunkContext = new ChunkContext(stepContext);
 		return chunkContext;
+	}
+	
+	private JobExecution createJobExecution() {
+		return MetaDataInstanceFactory.createJobExecution();
+	}
+	
+	private StepExecution createStepExecution(String name, JobExecution jobExecution) {
+		return new StepExecution(name, jobExecution);
 	}
 	
 	private List<Execution> buildExecutions() {
