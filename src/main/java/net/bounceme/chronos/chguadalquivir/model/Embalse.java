@@ -10,9 +10,9 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 @Document(collection = "#{@repositoryCollectionCustom.getCollectionName()}")
 public class Embalse implements Serializable {
 
@@ -23,28 +23,53 @@ public class Embalse implements Serializable {
 	
 	@Id
     @Field("_id")
+	@Getter
+	@Setter
 	private String id;
 
+	@Getter
+	@Setter
 	private String Embalse;
+	
+	@Getter
+	@Setter
 	private String cod_zona;
+	
+	@Getter
+	@Setter
 	private String zona;
+	
+	@Getter
+	@Setter
 	private String codigo;
 	
 	@NotNull
+	@Getter
+	@Setter
 	private Float porcentaje;
 	
 	@NotNull
+	@Getter
+	@Setter
 	private Float Capacidad;
 	
 	@NotNull
+	@Getter
+	@Setter
 	private Float Volumen;
 	
 	@NotNull
+	@Getter
+	@Setter
 	private Float MEN;
 	
 	@NotNull
+	@Getter
+	@Setter
 	private Float Nivel;
 	
 	@Transient
+	@Getter
+	@Setter
 	private Date fecha;
 }

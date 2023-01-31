@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
+import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
 import net.bounceme.chronos.chguadalquivir.reader.mapping.StatExecutionsFieldMapper;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 import net.bounceme.chronos.chguadalquivir.support.StatsCalculations;
@@ -77,6 +79,7 @@ public class CHGuadalquivirApplicationTests {
 		try {
 			Document document = helper.retrieveDocument(url);
 			String name = helper.getNameFrom(document, "form", "idSelect");
+			log.info(name);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			assertTrue(true);
@@ -110,6 +113,16 @@ public class CHGuadalquivirApplicationTests {
 		executionStats.setAverage(1.0);
 		executionStats.setDeviation(1.0);
 		executionStats.setVariation(1.0);
+		
+		Date d = new Date();
+		executionStats.setInitDate(d);
+		
+		assertEquals(1L, executionStats.getId());
+		assertEquals(1.0, executionStats.getAverage());
+		assertEquals(1.0, executionStats.getDeviation());
+		assertEquals(1.0, executionStats.getVariation());
+		assertEquals(d, executionStats.getInitDate());
+		
 		log.info("{}, {}", executionStats.toString(), executionStats.hashCode());
 	}
 	
@@ -120,6 +133,10 @@ public class CHGuadalquivirApplicationTests {
 		execution.setValue(1);
 		execution.setExecutionTime(1L);
 		assertNotNull(execution);
+		
+		assertEquals("2023-01-23", execution.getId());
+		assertEquals(1, execution.getValue());
+		assertEquals(1L, execution.getExecutionTime());
 		log.info("{}, {}", execution.toString(), execution.hashCode());
 	}
 	
@@ -137,6 +154,9 @@ public class CHGuadalquivirApplicationTests {
 		embalse.setMEN(150F);
 		embalse.setNivel(150F);
 		
+		Date d = new Date();
+		embalse.setFecha(d);
+		
 		assertNotNull(embalse);
 		
 		assertEquals("id", embalse.getId());
@@ -149,8 +169,39 @@ public class CHGuadalquivirApplicationTests {
 		assertEquals(150F, embalse.getVolumen());
 		assertEquals(150F, embalse.getMEN());
 		assertEquals(150F, embalse.getNivel());
+		assertEquals(d, embalse.getFecha());
 		
 		log.info("{}, {}", embalse.toString(), embalse.hashCode());
+	}
+	
+	@Test
+	public void testZonaModel() {
+		Zona zona = new Zona();
+		zona.setCodigo("codigo");
+		zona.setDescripcion("descripcion");
+		zona.setNombre("nombre");
+		
+		assertNotNull(zona);
+		assertEquals("codigo", zona.getCodigo());
+		assertEquals("descripcion", zona.getDescripcion());
+		assertEquals("nombre", zona.getNombre());
+		log.info("{}, {}", zona.toString(), zona.hashCode());
+	}
+	
+	@Test
+	public void testZonaElementModel() {
+		Zona zona = new Zona();
+		assertNotNull(zona);
+		
+		ZonaElement ze = new ZonaElement();
+		ze.setZona(zona);
+		
+		Element element = new Element("<hr/>");
+		ze.setElement(element);
+		
+		assertEquals(zona, ze.getZona());
+		assertEquals(element, ze.getElement());
+		log.info("{}, {}", ze.toString(), ze.hashCode());
 	}
 	
 	@Test

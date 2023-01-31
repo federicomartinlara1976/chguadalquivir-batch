@@ -9,10 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
@@ -26,10 +26,16 @@ public class Execution implements Serializable, Numerical {
 	
 	@Id
     @Field("_id")
+	@Getter
+	@Setter
 	private String id;
 
+	@Getter
+	@Setter
 	private Integer value;
 	
+	@Getter
+	@Setter
 	private Long executionTime;
 	
 	public Double getNumber() {
