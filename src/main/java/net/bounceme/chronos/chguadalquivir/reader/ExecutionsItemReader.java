@@ -16,7 +16,7 @@ import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 @Component
 @Slf4j
 public class ExecutionsItemReader implements ItemReader<Execution>, InitializingBean {
-	
+
 	@Autowired
 	private CHGuadalquivirHelper helper;
 
@@ -26,7 +26,7 @@ public class ExecutionsItemReader implements ItemReader<Execution>, Initializing
 	private List<Execution> records;
 
 	private Integer index = 0;
-	
+
 	@Override
 	public void afterPropertiesSet() {
 		initialize();
@@ -36,19 +36,15 @@ public class ExecutionsItemReader implements ItemReader<Execution>, Initializing
 	 * 
 	 */
 	private void initialize() {
-		try {
-			Date currentDate = new Date();
-			Date beforeDate = helper.subtractDays(currentDate, 5);
-			
-			String from = helper.parseDate(beforeDate);
-			String to = helper.parseDate(currentDate);
-			
-			records = executionsRepository.listExecutions(from, to);
-			
-			index = 0;
-		} catch (Exception e) {
-			log.error("ERROR: ", e);
-		}
+		Date currentDate = new Date();
+		Date beforeDate = helper.subtractDays(currentDate, 5);
+
+		String from = helper.parseDate(beforeDate);
+		String to = helper.parseDate(currentDate);
+
+		records = executionsRepository.listExecutions(from, to);
+
+		index = 0;
 	}
 
 	/**

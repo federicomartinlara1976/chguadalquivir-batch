@@ -89,7 +89,7 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 
 			index = 0;
 		} catch (Exception e) {
-			log.error("ERROR: ", e);
+			log.error(e.getMessage());
 		}
 	}
 
@@ -97,7 +97,7 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 	 *
 	 */
 	@Override
-	public Embalse read() throws Exception {
+	public Embalse read() {
 		Embalse nextElement = null;
 
 		if (index < records.size()) {
