@@ -38,8 +38,7 @@ public class CHGuadalquivirApplicationTests {
 	
 	@BeforeEach
 	public void setup(){
-	   status = Status.builder().version("1.8.0_202").platform("Linux").response("OK").build();
-	   
+	   status = Status.builder().version("1.8.0_202").platform("Linux").response("OK").build(); 
 	}
 	   
 	@AfterEach

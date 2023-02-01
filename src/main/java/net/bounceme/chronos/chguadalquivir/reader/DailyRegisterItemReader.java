@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
@@ -32,7 +33,7 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 
 	@Autowired
 	private ObjectMapper mapper;
-	
+
 	@Autowired
 	private CHGuadalquivirHelper helper;
 
@@ -55,36 +56,34 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 	/**
 	 * 
 	 */
+	@SneakyThrows
 	private void initialize() {
-		try {
-			List<Zona> zonas = helper.getZonesFromJsonResource(mapper, "zonas.json");
-			records = new ArrayList<>();
 
-			Document doc = helper.retrieveDocument(url);
-			Map<String, String> postData = helper.initFormData(doc);
-			String selectName = helper.getNameFrom(doc, "form2", "DDBzona");
+		List<Zona> zonas = helper.getZonesFromJsonResource(mapper, "zonas.json");
+		records = new ArrayList<>();
 
-			for (Zona zona : zonas) {
-				postData.put(selectName, zona.getCodigo());
-				log.debug("{}", postData.toString());
+		Document doc = helper.retrieveDocument(url);
+		Map<String, String> postData = helper.initFormData(doc);
+		String selectName = helper.getNameFrom(doc, "form2", "DDBzona");
 
-				doc = Jsoup.connect(url).data(postData).post();
+		for (Zona zona : zonas) {
+			postData.put(selectName, zona.getCodigo());
+			log.debug("{}", postData.toString());
 
-				Elements elements = doc.select("table#ContentPlaceHolder1_GridNivelesEmbalses > tbody > tr");
+			doc = Jsoup.connect(url).data(postData).post();
 
-				for (int i = 1; i < elements.size(); i++) {
-					ZonaElement ze = new ZonaElement();
-					ze.setZona(zona);
-					ze.setElement(elements.get(i));
-					
-					records.add(ze);
-				}
+			Elements elements = doc.select("table#ContentPlaceHolder1_GridNivelesEmbalses > tbody > tr");
+
+			for (int i = 1; i < elements.size(); i++) {
+				ZonaElement ze = new ZonaElement();
+				ze.setZona(zona);
+				ze.setElement(elements.get(i));
+
+				records.add(ze);
 			}
-
-			index = 0;
-		} catch (Exception e) {
-			log.error(e.getMessage());
 		}
+
+		index = 0;
 	}
 
 	/**

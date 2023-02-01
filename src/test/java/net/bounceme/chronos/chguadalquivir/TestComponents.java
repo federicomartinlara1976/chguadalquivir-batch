@@ -7,11 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import net.bounceme.chronos.chguadalquivir.model.Execution;
+import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
+import net.bounceme.chronos.chguadalquivir.repository.ExecutionStatsRepository;
 import net.bounceme.chronos.chguadalquivir.repository.impl.RepositoryCollectionCustomImpl;
+import net.bounceme.chronos.chguadalquivir.services.ExecutionStatsService;
 import net.bounceme.chronos.chguadalquivir.support.StatsCalculations;
 
 @SpringBootTest
@@ -22,6 +27,12 @@ public class TestComponents {
 	
 	@Autowired
 	private RepositoryCollectionCustomImpl repositoryCollectionCustomImpl;
+	
+	@Autowired
+	private ExecutionStatsService executionStatsService;
+	
+	@MockBean
+	private ExecutionStatsRepository executionStatsRepository;
 
 	@Test
 	public void testStatCalculations() {
@@ -34,6 +45,15 @@ public class TestComponents {
 		assertNotNull(average);
 		assertNotNull(deviation);
 		assertNotNull(variation);
+	}
+	
+	@Test
+	public void testExecutionStatsService() {
+		ExecutionStats executionStats = ExecutionStats.builder().average(1.0).deviation(1.0).variation(1.0).build();
+		
+		Mockito.doReturn(executionStats).when(executionStatsRepository).save(Mockito.isA(ExecutionStats.class));
+		
+		executionStatsService.save(executionStats);
 	}
 	
 	@Test
