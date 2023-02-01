@@ -1,6 +1,5 @@
 package net.bounceme.chronos.chguadalquivir;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,16 +11,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
-import net.bounceme.chronos.chguadalquivir.model.Zona;
 import net.bounceme.chronos.chguadalquivir.reader.DailyRegisterItemReader;
 import net.bounceme.chronos.chguadalquivir.reader.ExecutionsItemReader;
 import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
-import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 @SpringBootTest
 @Slf4j
@@ -32,9 +27,6 @@ public class TestReaders {
 	
 	@Autowired
 	private DailyRegisterItemReader dailyRegisterItemReader;
-	
-	@Autowired
-	private CHGuadalquivirHelper helper;
 	
 	@MockBean
 	private ExecutionsRepository executionsRepository;
@@ -95,14 +87,5 @@ public class TestReaders {
 		executions.add(execution);
 		
 		return executions;
-	}
-	
-	private List<Zona> buildZonas() {
-		List<Zona> zonas = new ArrayList<>();
-		
-		Zona zona = Zona.builder().codigo("JA").nombre("JAEN").descripcion("Zona Jaén").build();
-		zonas.add(zona);
-		
-		return zonas;
 	}
 }
