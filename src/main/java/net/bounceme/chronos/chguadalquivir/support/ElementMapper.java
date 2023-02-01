@@ -1,6 +1,5 @@
 package net.bounceme.chronos.chguadalquivir.support;
 
-import org.jsoup.select.Selector.SelectorParseException;
 import org.springframework.lang.Nullable;
 
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
@@ -18,5 +17,5 @@ public interface ElementMapper<T> {
 	 * @return
 	 */
 	@Nullable
-	T map(ZonaElement element) throws SelectorParseException;
+	T map(ZonaElement element);
 }

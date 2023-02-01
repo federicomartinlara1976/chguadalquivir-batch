@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import org.jsoup.nodes.Element;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 public class ZonaElement implements Serializable {
 
 	/**
@@ -14,6 +14,11 @@ public class ZonaElement implements Serializable {
 	 */
 	private static final long serialVersionUID = -1887374261691607915L;
 	
+	@Getter
+	@Setter
 	private Zona zona;
-	private Element element;
+	
+	@Getter
+	@Setter
+	private transient Element element;
 }

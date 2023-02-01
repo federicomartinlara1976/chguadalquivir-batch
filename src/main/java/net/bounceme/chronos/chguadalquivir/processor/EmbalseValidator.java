@@ -24,7 +24,7 @@ public class EmbalseValidator implements Validator<Embalse> {
 	private ValidatorService<Embalse> validatorService;
 
 	@Override
-	public void validate(Embalse value) throws ValidationException {
+	public void validate(Embalse value) {
 		try {
 			validatorService.validate(value);
 		} catch (ConstraintViolationException e) {

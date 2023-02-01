@@ -43,22 +43,13 @@ public class SummarizeStatsExecutionTasklet implements Tasklet {
 		Double average = helper.round(stats.calculateAverage(executions), 2);
 		Double deviation = helper.round(stats.calculateDeviation(executions, average), 2);
 		Double variation = helper.round(stats.calculateVariation(deviation), 2);
+		
+		ExecutionStats executionStats = ExecutionStats.builder().initDate(new Date()).average(average)
+				.deviation(deviation).variation(variation).build();
 
-		saveExecutionStats(average, deviation, variation);
+		executionStatsService.save(executionStats);
+		log.info("{}", executionStats);
 
 		return RepeatStatus.FINISHED;
 	}
-
-	/**
-	 * @param average
-	 * @param deviation
-	 * @param variation
-	 */
-	private void saveExecutionStats(Double average, Double deviation, Double variation) {
-		ExecutionStats executionStats = ExecutionStats.builder().initDate(new Date()).average(average)
-				.deviation(deviation).variation(variation).build();
-		executionStatsService.save(executionStats);
-		log.info("{}", executionStats);
-	}
-
 }
