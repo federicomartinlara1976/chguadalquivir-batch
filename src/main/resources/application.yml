@@ -17,6 +17,9 @@ spring:
   
   data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
   
+server:
+  port : 9090
+  
 batch:
   jdbc:
     testWhileIdle: true
