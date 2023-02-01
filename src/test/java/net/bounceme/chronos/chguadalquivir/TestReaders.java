@@ -1,5 +1,7 @@
 package net.bounceme.chronos.chguadalquivir;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class TestReaders {
 	@Test
 	public void testDailyRegisterItemReader() {
 		try {
+			assertNotNull(dailyRegisterItemReader.getElementMapper());
 			dailyRegisterItemReader.afterPropertiesSet();
 			
 			Embalse embalse;

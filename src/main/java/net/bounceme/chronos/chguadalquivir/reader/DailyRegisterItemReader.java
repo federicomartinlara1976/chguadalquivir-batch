@@ -30,9 +30,6 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 	@Value("${application.importJob.url}")
 	private String url;
 
-	@Value("${application.importJob.excludeHeader}")
-	private Boolean excludeHeader;
-
 	@Autowired
 	private ObjectMapper mapper;
 	
@@ -50,7 +47,6 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 	@Override
 	public void afterPropertiesSet() {
 		Assert.notNull(url, "Must provide the url");
-		Assert.notNull(excludeHeader, "excludeHeader must be [true/false]");
 		Assert.notNull(elementMapper, "Must provide a elementMapper");
 
 		initialize();
@@ -76,9 +72,7 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 
 				Elements elements = doc.select("table#ContentPlaceHolder1_GridNivelesEmbalses > tbody > tr");
 
-				Integer inicio = (excludeHeader) ? 1 : 0;
-
-				for (int i = inicio; i < elements.size(); i++) {
+				for (int i = 1; i < elements.size(); i++) {
 					ZonaElement ze = new ZonaElement();
 					ze.setZona(zona);
 					ze.setElement(elements.get(i));

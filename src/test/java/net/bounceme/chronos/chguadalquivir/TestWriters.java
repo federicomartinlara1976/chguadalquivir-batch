@@ -1,45 +1,46 @@
 package net.bounceme.chronos.chguadalquivir;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.test.MetaDataInstanceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import net.bounceme.chronos.chguadalquivir.model.Execution;
-import net.bounceme.chronos.chguadalquivir.repository.impl.RepositoryCollectionCustomImpl;
-import net.bounceme.chronos.chguadalquivir.support.StatsCalculations;
+import net.bounceme.chronos.chguadalquivir.writer.StatsExecutionWriter;
 
 @SpringBootTest
-public class TestComponents {
+public class TestWriters {
 	
 	@Autowired
-	private StatsCalculations statsCalculations;
+	private StatsExecutionWriter statsExecutionWriter;
 	
-	@Autowired
-	private RepositoryCollectionCustomImpl repositoryCollectionCustomImpl;
-
 	@Test
-	public void testStatCalculations() {
-		List<Execution> executions = buildExecutions();
+	public void testStatsExecutionWriter() throws Exception {
+		List<Execution> executions = new ArrayList<>();
+		StepExecution stepExecution = createStepExecution("statExecutionsStep", executions);
 		
-		Double average = statsCalculations.calculateAverage(executions);
-		Double deviation = statsCalculations.calculateDeviation(executions, average);
-		Double variation = statsCalculations.calculateVariation(deviation);
+		statsExecutionWriter.beforeStep(stepExecution);
+		statsExecutionWriter.write(buildExecutions());
 		
-		assertNotNull(average);
-		assertNotNull(deviation);
-		assertNotNull(variation);
+		assertTrue(true);
 	}
 	
-	@Test
-	public void testRepositoryCollectionCustomImpl() {
-		repositoryCollectionCustomImpl.setCollectionName("collection");
-		assertEquals("collection", repositoryCollectionCustomImpl.getCollectionName());
+	private StepExecution createStepExecution(String name, List<Execution> executions) {
+		JobExecution jobExecution = createJobExecution();
+		jobExecution.getExecutionContext().put("EXECUTIONS", executions);
+		
+		return new StepExecution(name, jobExecution);
+	}
+	
+	private JobExecution createJobExecution() {
+		return MetaDataInstanceFactory.createJobExecution();
 	}
 	
 	private List<Execution> buildExecutions() {

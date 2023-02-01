@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 
 @Component
-@StepScope
 @Slf4j
 public class StatsExecutionWriter implements ItemWriter<Execution> {
 
