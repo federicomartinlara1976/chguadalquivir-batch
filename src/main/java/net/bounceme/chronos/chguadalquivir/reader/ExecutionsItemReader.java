@@ -8,13 +8,11 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 @Component
-@Slf4j
 public class ExecutionsItemReader implements ItemReader<Execution>, InitializingBean {
 
 	@Autowired
