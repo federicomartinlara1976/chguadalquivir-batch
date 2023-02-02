@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -14,6 +13,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -86,20 +86,19 @@ public class JobController {
 	 * @throws Exception
 	 */
 	private void run(String name) throws Exception {
-		
-		JobParametersBuilder builder = new JobParametersBuilder();
-		builder.addDate("date", new Date());
-		
-		Job job = ctx.getBean(name, Job.class);
-		if (Objects.isNull(job)) {
+		try {
+			JobParametersBuilder builder = new JobParametersBuilder();
+			builder.addDate("date", new Date());
+			
+			Job job = ctx.getBean(name, Job.class);
+			JobExecution result = jobLauncher.run(job, builder.toJobParameters());
+			
+			// Exit on failure
+			if (ExitStatus.FAILED.equals(result.getExitStatus())) {
+				throw new Exception("La tarea ha fallado");
+			}
+		} catch (NoSuchBeanDefinitionException e) {
 			throw new Exception("Tarea no encontrada");
-		}
-		
-		JobExecution result = jobLauncher.run(job, builder.toJobParameters());
-		
-		// Exit on failure
-		if (ExitStatus.FAILED.equals(result.getExitStatus())) {
-			throw new Exception("La tarea ha fallado");
 		}
 	}
 }
