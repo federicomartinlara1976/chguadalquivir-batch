@@ -14,6 +14,7 @@ import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 import net.bounceme.chronos.chguadalquivir.model.Status;
+import net.bounceme.chronos.chguadalquivir.model.Task;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
 
@@ -159,5 +160,25 @@ public class TestModels {
 		assertEquals(System.getProperty("java.version"), status.getVersion());
 		assertEquals(System.getProperty("os.name"), status.getPlatform());
 		assertEquals("OK", status.getResponse());
+	}
+	
+	@Test
+	public void testTask() {
+		Task task = Task.builder().name("task").build();
+		assertNotNull(task);
+		
+		assertEquals("task", task.getName());
+		
+		task = new Task("task");
+		assertNotNull(task);
+		
+		assertEquals("task", task.getName());
+		
+		task = new Task();
+		task.setName("task");
+		
+		assertNotNull(task);
+		
+		assertEquals("task", task.getName());
 	}
 }
