@@ -52,9 +52,11 @@ public class JobController {
 	 * @return
 	 */
 	@GetMapping("/status")
-	public Status status() {
-		return Status.builder().version(System.getProperty("java.version"))
+	public ResponseEntity<Status> status() {
+		Status status = Status.builder().version(System.getProperty("java.version"))
 				.platform(System.getProperty("os.name")).response("OK").build();
+		
+		return new ResponseEntity<>(status, HttpStatus.OK);
 	}
 	
 	@PostMapping("/execute")
