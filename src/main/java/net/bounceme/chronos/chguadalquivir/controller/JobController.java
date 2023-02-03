@@ -60,7 +60,7 @@ public class JobController {
 	}
 	
 	@PostMapping("/execute")
-	public ResponseEntity<?> executeTask(@Valid @RequestBody Task task, BindingResult result) {
+	public ResponseEntity<Map<String, Object>> executeTask(@Valid @RequestBody Task task, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
@@ -70,16 +70,16 @@ public class JobController {
 						.collect(Collectors.toList());
 	
 				response.put("errors", errors);
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 			}
 			
 			log.info("Ejecutar: {}", task.getName());
 			run(task.getName());
 			response.put("mensaje", "Tarea ejecutada correctamente");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
