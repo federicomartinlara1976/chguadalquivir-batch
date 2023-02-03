@@ -13,6 +13,7 @@ public class StatExecutionsLineMapper extends DefaultLineMapper<Execution> imple
 	@Autowired
 	private StatExecutionsLineTokenizer lineTokenizer;
 	
+	@Autowired
 	private StatExecutionsFieldMapper fieldMapper;
 	
 	@Override

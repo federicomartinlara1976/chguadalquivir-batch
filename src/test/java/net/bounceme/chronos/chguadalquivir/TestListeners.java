@@ -9,10 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.scope.context.StepContext;
 import org.springframework.batch.test.MetaDataInstanceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import net.bounceme.chronos.chguadalquivir.listener.CustomChunkListener;
 import net.bounceme.chronos.chguadalquivir.listener.ImportJobListener;
 import net.bounceme.chronos.chguadalquivir.listener.LastExecutionsListener;
 import net.bounceme.chronos.chguadalquivir.listener.StatExecutionsListener;
@@ -32,6 +35,9 @@ public class TestListeners {
 	
 	@Autowired
 	private TimeStepListener timeStepListener;
+	
+	@Autowired
+	private CustomChunkListener customChunkListener;
 
 	@Test
 	public void testLastExecutionsListener() {
@@ -71,5 +77,29 @@ public class TestListeners {
 		ExitStatus status = timeStepListener.afterStep(stepExecution);
 		
 		assertEquals(ExitStatus.COMPLETED, status);
+	}
+	
+	@Test
+	public void testCustomChunkListener() {
+		ChunkContext chunkContext = createChunkContext("sampleStep");
+		customChunkListener.beforeChunk(chunkContext);
+		customChunkListener.afterChunk(chunkContext);
+		customChunkListener.afterChunkError(chunkContext);
+	}
+	
+	private ChunkContext createChunkContext(String nameStep) {
+		JobExecution jobExecution = createJobExecution();
+		
+		StepContext stepContext = new StepContext(createStepExecution(nameStep, jobExecution));
+		ChunkContext chunkContext = new ChunkContext(stepContext);
+		return chunkContext;
+	}
+	
+	private JobExecution createJobExecution() {
+		return MetaDataInstanceFactory.createJobExecution();
+	}
+	
+	private StepExecution createStepExecution(String name, JobExecution jobExecution) {
+		return new StepExecution(name, jobExecution);
 	}
 }

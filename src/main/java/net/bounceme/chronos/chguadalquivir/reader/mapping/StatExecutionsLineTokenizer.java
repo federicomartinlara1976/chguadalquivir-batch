@@ -15,5 +15,6 @@ public class StatExecutionsLineTokenizer extends DelimitedLineTokenizer implemen
 	private void initialize() {
 		String[] names = new String[] { "id", "value", "executionTime" };
 		setNames(names);
+		setDelimiter(DELIMITER_COMMA);
 	}
 }

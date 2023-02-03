@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 
@@ -32,9 +33,9 @@ import net.bounceme.chronos.chguadalquivir.model.Zona;
 @Scope("prototype")
 @Slf4j
 public class CHGuadalquivirHelper {
-	
+
 	private static final String VALUE = "value";
-	
+
 	@Autowired
 	private SimpleDateFormat dateFormat;
 
@@ -64,26 +65,22 @@ public class CHGuadalquivirHelper {
 		return Jsoup.connect(url).get();
 	}
 
+	@SneakyThrows
 	public Map<String, String> initFormData(Document document) {
-		try {
-			Map<String, String> data = new HashMap<>();
-	
-			// Datos requeridos para hacer el POST
-			String eventValidation = document.select("input[name=__EVENTVALIDATION]").first().attr(VALUE);
-		    String viewState = document.select("input[name=__VIEWSTATE]").first().attr(VALUE);
-		    String viewStateGen = document.select("input[name=__VIEWSTATEGENERATOR]").first().attr(VALUE);
-		    
-		    data.put("__EVENTVALIDATION", eventValidation);
-		    data.put("__VIEWSTATE", viewState);
-		    data.put("__VIEWSTATEGENERATOR", viewStateGen);
-	
-			return data;
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			throw e;
-		}
+		Map<String, String> data = new HashMap<>();
+
+		// Datos requeridos para hacer el POST
+		String eventValidation = document.select("input[name=__EVENTVALIDATION]").first().attr(VALUE);
+		String viewState = document.select("input[name=__VIEWSTATE]").first().attr(VALUE);
+		String viewStateGen = document.select("input[name=__VIEWSTATEGENERATOR]").first().attr(VALUE);
+
+		data.put("__EVENTVALIDATION", eventValidation);
+		data.put("__VIEWSTATE", viewState);
+		data.put("__VIEWSTATEGENERATOR", viewStateGen);
+
+		return data;
 	}
-	
+
 	/**
 	 * @param document
 	 * @param idForm
@@ -91,21 +88,18 @@ public class CHGuadalquivirHelper {
 	 * @return
 	 * @throws Exception
 	 */
+	@SneakyThrows
 	public String getNameFrom(Document document, String idForm, String idSelect) {
-		try {
-			Element formElement = document.getElementById(idForm);
-			if (!Objects.isNull(formElement)) {
-				Element select = formElement.getElementById(idSelect);
-				return select.attr("name");
-			}
-			
-			return StringUtils.EMPTY;
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			throw e;
+
+		Element formElement = document.getElementById(idForm);
+		if (!Objects.isNull(formElement)) {
+			Element select = formElement.getElementById(idSelect);
+			return select.attr("name");
 		}
+
+		return StringUtils.EMPTY;
 	}
-	
+
 	/**
 	 * @param d
 	 * @param numOfDays
@@ -114,13 +108,13 @@ public class CHGuadalquivirHelper {
 	public Date subtractDays(Date date, Integer numOfDays) {
 		LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-        // minus numOfDays
-        localDateTime = localDateTime.minusDays(numOfDays);
+		// minus numOfDays
+		localDateTime = localDateTime.minusDays(numOfDays);
 
-        // convert LocalDateTime to date
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+		// convert LocalDateTime to date
+		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 	}
-	
+
 	/**
 	 * @param date
 	 * @return
@@ -128,7 +122,7 @@ public class CHGuadalquivirHelper {
 	public String parseDate(Date date) {
 		return dateFormat.format(date);
 	}
-	
+
 	/**
 	 * @param input
 	 * @param scale
