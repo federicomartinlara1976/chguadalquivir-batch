@@ -1,27 +1,14 @@
 package net.bounceme.chronos.chguadalquivir.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.batch.core.BatchStatus;
-import org.springframework.batch.core.ExitStatus;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobInstance;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.explore.JobExplorer;
-import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -34,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Status;
 import net.bounceme.chronos.chguadalquivir.model.Task;
+import net.bounceme.chronos.chguadalquivir.services.JobService;
 
 @RestController
 @RequestMapping("/api")
@@ -41,16 +29,7 @@ import net.bounceme.chronos.chguadalquivir.model.Task;
 public class JobController {
 	
 	@Autowired
-	private ApplicationContext ctx;
-	
-	@Autowired
-	private JobLauncher jobLauncher;
-	
-	@Autowired
-	private JobRepository jobRepository;
-	
-	@Autowired
-	private JobExplorer jobExplorer;
+	private JobService jobService;
 
 	/**
 	 * @return
@@ -86,7 +65,7 @@ public class JobController {
 			}
 			
 			log.info("Ejecutar: {}", task.getName());
-			run(task.getName());
+			jobService.run(task.getName());
 			response.put("mensaje", "Tarea ejecutada correctamente");
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
@@ -110,44 +89,12 @@ public class JobController {
 			}
 			
 			log.info("Buscar: {}", task.getName());
-			JobInstance jobInstance = getLastJobInstance(task.getName());
+			JobInstance jobInstance = jobService.getLastJobInstance(task.getName());
 			response.put("jobInstance", jobInstance);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			response.put("error", e.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
-	
-	/**
-	 * @param name
-	 * @throws Exception
-	 */
-	private void run(String name) throws Exception {
-		try {
-			JobParametersBuilder builder = new JobParametersBuilder();
-			builder.addDate("date", new Date());
-			
-			Job job = ctx.getBean(name, Job.class);
-			JobExecution result = jobLauncher.run(job, builder.toJobParameters());
-			
-			// Exit on failure
-			if (ExitStatus.FAILED.equals(result.getExitStatus())) {
-				throw new Exception("La tarea ha fallado");
-			}
-		} catch (NoSuchBeanDefinitionException e) {
-			throw new Exception("Tarea no encontrada");
-		}
-	}
-	
-	/**
-	 * @param name
-	 * @return
-	 * @throws Exception
-	 */
-	private JobInstance getLastJobInstance(String name) {
-		List<JobInstance> jobInstances = jobExplorer.getJobInstances(name, 0, 10);
-		
-		return (CollectionUtils.isNotEmpty(jobInstances)) ? jobInstances.get(0) : null;
 	}
 }
