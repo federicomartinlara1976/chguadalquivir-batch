@@ -74,9 +74,7 @@ public class TestMappers {
 				Integer inicio = 1;
 
 				for (int i = inicio; i < elements.size(); i++) {
-					ZonaElement ze = new ZonaElement();
-					ze.setZona(zona);
-					ze.setElement(elements.get(i));
+					ZonaElement ze = ZonaElement.builder().zona(zona).element(elements.get(i)).build();
 					
 					Embalse embalse = embalseRowMapper.map(ze);
 					assertNotNull(embalse);

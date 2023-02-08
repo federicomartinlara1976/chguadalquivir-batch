@@ -75,10 +75,8 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 			Elements elements = doc.select("table#ContentPlaceHolder1_GridNivelesEmbalses > tbody > tr");
 
 			for (int i = 1; i < elements.size(); i++) {
-				ZonaElement ze = new ZonaElement();
-				ze.setZona(zona);
-				ze.setElement(elements.get(i));
-
+				ZonaElement ze = ZonaElement.builder().zona(zona).element(elements.get(i)).build();
+				
 				records.add(ze);
 			}
 		}

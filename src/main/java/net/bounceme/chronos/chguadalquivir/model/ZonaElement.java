@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import org.jsoup.nodes.Element;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+@Builder(toBuilder = true)
 public class ZonaElement implements Serializable {
 
 	/**
