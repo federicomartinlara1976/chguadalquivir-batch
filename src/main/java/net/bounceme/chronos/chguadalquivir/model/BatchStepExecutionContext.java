@@ -2,6 +2,7 @@ package net.bounceme.chronos.chguadalquivir.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -20,5 +21,11 @@ public class BatchStepExecutionContext implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 458065714471650814L;
+	
+	@Column(name="SHORT_CONTEXT")
+	private String shortContext;
+	
+	@Column(name="SERIALIZED_CONTEXT")
+	private String serializedContext;
 
 }
