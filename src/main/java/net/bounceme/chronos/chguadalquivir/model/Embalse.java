@@ -12,8 +12,10 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Document(collection = "#{@repositoryCollectionCustom.getCollectionName()}")
+@ToString
 public class Embalse implements Serializable {
 
 	/**

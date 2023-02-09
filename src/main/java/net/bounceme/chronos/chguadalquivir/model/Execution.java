@@ -12,11 +12,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Document(collection = "Executions")
+@ToString
 public class Execution implements Serializable, Numerical {
 
 	/**
