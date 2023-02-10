@@ -43,6 +43,7 @@ public class BatchDataSourceConfiguration {
 		return builder.dataSource(dataSource)
 				.packages(BatchJobExecution.class, BatchJobExecutionContext.class, BatchJobExecutionParams.class,
 						BatchJobInstance.class, BatchStepExecution.class, BatchStepExecutionContext.class)
+				.persistenceUnit("batch-unit")
 				.build();
 	}
 

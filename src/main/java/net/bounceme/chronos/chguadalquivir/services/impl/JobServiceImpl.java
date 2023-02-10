@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
+import net.bounceme.chronos.chguadalquivir.repository.BatchJobExecutionRepository;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
 @Service
@@ -29,6 +31,9 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobExplorer jobExplorer;
+	
+	@Autowired
+	private BatchJobExecutionRepository batchJobExecutionRepository;
 
 	/**
 	 * @param name
@@ -60,5 +65,12 @@ public class JobServiceImpl implements JobService {
 		List<JobInstance> jobInstances = jobExplorer.getJobInstances(name, 0, 10);
 
 		return (CollectionUtils.isNotEmpty(jobInstances)) ? jobInstances.get(0) : null;
+	}
+	
+	/**
+	 * @return
+	 */
+	public BatchJobExecution getLastJob() {
+		return batchJobExecutionRepository.getLastJobExecution();
 	}
 }

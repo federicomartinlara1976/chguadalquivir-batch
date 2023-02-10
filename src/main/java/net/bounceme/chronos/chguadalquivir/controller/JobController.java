@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.springframework.batch.core.JobInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
+import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
 import net.bounceme.chronos.chguadalquivir.model.Status;
 import net.bounceme.chronos.chguadalquivir.model.Task;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
@@ -74,23 +74,13 @@ public class JobController {
 		}
 	}
 	
-	@PostMapping("/last")
-	public ResponseEntity<Map<String, Object>> lastJob(@Valid @RequestBody Task task, BindingResult result) {
+	@GetMapping("/last")
+	public ResponseEntity<Map<String, Object>> lastJob() {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			if (result.hasErrors()) {
-				List<String> errors = result.getFieldErrors().stream()
-						.map(error -> String.format("El campo '%s' %s", error.getField(), error.getDefaultMessage()))
-						.collect(Collectors.toList());
-	
-				response.put("errors", errors);
-				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-			}
-			
-			log.info("Buscar: {}", task.getName());
-			JobInstance jobInstance = jobService.getLastJobInstance(task.getName());
-			response.put("jobInstance", jobInstance);
+			BatchJobExecution batchJobExecution = jobService.getLastJob();
+			response.put("jobExecution", batchJobExecution);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			response.put("error", e.getMessage());

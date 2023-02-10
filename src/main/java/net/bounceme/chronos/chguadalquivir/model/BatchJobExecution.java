@@ -8,7 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,7 +36,8 @@ public class BatchJobExecution implements Serializable {
 	@Column(name="VERSION")
 	private Integer version;
 
-	@OneToOne @MapsId
+	@OneToOne
+	@JoinColumn(name = "JOB_INSTANCE_ID")
 	private BatchJobInstance jobInstance;
 	
 	@Column(name="CREATE_TIME")
