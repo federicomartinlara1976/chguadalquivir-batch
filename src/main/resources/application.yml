@@ -1,6 +1,10 @@
 spring:
   main.allow-bean-definition-overriding: true
   
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  
   datasource:
     batch:
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,6 +20,10 @@ spring:
   batch.job.enabled: false
   
   data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
+  
+  jpa:
+    show-sql: true
+    properties.hibernate.format_sql: true
   
 server:
   port : 9091

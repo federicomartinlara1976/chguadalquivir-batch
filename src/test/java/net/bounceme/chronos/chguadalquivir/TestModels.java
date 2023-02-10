@@ -122,11 +122,8 @@ public class TestModels {
 		Zona zona = new Zona();
 		assertNotNull(zona);
 
-		ZonaElement ze = new ZonaElement();
-		ze.setZona(zona);
-
 		Element element = new Element("<hr/>");
-		ze.setElement(element);
+		ZonaElement ze = ZonaElement.builder().zona(zona).element(element).build();
 
 		assertEquals(zona, ze.getZona());
 		assertEquals(element, ze.getElement());
