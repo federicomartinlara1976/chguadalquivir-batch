@@ -42,12 +42,9 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-quartz</artifactId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
@@ -76,12 +73,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
-		<dependency>
-		    <groupId>io.springfox</groupId>
-		    <artifactId>springfox-boot-starter</artifactId>
-		    <version>3.0.0</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -102,6 +93,19 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		
+		<!-- Swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
 		</dependency>
 
 		<!-- HTML parser -->
@@ -129,18 +133,6 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-    		<groupId>io.springfox</groupId>
-    		<artifactId>springfox-swagger2</artifactId>
-    		<version>3.0.0</version>
-		</dependency>
-		
-		<dependency>
-    		<groupId>io.springfox</groupId>
-    		<artifactId>springfox-swagger-ui</artifactId>
-    		<version>3.0.0</version>
 		</dependency>
 
 		<dependency>

@@ -16,9 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,19 +28,9 @@ import net.bounceme.chronos.chguadalquivir.writer.StringHeaderWriter;
 
 @Configuration
 @EnableBatchProcessing
-@EnableWebMvc
-public class GenericConfiguration extends WebMvcConfigurerAdapter {
+public class GenericConfiguration {
 	
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
-	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	    registry.addResourceHandler("swagger-ui.html")
-	      .addResourceLocations("classpath:/META-INF/resources/");
-
-	    registry.addResourceHandler("/webjars/**")
-	      .addResourceLocations("classpath:/META-INF/resources/webjars/");
-	}
 
 	@Bean
 	@Scope("prototype")
