@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,6 +25,7 @@ public class BatchJobExecutionContext implements Serializable {
 	 */
 	private static final long serialVersionUID = -1253176492036388728L;
 	
+	@Id
 	@OneToOne @MapsId
 	private BatchJobExecution jobExecution;
 	

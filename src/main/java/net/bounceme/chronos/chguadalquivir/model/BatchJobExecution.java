@@ -2,11 +2,14 @@ package net.bounceme.chronos.chguadalquivir.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -59,4 +62,11 @@ public class BatchJobExecution implements Serializable {
 	
 	@Column(name="JOB_CONFIGURATION_LOCATION")
 	private String jobConfigurationLocation;
+	
+	@OneToMany(
+			mappedBy = "jobExecution",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	    )
+	private List<BatchStepExecution> stepExecutions;
 }
