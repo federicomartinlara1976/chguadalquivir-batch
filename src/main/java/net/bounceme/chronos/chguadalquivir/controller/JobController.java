@@ -74,6 +74,30 @@ public class JobController {
 		}
 	}
 	
+	@PostMapping("/scheduling")
+	public ResponseEntity<Map<String, Object>> schedulingJob(@Valid @RequestBody Task task, BindingResult result) {
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			if (result.hasErrors()) {
+				List<String> errors = result.getFieldErrors().stream()
+						.map(error -> String.format("El campo '%s' %s", error.getField(), error.getDefaultMessage()))
+						.collect(Collectors.toList());
+	
+				response.put("errors", errors);
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+			
+			log.info("Cron de {}", task.getName());
+			String scheduling = jobService.getJobScheduling(task.getName());
+			response.put("scheduling", scheduling);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			response.put("error", e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@GetMapping("/last")
 	public ResponseEntity<Map<String, Object>> lastJob() {
 		Map<String, Object> response = new HashMap<>();
@@ -81,6 +105,20 @@ public class JobController {
 		try {
 			BatchJobExecution batchJobExecution = jobService.getLastJob();
 			response.put("jobExecution", batchJobExecution);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			response.put("error", e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/jobs")
+	public ResponseEntity<Map<String, Object>> getJobs() {
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			List<String> jobs = jobService.getJobNames();
+			response.put("jobs", jobs);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			response.put("error", e.getMessage());
