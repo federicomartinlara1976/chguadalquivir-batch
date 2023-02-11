@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,7 +27,8 @@ public class BatchJobExecutionParams implements Serializable {
 	private static final long serialVersionUID = 5130311799595596226L;
 
 	@Id
-	@OneToOne @MapsId
+	@OneToOne
+	@JoinColumn(name = "JOB_EXECUTION_ID")
 	private BatchJobExecution jobExecution;
 	
 	@Column(name="TYPE_CD")
