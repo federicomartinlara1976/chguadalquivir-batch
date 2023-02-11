@@ -19,36 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
-import net.bounceme.chronos.chguadalquivir.model.Status;
 import net.bounceme.chronos.chguadalquivir.model.Task;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/jobs")
 @Slf4j
 public class JobController {
 	
 	@Autowired
 	private JobService jobService;
-
-	/**
-	 * @return
-	 */
-	@GetMapping("/")
-	public String index() {
-		return "Hello world";
-	}
-
-	/**
-	 * @return
-	 */
-	@GetMapping("/status")
-	public ResponseEntity<Status> status() {
-		Status status = Status.builder().version(System.getProperty("java.version"))
-				.platform(System.getProperty("os.name")).response("OK").build();
-		
-		return new ResponseEntity<>(status, HttpStatus.OK);
-	}
 	
 	@PostMapping("/execute")
 	public ResponseEntity<Map<String, Object>> executeTask(@Valid @RequestBody Task task, BindingResult result) {
