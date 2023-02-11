@@ -43,6 +43,9 @@ public class BatchStepExecution implements Serializable {
 	@JoinColumn(name = "JOB_EXECUTION_ID")
 	private BatchJobExecution jobExecution;
 	
+	@OneToOne(mappedBy = "stepExecution")
+	private BatchStepExecutionContext context;
+	
 	@Column(name="START_TIME")
 	private Date startTime;
 	

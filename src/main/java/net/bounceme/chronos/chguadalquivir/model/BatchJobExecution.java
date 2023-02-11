@@ -40,6 +40,12 @@ public class BatchJobExecution implements Serializable {
 	@JoinColumn(name = "JOB_INSTANCE_ID")
 	private BatchJobInstance jobInstance;
 	
+	@OneToOne(mappedBy = "jobExecution")
+	private BatchJobExecutionContext context;
+	
+	@OneToOne(mappedBy = "jobExecution")
+	private BatchJobExecutionParams params;
+	
 	@Column(name="CREATE_TIME")
 	private Date createTime;
 	
