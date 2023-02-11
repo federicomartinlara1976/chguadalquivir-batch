@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,6 +28,7 @@ public class BatchJobExecutionParams implements Serializable {
 	 */
 	private static final long serialVersionUID = 5130311799595596226L;
 
+	@JsonIgnore
 	@Id
 	@OneToOne
 	@JoinColumn(name = "JOB_EXECUTION_ID")
