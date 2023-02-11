@@ -30,4 +30,10 @@ public interface JobService {
 	 * @return
 	 */
 	List<String> getJobNames();
+	
+	/**
+	 * @param name
+	 * @return
+	 */
+	String getJobScheduling(String name);
 }
