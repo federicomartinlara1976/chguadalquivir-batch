@@ -92,7 +92,7 @@ public class JobController {
 		}
 	}
 	
-	@GetMapping("/jobs")
+	@GetMapping("")
 	public ResponseEntity<Map<String, Object>> getJobs() {
 		Map<String, Object> response = new HashMap<>();
 		
