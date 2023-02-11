@@ -87,4 +87,18 @@ public class JobController {
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@GetMapping("/jobs")
+	public ResponseEntity<Map<String, Object>> getJobs() {
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			List<String> jobs = jobService.getJobNames();
+			response.put("jobs", jobs);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			response.put("error", e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

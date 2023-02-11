@@ -1,5 +1,7 @@
 package net.bounceme.chronos.chguadalquivir.services;
 
+import java.util.List;
+
 import org.springframework.batch.core.JobInstance;
 
 import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
@@ -23,4 +25,9 @@ public interface JobService {
 	 * @return
 	 */
 	BatchJobExecution getLastJob();
+	
+	/**
+	 * @return
+	 */
+	List<String> getJobNames();
 }

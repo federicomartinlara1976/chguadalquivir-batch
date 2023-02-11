@@ -73,4 +73,12 @@ public class JobServiceImpl implements JobService {
 	public BatchJobExecution getLastJob() {
 		return batchJobExecutionRepository.getLastJobExecution();
 	}
+
+	/**
+	 *
+	 */
+	@Override
+	public List<String> getJobNames() {
+		return jobExplorer.getJobNames();
+	}
 }
