@@ -35,13 +35,13 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobExplorer jobExplorer;
-	
+
 	@Autowired
 	private BatchJobExecutionRepository batchJobExecutionRepository;
 
 	@Autowired
 	private Environment env;
-	
+
 	/**
 	 * @param name
 	 * @throws Exception
@@ -58,12 +58,9 @@ public class JobServiceImpl implements JobService {
 			// Exit on failure
 			if (ExitStatus.FAILED.equals(result.getExitStatus())) {
 				return ExecutionResult.builder().exitStatus(ExitStatus.FAILED).message("La tarea ha fallado").build();
-			}
-			else if (ExitStatus.NOOP.equals(result.getExitStatus())) {
-				return ExecutionResult.builder().exitStatus(ExitStatus.NOOP).message("La tarea ya ha sido ejecutada").build();
-			}
-			else {
-				return ExecutionResult.builder().exitStatus(ExitStatus.COMPLETED).message("Tarea ejecutada correctamente").build();
+			} else {
+				return ExecutionResult.builder().exitStatus(result.getExitStatus())
+						.message(result.getExitStatus().getExitDescription()).build();
 			}
 		} catch (NoSuchBeanDefinitionException e) {
 			throw new Exception("Tarea no encontrada");
@@ -80,7 +77,7 @@ public class JobServiceImpl implements JobService {
 
 		return (CollectionUtils.isNotEmpty(jobInstances)) ? jobInstances.get(0) : null;
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -103,7 +100,7 @@ public class JobServiceImpl implements JobService {
 			// Check if job exists
 			Job job = ctx.getBean(name, Job.class);
 			Assert.notNull(job, "job null");
-			
+
 			String property = new StringBuilder("application.").append(name).append(".cron").toString();
 			return env.getProperty(property);
 		} catch (NoSuchBeanDefinitionException e) {
