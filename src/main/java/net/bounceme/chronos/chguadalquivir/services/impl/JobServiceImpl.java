@@ -57,7 +57,7 @@ public class JobServiceImpl implements JobService {
 
 			// Exit on failure
 			if (ExitStatus.FAILED.equals(result.getExitStatus())) {
-				throw new Exception("La tarea ha fallado");
+				return ExecutionResult.builder().exitStatus(ExitStatus.FAILED).message("La tarea ha fallado").build();
 			}
 			else if (ExitStatus.NOOP.equals(result.getExitStatus())) {
 				return ExecutionResult.builder().exitStatus(ExitStatus.NOOP).message("La tarea ya ha sido ejecutada").build();
