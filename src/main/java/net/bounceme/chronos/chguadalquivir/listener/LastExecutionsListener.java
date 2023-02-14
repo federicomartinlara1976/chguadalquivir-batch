@@ -1,5 +1,6 @@
 package net.bounceme.chronos.chguadalquivir.listener;
 
+import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.stereotype.Component;
 
@@ -16,4 +17,8 @@ public class LastExecutionsListener extends AbstractListener {
 		log.info("initializeConfig");
 	}
 
+	@Override
+	protected void updateStatus(JobExecution jobExecution) {
+		jobExecution.setExitStatus(ExitStatus.COMPLETED);
+	}
 }

@@ -39,6 +39,8 @@ public class IsExecutedDecider implements JobExecutionDecider {
 		String isExecuted = "NO_EXECUTED";
 		if (!CollectionUtils.isEmpty(executions)) {
 			log.info("Ya se ha ejecutado para la fecha {}", fecha);
+			
+			jobExecution.getExecutionContext().put("ALREADY_EXECUTED", Boolean.TRUE);
 			isExecuted = "EXECUTED";
 		}
 
