@@ -27,6 +27,12 @@ public interface JobService {
 	BatchJobExecution getLastJob();
 	
 	/**
+	 * @param numJobs
+	 * @return
+	 */
+	List<BatchJobExecution> getLastJobs(Integer numJobs);
+	
+	/**
 	 * @return
 	 */
 	List<String> getJobNames();

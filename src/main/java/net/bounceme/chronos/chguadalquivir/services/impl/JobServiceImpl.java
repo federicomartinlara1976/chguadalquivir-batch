@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -103,5 +102,10 @@ public class JobServiceImpl implements JobService {
 		} catch (NoSuchBeanDefinitionException e) {
 			throw new Exception("Tarea no encontrada");
 		}
+	}
+
+	@Override
+	public List<BatchJobExecution> getLastJobs(Integer numJobs) {
+		return batchJobExecutionRepository.getLastJobExecutions(numJobs);
 	}
 }

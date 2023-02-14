@@ -94,6 +94,20 @@ public class JobController {
 		}
 	}
 	
+	@GetMapping("/lastjobs")
+	public ResponseEntity<Map<String, Object>> lastJobs() {
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			List<BatchJobExecution> batchJobExecutions = jobService.getLastJobs(5);
+			response.put("jobExecutions", batchJobExecutions);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			response.put("error", e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@GetMapping("")
 	public ResponseEntity<Map<String, Object>> getJobs() {
 		Map<String, Object> response = new HashMap<>();
