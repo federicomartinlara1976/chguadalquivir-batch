@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.batch.core.JobInstance;
 
 import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
+import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
 
 public interface JobService {
 	
@@ -12,7 +13,7 @@ public interface JobService {
 	 * @param name
 	 * @throws Exception
 	 */
-	void run(String name) throws Exception;
+	ExecutionResult run(String name) throws Exception;
 	
 	/**
 	 * @param name

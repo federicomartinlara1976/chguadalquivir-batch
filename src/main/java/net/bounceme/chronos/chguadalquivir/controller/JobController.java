@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
+import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
 import net.bounceme.chronos.chguadalquivir.model.Task;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
@@ -47,8 +48,8 @@ public class JobController {
 			}
 			
 			log.info("Ejecutar: {}", task.getName());
-			jobService.run(task.getName());
-			response.put("mensaje", "Tarea ejecutada correctamente");
+			ExecutionResult resultado = jobService.run(task.getName());
+			response.put("resultado", resultado);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			response.put("error", e.getMessage());

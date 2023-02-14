@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 
 import lombok.SneakyThrows;
 import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
+import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
 import net.bounceme.chronos.chguadalquivir.repository.BatchJobExecutionRepository;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
@@ -46,7 +47,7 @@ public class JobServiceImpl implements JobService {
 	 * @throws Exception
 	 */
 	@SneakyThrows
-	public void run(String name) {
+	public ExecutionResult run(String name) {
 		try {
 			JobParametersBuilder builder = new JobParametersBuilder();
 			builder.addDate("date", new Date());
@@ -57,6 +58,12 @@ public class JobServiceImpl implements JobService {
 			// Exit on failure
 			if (ExitStatus.FAILED.equals(result.getExitStatus())) {
 				throw new Exception("La tarea ha fallado");
+			}
+			else if (ExitStatus.NOOP.equals(result.getExitStatus())) {
+				return ExecutionResult.builder().exitStatus(ExitStatus.NOOP).message("La tarea ya ha sido ejecutada").build();
+			}
+			else {
+				return ExecutionResult.builder().exitStatus(ExitStatus.COMPLETED).message("Tarea ejecutada correctamente").build();
 			}
 		} catch (NoSuchBeanDefinitionException e) {
 			throw new Exception("Tarea no encontrada");
