@@ -25,10 +25,10 @@ public class ImportJobListener extends AbstractListener {
 		Boolean alreadyExecuted = (Boolean) jobExecution.getExecutionContext().get("ALREADY_EXECUTED");
 		
 		if (jobExecution.getStatus() == BatchStatus.COMPLETED && alreadyExecuted) {
-			jobExecution.setExitStatus(ExitStatus.NOOP);
+			jobExecution.setExitStatus(new ExitStatus("NOOP", "La tarea ya ha sido ejecutada"));
 		}
 		else {
-			jobExecution.setExitStatus(ExitStatus.COMPLETED);
+			jobExecution.setExitStatus(new ExitStatus("COMPLETED", "La tarea ha sido ejecutada correctamente"));
 		}
 	}
 }

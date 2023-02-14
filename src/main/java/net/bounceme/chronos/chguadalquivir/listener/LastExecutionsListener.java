@@ -19,6 +19,6 @@ public class LastExecutionsListener extends AbstractListener {
 
 	@Override
 	protected void updateStatus(JobExecution jobExecution) {
-		jobExecution.setExitStatus(ExitStatus.COMPLETED);
+		jobExecution.setExitStatus(new ExitStatus("COMPLETED", "La tarea ha sido ejecutada correctamente"));
 	}
 }
