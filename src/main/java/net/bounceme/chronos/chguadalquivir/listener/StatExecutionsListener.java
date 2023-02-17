@@ -3,7 +3,6 @@ package net.bounceme.chronos.chguadalquivir.listener;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.stereotype.Component;
