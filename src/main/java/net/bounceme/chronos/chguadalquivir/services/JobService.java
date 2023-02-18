@@ -23,9 +23,10 @@ public interface JobService {
 	JobInstance getLastJobInstance(String name);
 	
 	/**
+	 * @param jobs 
 	 * @return
 	 */
-	BatchJobExecution getLastJob();
+	BatchJobExecution getLastJob(List<String> jobs);
 	
 	/**
 	 * @param numJobs

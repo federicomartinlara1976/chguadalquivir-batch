@@ -7,9 +7,10 @@ import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
 public interface BatchJobExecutionRepository {
 
 	/**
+	 * @param applicationJobs 
 	 * @return
 	 */
-	BatchJobExecution getLastJobExecution();
+	BatchJobExecution getLastJobExecution(List<String> applicationJobs);
 	
 	/**
 	 * @param numResults
