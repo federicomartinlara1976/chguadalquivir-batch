@@ -1,6 +1,5 @@
 package net.bounceme.chronos.chguadalquivir.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,9 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.springframework.batch.core.Job;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -32,9 +29,6 @@ import net.bounceme.chronos.chguadalquivir.services.JobService;
 @RequestMapping("/api/jobs")
 @Slf4j
 public class JobController {
-	
-	@Autowired
-	private ApplicationContext applicationContext;
 	
 	@Autowired
 	private JobService jobService;
@@ -106,7 +100,8 @@ public class JobController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			List<BatchJobExecution> batchJobExecutions = jobService.getLastJobs(5);
+			List<String> jobs = jobService.getAllJobs();
+			List<BatchJobExecution> batchJobExecutions = jobService.getLastJobs(5, jobs);
 			response.put("jobExecutions", batchJobExecutions);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
@@ -120,7 +115,7 @@ public class JobController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			List<String> jobs = getAllJobs();
+			List<String> jobs = jobService.getAllJobs();
 			response.put("jobs", jobs);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
@@ -128,22 +123,4 @@ public class JobController {
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	/**
-	 * @return
-	 */
-	private List<String> getAllJobs() {
-        String[] allBeanNames = applicationContext.getBeanDefinitionNames();
-        List<String> jobNames = new ArrayList<>();
-        
-        for(String beanName : allBeanNames) {
-        	Object bean = applicationContext.getBean(beanName);
-        	
-        	if (bean instanceof Job) {
-        		jobNames.add(beanName);
-        	}
-        }
-        
-        return jobNames;
-    }
 }
