@@ -29,9 +29,10 @@ public interface JobService {
 	
 	/**
 	 * @param numJobs
+	 * @param applicationJobs
 	 * @return
 	 */
-	List<BatchJobExecution> getLastJobs(Integer numJobs);
+	List<BatchJobExecution> getLastJobs(Integer numJobs, List<String> applicationJobs);
 	
 	/**
 	 * @return
@@ -43,4 +44,9 @@ public interface JobService {
 	 * @return
 	 */
 	String getJobScheduling(String name);
+
+	/**
+	 * @return
+	 */
+	List<String> getAllJobs();
 }

@@ -1,5 +1,6 @@
 package net.bounceme.chronos.chguadalquivir.services.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -108,8 +109,30 @@ public class JobServiceImpl implements JobService {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@Override
-	public List<BatchJobExecution> getLastJobs(Integer numJobs) {
-		return batchJobExecutionRepository.getLastJobExecutions(numJobs);
+	public List<BatchJobExecution> getLastJobs(Integer numJobs, List<String> applicationJobs) {
+		return batchJobExecutionRepository.getLastJobExecutions(numJobs, applicationJobs);
 	}
+	
+	/**
+	 * @return
+	 */
+	@Override
+	public List<String> getAllJobs() {
+        String[] allBeanNames = ctx.getBeanDefinitionNames();
+        List<String> jobNames = new ArrayList<>();
+        
+        for(String beanName : allBeanNames) {
+        	Object bean = ctx.getBean(beanName);
+        	
+        	if (bean instanceof Job) {
+        		jobNames.add(beanName);
+        	}
+        }
+        
+        return jobNames;
+    }
 }

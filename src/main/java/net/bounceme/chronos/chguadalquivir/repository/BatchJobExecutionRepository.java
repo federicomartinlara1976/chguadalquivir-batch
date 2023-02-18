@@ -13,7 +13,8 @@ public interface BatchJobExecutionRepository {
 	
 	/**
 	 * @param numResults
+	 * @param applicationJobs
 	 * @return
 	 */
-	List<BatchJobExecution> getLastJobExecutions(Integer numResults);
+	List<BatchJobExecution> getLastJobExecutions(Integer numResults, List<String> applicationJobs);
 }
