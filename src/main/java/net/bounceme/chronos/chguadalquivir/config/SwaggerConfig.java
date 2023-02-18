@@ -30,11 +30,11 @@ public class SwaggerConfig {
 	
 	private ApiInfo getApiInfo() {
 		return new ApiInfo(
-				"Order Service API",
-				"Order Service API Description",
-				"1.0",
-				"http://codmind.com/terms",
-				new Contact("Codmind", "https://codmind.com", "apis@codmind.com"),
+				"CHGuadalquivir batch Api controller",
+				"Api de control para el batch de chguadalquivir",
+				"0.0.1-SNAPSHOT",
+				"https://github.com/federicomartinlara1976/chguadalquivir-batch/blob/master/LICENSE",
+				new Contact("CHGuadalquivir", "https://github.com/federicomartinlara1976/chguadalquivir-batch", "federicomartinlara1976@gmail.com"),
 				"LICENSE",
 				"LICENSE URL",
 				Collections.emptyList()
