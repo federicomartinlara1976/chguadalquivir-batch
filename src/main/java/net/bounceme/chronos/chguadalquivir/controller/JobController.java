@@ -86,7 +86,8 @@ public class JobController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			BatchJobExecution batchJobExecution = jobService.getLastJob();
+			List<String> jobs = jobService.getAllJobs();
+			BatchJobExecution batchJobExecution = jobService.getLastJob(jobs);
 			response.put("jobExecution", batchJobExecution);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {

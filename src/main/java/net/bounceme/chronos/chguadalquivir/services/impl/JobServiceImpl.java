@@ -80,10 +80,11 @@ public class JobServiceImpl implements JobService {
 	}
 
 	/**
+	 * @param applicationJobs
 	 * @return
 	 */
-	public BatchJobExecution getLastJob() {
-		return batchJobExecutionRepository.getLastJobExecution();
+	public BatchJobExecution getLastJob(List<String> applicationJobs) {
+		return batchJobExecutionRepository.getLastJobExecution(applicationJobs);
 	}
 
 	/**

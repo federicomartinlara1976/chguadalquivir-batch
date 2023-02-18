@@ -18,9 +18,10 @@ public class BatchJobExecutionRepositoryImpl implements BatchJobExecutionReposit
 	private EntityManager em;
 
 	@Override
-	public BatchJobExecution getLastJobExecution() {
+	public BatchJobExecution getLastJobExecution(List<String> applicationJobs) {
 		TypedQuery<BatchJobExecution> query = em
-				.createQuery("SELECT b FROM BatchJobExecution b order by b.createTime desc", BatchJobExecution.class);
+				.createQuery("SELECT b FROM BatchJobExecution b where b.jobInstance.jobName in :applicationJobs order by b.createTime desc", BatchJobExecution.class);
+		query.setParameter("applicationJobs", applicationJobs);
 		query.setMaxResults(1);
 		return query.getSingleResult();
 	}
