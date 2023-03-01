@@ -26,7 +26,7 @@ spring:
 #    properties.hibernate.format_sql: true
   
 server:
-  port : 9093
+  port : 9091
   servlet.context-path: /chguadalquivir
   
 batch:
