@@ -53,8 +53,6 @@ public class TestReaders {
 	@Test
 	public void testDailyRegisterItemReader() {
 		try {
-			dailyRegisterItemReader.afterPropertiesSet();
-			
 			Embalse embalse;
 			while ((embalse = dailyRegisterItemReader.read()) != null) {
 				log.info(embalse.toString());
