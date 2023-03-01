@@ -12,15 +12,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 @Entity
 @Table(name="BATCH_JOB_EXECUTION_PARAMS")
-@Getter
-@Setter
-@ToString
+@Data
 public class BatchJobExecutionParams implements Serializable {
 	
 	/**
