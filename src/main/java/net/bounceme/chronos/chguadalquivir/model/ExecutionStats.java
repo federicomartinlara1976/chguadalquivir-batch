@@ -10,14 +10,16 @@ import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-@Data
+@ToString
 public class ExecutionStats implements Serializable {
 	
 	/**
@@ -27,13 +29,23 @@ public class ExecutionStats implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Getter
+	@Setter
 	private Long id;
 	
+	@Getter
+	@Setter
 	private Date initDate;
 	
+	@Getter
+	@Setter
 	private Double average;
 	
+	@Getter
+	@Setter
 	private Double deviation;
 	
+	@Getter
+	@Setter
 	private Double variation;
 }
