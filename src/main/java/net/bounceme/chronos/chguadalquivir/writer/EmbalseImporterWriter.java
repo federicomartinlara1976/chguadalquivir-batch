@@ -2,6 +2,7 @@ package net.bounceme.chronos.chguadalquivir.writer;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,14 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
         for (Embalse e : items) {
             repositoryCollectionCustom.setCollectionName(e.getCodigo());
             
-            // Set id
-            e.setId(dateFormat.format(e.getFecha()));
+            Optional<Embalse> oEmbalse = embalseRepository.findById(dateFormat.format(e.getFecha()));
+            if (!oEmbalse.isPresent()) {
+            	// Set id
+            	e.setId(dateFormat.format(e.getFecha()));
             
-            log.info("Writing {}", e.toString());
-            embalseRepository.save(e);
+            	log.info("Writing {}", e.toString());
+            	embalseRepository.save(e);
+            }
         }
     }
 
