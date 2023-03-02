@@ -2,13 +2,15 @@ package net.bounceme.chronos.chguadalquivir.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Transient;
+
 import org.jsoup.nodes.Element;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Builder(toBuilder = true)
+@Data
 public class ZonaElement implements Serializable {
 
 	/**
@@ -16,11 +18,8 @@ public class ZonaElement implements Serializable {
 	 */
 	private static final long serialVersionUID = -1887374261691607915L;
 	
-	@Getter
-	@Setter
 	private Zona zona;
 	
-	@Getter
-	@Setter
-	private transient Element element;
+	@Transient
+	private Element element;
 }
