@@ -17,7 +17,7 @@
         </batch:decision>
 	
 		<batch:step id="importStep" next="countExecutionStep">
-			<batch:tasklet task-executor="taskExecutor">
+			<batch:tasklet>
 				<batch:chunk reader="embalseImporterReader"
 					processor="embalseProcessor"
 					writer="embalseImporterWriter" commit-interval="5" skip-limit="2">
@@ -47,9 +47,11 @@
 		</batch:listeners>
 	</batch:job>
 
-	<!-- Thread safe Reader -->
+	<!-- Reader -->
 	<bean id="embalseImporterReader"
-		class="net.bounceme.chronos.chguadalquivir.reader.SynchronizingItemReader"/>
+		class="net.bounceme.chronos.chguadalquivir.reader.DailyRegisterItemReader">
+		<property name="elementMapper" ref="embalseRowMapper" />
+	</bean>
 	
 	<bean id="embalseProcessor" class="org.springframework.batch.item.validator.ValidatingItemProcessor">
 		<property name="filter" value="false" />

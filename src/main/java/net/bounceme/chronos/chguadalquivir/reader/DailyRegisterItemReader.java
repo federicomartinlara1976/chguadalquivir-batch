@@ -11,20 +11,20 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
-import net.bounceme.chronos.chguadalquivir.reader.mapping.EmbalseRowMapper;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
+import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
 
-@Component
 @Slf4j
 public class DailyRegisterItemReader implements ItemReader<Embalse>, InitializingBean {
 
@@ -37,8 +37,9 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 	@Autowired
 	private CHGuadalquivirHelper helper;
 
-	@Autowired
-	private EmbalseRowMapper elementMapper;
+	@Getter
+	@Setter
+	private ElementMapper<Embalse> elementMapper;
 
 	private List<ZonaElement> records;
 
