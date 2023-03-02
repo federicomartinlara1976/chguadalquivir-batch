@@ -7,26 +7,26 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.beans.factory.InitializingBean;
+import org.springframework.batch.item.ItemStreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.Assert;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
+import net.bounceme.chronos.chguadalquivir.reader.mapping.EmbalseRowMapper;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
-import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
 
+@Component
 @Slf4j
-public class DailyRegisterItemReader implements ItemReader<Embalse>, InitializingBean {
+public class DailyRegisterItemReader extends ItemStreamSupport implements ItemReader<Embalse> {
 
 	@Value("${application.importJob.url}")
 	private String url;
@@ -37,19 +37,15 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 	@Autowired
 	private CHGuadalquivirHelper helper;
 
-	@Getter
-	@Setter
-	private ElementMapper<Embalse> elementMapper;
+	@Autowired
+	private EmbalseRowMapper elementMapper;
 
 	private List<ZonaElement> records;
 
 	private Integer index = 0;
-
+	
 	@Override
-	public void afterPropertiesSet() {
-		Assert.notNull(url, "Must provide the url");
-		Assert.notNull(elementMapper, "Must provide a elementMapper");
-
+	public void open(ExecutionContext executionContext) {
 		initialize();
 	}
 

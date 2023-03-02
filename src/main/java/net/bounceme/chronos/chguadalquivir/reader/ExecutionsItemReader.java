@@ -35,7 +35,7 @@ public class ExecutionsItemReader implements ItemReader<Execution>, Initializing
 	 */
 	private void initialize() {
 		Date currentDate = new Date();
-		Date beforeDate = helper.subtractDays(currentDate, 5);
+		Date beforeDate = helper.subtractDays(currentDate, 6);
 
 		String from = helper.parseDate(beforeDate);
 		String to = helper.parseDate(currentDate);

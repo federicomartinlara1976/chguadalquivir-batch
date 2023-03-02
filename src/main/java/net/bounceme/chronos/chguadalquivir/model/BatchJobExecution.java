@@ -13,15 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 @Entity
 @Table(name="BATCH_JOB_EXECUTION")
-@Getter
-@Setter
-@ToString
+@Data
 public class BatchJobExecution implements Serializable {
 	
 	/**

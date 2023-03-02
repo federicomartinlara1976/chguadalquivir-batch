@@ -7,15 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 @Entity
 @Table(name="BATCH_JOB_INSTANCE")
-@Getter
-@Setter
-@ToString
+@Data
 public class BatchJobInstance implements Serializable {
 
 	/**
