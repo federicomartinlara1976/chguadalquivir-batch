@@ -7,7 +7,9 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemStreamSupport;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +28,7 @@ import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 @Component
 @Slf4j
-public class DailyRegisterItemReader implements ItemReader<Embalse>, InitializingBean {
+public class DailyRegisterItemReader extends ItemStreamSupport implements ItemReader<Embalse> {
 
 	@Value("${application.importJob.url}")
 	private String url;
@@ -43,12 +45,9 @@ public class DailyRegisterItemReader implements ItemReader<Embalse>, Initializin
 	private List<ZonaElement> records;
 
 	private Integer index = 0;
-
+	
 	@Override
-	public void afterPropertiesSet() {
-		Assert.notNull(url, "Must provide the url");
-		Assert.notNull(elementMapper, "Must provide a elementMapper");
-
+	public void open(ExecutionContext executionContext) {
 		initialize();
 	}
 
