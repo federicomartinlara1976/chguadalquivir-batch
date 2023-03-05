@@ -39,9 +39,6 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
             	log.info("Writing {}", e.toString());
             	embalseRepository.save(e);
             }
-            else {
-            	log.info("Fecha {} ya registrada para {}", dateFormat.format(e.getFecha()), e.getCodigo());
-            }
         }
     }
 
