@@ -1,5 +1,6 @@
 package net.bounceme.chronos.chguadalquivir.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,13 +14,16 @@ import net.bounceme.chronos.chguadalquivir.model.Status;
 @RestController
 @RequestMapping("/api")
 public class IndexController {
+	
+	@Value("${spring.application.name}")
+	private String applicationName;
 
 	/**
 	 * @return
 	 */
 	@GetMapping("/status")
 	public ResponseEntity<Status> status() {
-		Status status = Status.builder().version(System.getProperty("java.version"))
+		Status status = Status.builder().applicationName(applicationName).version(System.getProperty("java.version"))
 				.platform(System.getProperty("os.name")).response("OK").build();
 		
 		return new ResponseEntity<>(status, HttpStatus.OK);
