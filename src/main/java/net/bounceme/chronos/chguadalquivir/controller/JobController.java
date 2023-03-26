@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,6 +89,20 @@ public class JobController {
 		try {
 			List<String> jobs = jobService.getAllJobs();
 			BatchJobExecution batchJobExecution = jobService.getLastJob(jobs);
+			response.put("jobExecution", batchJobExecution);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			response.put("error", e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/job/{jobInstanceId}")
+	public ResponseEntity<Map<String, Object>> getJob(@PathVariable Long jobInstanceId) {
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			BatchJobExecution batchJobExecution = jobService.getJob(jobInstanceId);
 			response.put("jobExecution", batchJobExecution);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {

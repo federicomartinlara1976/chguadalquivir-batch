@@ -136,4 +136,9 @@ public class JobServiceImpl implements JobService {
         
         return jobNames;
     }
+
+	@Override
+	public BatchJobExecution getJob(Long jobInstanceId) {
+		return batchJobExecutionRepository.getJobExecution(jobInstanceId);
+	}
 }

@@ -35,4 +35,12 @@ public class BatchJobExecutionRepositoryImpl implements BatchJobExecutionReposit
 		return query.getResultList();
 	}
 
+	@Override
+	public BatchJobExecution getJobExecution(Long jobInstanceId) {
+		TypedQuery<BatchJobExecution> query = em
+				.createQuery("SELECT b FROM BatchJobExecution b where b.jobInstance.jobInstanceId = :jobInstanceId", BatchJobExecution.class);
+		query.setParameter("jobInstanceId", jobInstanceId);
+		query.setMaxResults(1);
+		return query.getSingleResult();
+	}
 }
