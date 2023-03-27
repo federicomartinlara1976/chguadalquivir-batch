@@ -47,7 +47,7 @@ public class BatchJobExecutionRepositoryImpl implements BatchJobExecutionReposit
 	@Override
 	public List<BatchJobExecution> getLastJobExecutions(Integer numExecutions) {
 		TypedQuery<BatchJobExecution> query = em
-				.createQuery("SELECT b FROM BatchJobExecution b where order by b.createTime desc", BatchJobExecution.class);
+				.createQuery("SELECT b FROM BatchJobExecution b order by b.createTime desc", BatchJobExecution.class);
 		query.setMaxResults(numExecutions);
 		return query.getResultList();
 	}
