@@ -43,4 +43,12 @@ public class BatchJobExecutionRepositoryImpl implements BatchJobExecutionReposit
 		query.setMaxResults(1);
 		return query.getSingleResult();
 	}
+
+	@Override
+	public List<BatchJobExecution> getLastJobExecutions(Integer numExecutions) {
+		TypedQuery<BatchJobExecution> query = em
+				.createQuery("SELECT b FROM BatchJobExecution b where order by b.createTime desc", BatchJobExecution.class);
+		query.setMaxResults(numExecutions);
+		return query.getResultList();
+	}
 }

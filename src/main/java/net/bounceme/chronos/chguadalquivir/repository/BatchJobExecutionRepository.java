@@ -24,4 +24,10 @@ public interface BatchJobExecutionRepository {
 	 * @return
 	 */
 	BatchJobExecution getJobExecution(Long jobInstanceId);
+
+	/**
+	 * @param numExecutions
+	 * @return
+	 */
+	List<BatchJobExecution> getLastJobExecutions(Integer numExecutions);
 }
