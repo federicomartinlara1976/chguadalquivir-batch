@@ -131,7 +131,6 @@ public class JobController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			List<String> jobs = jobService.getAllJobs();
 			List<BatchJobExecution> batchJobExecutions = jobService.getLastExecutions(100);
 			response.put("jobExecutions", batchJobExecutions);
 			return new ResponseEntity<>(response, HttpStatus.OK);
