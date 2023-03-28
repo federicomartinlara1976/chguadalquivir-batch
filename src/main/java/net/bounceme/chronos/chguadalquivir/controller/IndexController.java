@@ -17,13 +17,16 @@ public class IndexController {
 	
 	@Value("${spring.application.name}")
 	private String applicationName;
+	
+	@Value("${spring.application.description}")
+	private String applicationDescription;
 
 	/**
 	 * @return
 	 */
 	@GetMapping("/status")
 	public ResponseEntity<Status> status() {
-		Status status = Status.builder().applicationName(applicationName).version(System.getProperty("java.version"))
+		Status status = Status.builder().applicationName(applicationName).description(applicationDescription).version(System.getProperty("java.version"))
 				.platform(System.getProperty("os.name")).response("OK").build();
 		
 		return new ResponseEntity<>(status, HttpStatus.OK);

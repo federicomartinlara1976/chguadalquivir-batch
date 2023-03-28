@@ -25,4 +25,6 @@ public class Status implements Serializable {
 	private String platform;
 	
 	private String response;
+	
+	private String description;
 }
