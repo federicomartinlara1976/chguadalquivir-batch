@@ -140,7 +140,7 @@ public class TestModels {
 		assertEquals(System.getProperty("os.name"), status.getPlatform());
 		assertEquals("OK", status.getResponse());
 		
-		status = new Status(System.getProperty("java.version"), System.getProperty("os.name"), "OK");
+		status = new Status("applicationName", "applicationDescription", System.getProperty("java.version"), System.getProperty("os.name"), "OK");
 		assertNotNull(status);
 		
 		assertEquals(System.getProperty("java.version"), status.getVersion());

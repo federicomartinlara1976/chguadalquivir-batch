@@ -27,7 +27,7 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
 	private SimpleDateFormat dateFormat;
 
     @Override
-    public void write(List<? extends Embalse> items) throws Exception {
+    public synchronized void write(List<? extends Embalse> items) throws Exception {
         for (Embalse e : items) {
             repositoryCollectionCustom.setCollectionName(e.getCodigo());
             
@@ -38,9 +38,6 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
             
             	log.info("Writing {}", e.toString());
             	embalseRepository.save(e);
-            }
-            else {
-            	log.info("Fecha {} ya registrada para {}", dateFormat.format(e.getFecha()), e.getCodigo());
             }
         }
     }

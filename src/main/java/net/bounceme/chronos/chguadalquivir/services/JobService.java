@@ -50,4 +50,16 @@ public interface JobService {
 	 * @return
 	 */
 	List<String> getAllJobs();
+	
+	/**
+	 * @param jobInstanceId
+	 * @return
+	 */
+	BatchJobExecution getJob(Long jobInstanceId);
+
+	/**
+	 * @param numExecutions
+	 * @return
+	 */
+	List<BatchJobExecution> getLastExecutions(Integer numExecutions);
 }

@@ -136,4 +136,17 @@ public class JobServiceImpl implements JobService {
         
         return jobNames;
     }
+
+	@Override
+	public BatchJobExecution getJob(Long jobInstanceId) {
+		return batchJobExecutionRepository.getJobExecution(jobInstanceId);
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public List<BatchJobExecution> getLastExecutions(Integer numExecutions) {
+		return batchJobExecutionRepository.getLastJobExecutions(numExecutions);
+	}
 }

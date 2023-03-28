@@ -18,9 +18,13 @@ public class Status implements Serializable {
 	 */
 	private static final long serialVersionUID = -6605836896150803431L;
 	
+	private String applicationName;
+	
 	private String version;
 	
 	private String platform;
 	
 	private String response;
+	
+	private String description;
 }

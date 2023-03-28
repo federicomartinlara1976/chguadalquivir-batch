@@ -1,4 +1,8 @@
 spring:
+  application:
+    name: CHGuadalquivir
+    description: Recover data from C. H. Guadalquivir
+
   main.allow-bean-definition-overriding: true
   
   mvc:
