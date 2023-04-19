@@ -1,13 +1,14 @@
 package net.bounceme.chronos.chguadalquivir.config;
 
+import java.beans.PropertyVetoException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +18,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-import java.beans.PropertyVetoException;
+import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 
 @Configuration
 @EnableTransactionManagement
@@ -31,7 +32,7 @@ import java.beans.PropertyVetoException;
 public class PostgresDataSourceConfiguration {
 
 	@Bean(name = "postgresDataSource")
-	public DataSource postgresDataSource(@Autowired C3P0Properties c3P0Properties) throws PropertyVetoException {
+	public DataSource postgresDataSource(@Autowired PostgresProperties c3P0Properties) throws PropertyVetoException {
 		ComboPooledDataSource pooledDataSource = new ComboPooledDataSource();
 		pooledDataSource.setDriverClass(c3P0Properties.getDriverClass());
 		pooledDataSource.setUser(c3P0Properties.getUser());
@@ -47,9 +48,13 @@ public class PostgresDataSourceConfiguration {
     public LocalContainerEntityManagerFactoryBean postgresEntityManagerFactory(
       @Qualifier("postgresDataSource") DataSource dataSource,
       EntityManagerFactoryBuilder builder) {
+		Map<String, String> properties = new HashMap<>();
+		properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		
         return builder
           .dataSource(dataSource)
           .packages(ExecutionStats.class)
+          .properties(properties)
           .build();
     }
 
