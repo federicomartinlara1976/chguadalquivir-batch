@@ -15,11 +15,6 @@ spring:
       url:               jdbc:mysql://localhost/batch?allowPublicKeyRetrieval=true&useSSL=false
       username:          federico
       password:          MedinaAzahara2468@
-    postgres:
-      driver-class-name: org.postgresql.Driver
-      url:               jdbc:postgresql://localhost/prueba
-      username:          federico
-      password:          MedinaAzahara2468
     
   batch.job.enabled: false
   
@@ -48,7 +43,16 @@ batch:
   grid.size: 50
   verify.cursor.position: true
   initialize-schema: always
-  
+
+c3p0:
+  user: federico
+  password: MedinaAzahara2468
+  driverClass: org.postgresql.Driver
+  jdbcUrl: jdbc:postgresql://localhost/prueba
+  minPoolSize: 1
+  maxPoolSize: 1
+  maxIdleTime: 500
+
 application:
   importJob:
     cron: 0 45 9 ? * 1,2,3,4,5  
