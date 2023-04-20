@@ -33,7 +33,7 @@ spring:
   data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
   
 server:
-  port : 9094
+  port : 9091
   servlet.context-path: /chguadalquivir
   
 batch:
