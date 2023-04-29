@@ -11,18 +11,26 @@ spring:
   
   datasource:
     batch:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url:               jdbc:mysql://localhost/batch?allowPublicKeyRetrieval=true&useSSL=false
-      username:          federico
-      password:          MedinaAzahara2468@
+      user: federico
+      password: MedinaAzahara2468@
+      driverClass: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://localhost/batch?allowPublicKeyRetrieval=true&useSSL=false
+      minPoolSize: 1
+      maxPoolSize: 3
+      maxIdleTime: 500
+    
+    postgres:
+      user: federico
+      password: MedinaAzahara2468
+      driverClass: org.postgresql.Driver
+      jdbcUrl: jdbc:postgresql://localhost/prueba
+      minPoolSize: 1
+      maxPoolSize: 3
+      maxIdleTime: 500
     
   batch.job.enabled: false
   
   data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
-  
-#  jpa:
-#    show-sql: true
-#    properties.hibernate.format_sql: true
   
 server:
   port : 9091
@@ -43,15 +51,6 @@ batch:
   grid.size: 50
   verify.cursor.position: true
   initialize-schema: always
-
-c3p0:
-  user: federico
-  password: MedinaAzahara2468
-  driverClass: org.postgresql.Driver
-  jdbcUrl: jdbc:postgresql://localhost/prueba
-  minPoolSize: 1
-  maxPoolSize: 1
-  maxIdleTime: 500
 
 application:
   importJob:

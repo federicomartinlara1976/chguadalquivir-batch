@@ -6,27 +6,34 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "c3p0")
-public class C3P0Properties {
-    @Getter
+@ConfigurationProperties(prefix = "spring.datasource.postgres")
+public class PostgresProperties {
+    
+	@Getter
     @Setter
     private int minPoolSize;
-    @Getter
+    
+	@Getter
     @Setter
     private int maxPoolSize;
-    @Getter
+    
+	@Getter
     @Setter
     private int maxIdleTime;
-    @Getter
+    
+	@Getter
     @Setter
     private String driverClass;
-    @Getter
+    
+	@Getter
     @Setter
     private String password;
-    @Getter
+    
+	@Getter
     @Setter
     private String user;
-    @Getter
+    
+	@Getter
     @Setter
     private String jdbcUrl;
 }
