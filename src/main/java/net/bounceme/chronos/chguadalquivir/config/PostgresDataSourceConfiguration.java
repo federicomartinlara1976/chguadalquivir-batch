@@ -32,7 +32,7 @@ import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 public class PostgresDataSourceConfiguration {
 
 	@Bean(name = "postgresDataSource")
-	public DataSource postgresDataSource(@Autowired PostgresProperties c3P0Properties) throws PropertyVetoException {
+	public DataSource postgresDataSource(@Autowired C3P0PostgresProperties c3P0Properties) throws PropertyVetoException {
 		ComboPooledDataSource pooledDataSource = new ComboPooledDataSource();
 		pooledDataSource.setDriverClass(c3P0Properties.getDriverClass());
 		pooledDataSource.setUser(c3P0Properties.getUser());
