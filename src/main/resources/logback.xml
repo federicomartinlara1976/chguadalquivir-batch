@@ -10,10 +10,10 @@
     </appender>
     
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    	<file>${LOG_PATH}/chguadalquivir-batch.log</file>
+    	<file>/home/federico/logs/chguadalquivir-batch.log</file>
     	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       		<!-- daily rollover -->
-      		<fileNamePattern>${LOG_PATH}/chguadalquivir-batch.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      		<fileNamePattern>/home/federico/logs/backup/chguadalquivir-batch.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
       		<timeBasedFileNamingAndTriggeringPolicy
           		class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
           		<!-- or whenever the file size reaches 50MB -->
@@ -57,11 +57,11 @@
     </appender>
 
     <logger name="net.bounceme.chronos.chguadalquivir" level="info" additivity="false">
-        <appender-ref ref="GELF"/>
+        <appender-ref ref="FILE"/>
     </logger>
 
     <root level="error">
-        <appender-ref ref="GELF"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>
