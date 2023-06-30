@@ -71,7 +71,7 @@ application:
     export:
       file:
         header: ID,VALUE,EXECUTIONTIME
-        path: /home/federico/logs/lastExecutions
+        path: /home/federico/logs/chguadalquivir/lastExecutions
         suffix: csv
         
   statExecutions:
