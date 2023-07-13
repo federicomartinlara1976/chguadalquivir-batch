@@ -11,7 +11,7 @@ spring:
     
   batch.job.enabled: false
   
-  data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
+  data.mongodb.uri: mongodb://discovery:27017/EmbalsesCHG
   
 c3p0:
   users:
