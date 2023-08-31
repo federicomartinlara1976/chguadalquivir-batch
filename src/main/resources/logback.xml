@@ -30,6 +30,30 @@
       		</layout>         
     	</encoder>
   	</appender>
+  	
+  	<appender name="JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<file>/home/federico/logs/chguadalquivir-batch-json.log</file>
+    	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      		<!-- daily rollover -->
+      		<fileNamePattern>/home/federico/logs/chguadalquivir-batch-json.%d{dd-MM-yyyy}.%i.log</fileNamePattern>
+      		<timeBasedFileNamingAndTriggeringPolicy
+          		class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+          		<!-- or whenever the file size reaches 50MB -->
+        		<maxFileSize>50MB</maxFileSize>
+      		</timeBasedFileNamingAndTriggeringPolicy>
+      		<!-- keep 30 days' worth of history -->
+      		<maxHistory>30</maxHistory>
+    	</rollingPolicy>
+    	<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      		<charset>UTF-8</charset>
+      		<layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+        		<jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+            		<prettyPrint>true</prettyPrint>
+        		</jsonFormatter>
+        		<timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+    		</layout>         
+    	</encoder>
+  	</appender>
     
     <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
         <graylogHost>192.168.1.135</graylogHost>
