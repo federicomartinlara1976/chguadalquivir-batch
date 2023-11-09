@@ -44,15 +44,15 @@ public class PeriodicTasks {
 		executeJob(importJob);
     }
 	
-	@Scheduled(cron = "${application.lastExecutions.cron}")
-    public void lastExecutionsTask() {
-		executeJob(lastExecutions);
-    }
-	
-	@Scheduled(cron = "${application.statExecutions.cron}")
-    public void statExecutionsTask() {
-		executeJob(statExecutions);
-    }
+//	@Scheduled(cron = "${application.lastExecutions.cron}")
+//    public void lastExecutionsTask() {
+//		executeJob(lastExecutions);
+//    }
+//	
+//	@Scheduled(cron = "${application.statExecutions.cron}")
+//    public void statExecutionsTask() {
+//		executeJob(statExecutions);
+//    }
 	
 	/**
 	 * @param job
