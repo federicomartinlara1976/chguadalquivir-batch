@@ -48,42 +48,4 @@ public class GenericConfiguration {
 	public ValidatorService<Embalse> embalseValidatorService() {
 		return new ValidatorServiceImpl<>();
 	}
-	
-	@Bean
-    public ItemWriter<Execution> executionsWriter(Environment environment, SimpleDateFormat dateFormat) {
-        String exportFilePath = environment.getRequiredProperty("application.lastExecutions.export.file.path");
-        String suffix = environment.getRequiredProperty("application.lastExecutions.export.file.suffix");
-        
-        Date date = new Date();
-        String sDate = dateFormat.format(date);
-        Resource exportFileResource = new FileSystemResource(exportFilePath + "-" + sDate + "." + suffix);
-
-        String exportFileHeader = environment.getRequiredProperty("application.lastExecutions.export.file.header");
-        StringHeaderWriter headerWriter = new StringHeaderWriter(exportFileHeader);
-
-        LineAggregator<Execution> lineAggregator = createExecutionLineAggregator();
-
-        return new FlatFileItemWriterBuilder<Execution>()
-                .name("executionsWriter")
-                .headerCallback(headerWriter)
-                .lineAggregator(lineAggregator)
-                .resource(exportFileResource)
-                .build();
-    }
-	
-	private LineAggregator<Execution> createExecutionLineAggregator() {
-        DelimitedLineAggregator<Execution> lineAggregator = new DelimitedLineAggregator<>();
-        lineAggregator.setDelimiter(",");
-
-        FieldExtractor<Execution> fieldExtractor = createExecutionFieldExtractor();
-        lineAggregator.setFieldExtractor(fieldExtractor);
-
-        return lineAggregator;
-    }
-
-    private FieldExtractor<Execution> createExecutionFieldExtractor() {
-        BeanWrapperFieldExtractor<Execution> extractor = new BeanWrapperFieldExtractor<>();
-        extractor.setNames(new String[] {"id", "value", "executionTime"});
-        return extractor;
-    }
 }

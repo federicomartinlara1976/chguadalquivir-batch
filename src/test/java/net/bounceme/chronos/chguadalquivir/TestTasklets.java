@@ -26,10 +26,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.flow.IsExecutedDecider;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
-import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
-import net.bounceme.chronos.chguadalquivir.services.ExecutionStatsService;
-import net.bounceme.chronos.chguadalquivir.tasklet.SummarizeStatsExecutionTasklet;
 import net.bounceme.chronos.chguadalquivir.tasklet.UpdateExecutionTasklet;
 
 @SpringBootTest
@@ -40,36 +37,16 @@ public class TestTasklets {
 	private static final FlowExecutionStatus EXECUTED = new FlowExecutionStatus("EXECUTED");
 	
 	@Autowired
-	private SummarizeStatsExecutionTasklet summarizeStatsExecutionTasklet;
-	
-	@Autowired
 	private UpdateExecutionTasklet updateExecutionTasklet; 
 	
 	@Autowired
 	private IsExecutedDecider isExecutedDecider;
 	
 	@MockBean
-	private ExecutionStatsService executionStatsService;
-	
-	@MockBean
 	private ExecutionsRepository executionsRepository;
 	
 	@Value("${application.importJob.url}")
 	private String url;
-	
-	@Test
-	public void testSummarizeStatsExecutionTasklet() {
-		try {
-			ChunkContext chunkContext = createChunkContext("summarizeStatsStep", buildExecutions());
-			
-			Mockito.doNothing().when(executionStatsService).save(Mockito.isA(ExecutionStats.class));
-			
-			RepeatStatus status = summarizeStatsExecutionTasklet.execute(null, chunkContext);
-			assertEquals(RepeatStatus.FINISHED, status);
-		} catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
-	}
 	
 	@Test
 	public void testUpdateExecutionTasklet() {

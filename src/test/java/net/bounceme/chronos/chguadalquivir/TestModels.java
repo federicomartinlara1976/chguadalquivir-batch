@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
-import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 import net.bounceme.chronos.chguadalquivir.model.Status;
 import net.bounceme.chronos.chguadalquivir.model.Task;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
@@ -21,33 +20,6 @@ import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
 @SpringBootTest
 @Slf4j
 public class TestModels {
-
-	@Test
-	public void testExecutionStatsModel() {
-		ExecutionStats executionStats = ExecutionStats.builder().average(1.0).deviation(1.0).variation(1.0).build();
-		assertNotNull(executionStats);
-		log.info(executionStats.toString());
-
-		executionStats = new ExecutionStats(1L, new Date(), 1.0, 1.0, 1.0);
-		assertNotNull(executionStats);
-
-		executionStats = new ExecutionStats();
-		executionStats.setId(1L);
-		executionStats.setAverage(1.0);
-		executionStats.setDeviation(1.0);
-		executionStats.setVariation(1.0);
-
-		Date d = new Date();
-		executionStats.setInitDate(d);
-
-		assertEquals(1L, executionStats.getId());
-		assertEquals(1.0, executionStats.getAverage());
-		assertEquals(1.0, executionStats.getDeviation());
-		assertEquals(1.0, executionStats.getVariation());
-		assertEquals(d, executionStats.getInitDate());
-
-		log.info("{}, {}", executionStats.toString(), executionStats.hashCode());
-	}
 
 	@Test
 	public void testExecutionModel() {

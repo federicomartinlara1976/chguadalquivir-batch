@@ -8,9 +8,7 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication(exclude={BatchAutoConfiguration.class})
 @ImportResource({
     "classpath:applicationContext.xml",
-	"classpath:importJob.xml",
-	"classpath:lastExecutions.xml",
-	"classpath:statExecutions.xml"
+	"classpath:importJob.xml"
 })
 public class ChGuadalquivirApplication {
 

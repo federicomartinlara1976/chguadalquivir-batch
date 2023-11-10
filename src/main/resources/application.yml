@@ -19,15 +19,6 @@ spring:
       maxPoolSize: 3
       maxIdleTime: 500
     
-    postgres:
-      user: federico
-      password: MedinaAzahara2468
-      driverClass: org.postgresql.Driver
-      jdbcUrl: jdbc:postgresql://localhost/prueba
-      minPoolSize: 1
-      maxPoolSize: 3
-      maxIdleTime: 500
-    
   batch.job.enabled: false
   
   data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
@@ -56,15 +47,4 @@ application:
   importJob:
     cron: 0 45 9 ? * 1,2,3,4,5  
     url: https://www.chguadalquivir.es/saih/EmbalNiv.aspx
-   
-  lastExecutions:
-    cron: 0 0 10 ? * 5
-    export:
-      file:
-        header: ID,VALUE,EXECUTIONTIME
-        path: /home/federico/logs/lastExecutions
-        suffix: csv
-        
-  statExecutions:
-    cron: 0 30 10 ? * 5
     
