@@ -88,7 +88,7 @@
 
     <root level="error">
         <appender-ref ref="GELF"/>
-        <appender ref="FILE"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>
