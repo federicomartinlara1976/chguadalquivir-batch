@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
 import net.bounceme.chronos.chguadalquivir.model.Task;
+import net.bounceme.chronos.chguadalquivir.model.batch.BatchJobExecution;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
 @CrossOrigin(origins = {"*"})

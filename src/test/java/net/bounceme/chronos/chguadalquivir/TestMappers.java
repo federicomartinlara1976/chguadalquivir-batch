@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
 import net.bounceme.chronos.chguadalquivir.reader.mapping.EmbalseRowMapper;
@@ -71,7 +71,7 @@ public class TestMappers {
 				for (int i = inicio; i < elements.size(); i++) {
 					ZonaElement ze = ZonaElement.builder().zona(zona).element(elements.get(i)).build();
 					
-					Embalse embalse = embalseRowMapper.map(ze);
+					RegistroDiarioEmbalse embalse = embalseRowMapper.map(ze);
 					assertNotNull(embalse);
 					log.info("{}, {}", embalse.toString(), embalse.hashCode());
 				}

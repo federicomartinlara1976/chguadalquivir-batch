@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
 
 /**
@@ -18,13 +18,13 @@ import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
  */
 @Component
 @Slf4j
-public class EmbalseValidator implements Validator<Embalse> {
+public class RegistroValidator implements Validator<RegistroDiarioEmbalse> {
 	
 	@Autowired
-	private ValidatorService<Embalse> validatorService;
+	private ValidatorService<RegistroDiarioEmbalse> validatorService;
 
 	@Override
-	public void validate(Embalse value) {
+	public void validate(RegistroDiarioEmbalse value) {
 		try {
 			validatorService.validate(value);
 		} catch (ConstraintViolationException e) {

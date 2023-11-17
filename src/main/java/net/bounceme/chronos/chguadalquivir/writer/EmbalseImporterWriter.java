@@ -1,8 +1,7 @@
 package net.bounceme.chronos.chguadalquivir.writer;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,35 +9,40 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
-import net.bounceme.chronos.chguadalquivir.repository.EmbalseRepository;
-import net.bounceme.chronos.chguadalquivir.repository.RepositoryCollectionCustom;
+import net.bounceme.chronos.chguadalquivir.model.jpa.EmbalseJpa;
+import net.bounceme.chronos.chguadalquivir.model.jpa.ZonaJpa;
+import net.bounceme.chronos.chguadalquivir.services.EmbalseService;
+import net.bounceme.chronos.chguadalquivir.services.ZonaService;
 
 @Component
 @Slf4j
 public class EmbalseImporterWriter implements ItemWriter<Embalse> {
 	
 	@Autowired
-	private EmbalseRepository embalseRepository;
+	private ZonaService zonaService;
 	
 	@Autowired
-	private RepositoryCollectionCustom repositoryCollectionCustom;
-	
-	@Autowired
-	private SimpleDateFormat dateFormat;
+	private EmbalseService embalseService;
 
     @Override
     public synchronized void write(List<? extends Embalse> items) throws Exception {
-        for (Embalse e : items) {
-            repositoryCollectionCustom.setCollectionName(e.getCodigo());
-            
-            Optional<Embalse> oEmbalse = embalseRepository.findById(dateFormat.format(e.getFecha()));
-            if (!oEmbalse.isPresent()) {
-            	// Set id
-            	e.setId(dateFormat.format(e.getFecha()));
-            
-            	log.info("Writing {}", e.toString());
-            	embalseRepository.save(e);
-            }
+        for (Embalse embalse : items) {
+        	EmbalseJpa embalseJpa = embalseService.getByCode(embalse.getId());
+        	
+        	if (Objects.isNull(embalseJpa)) {
+        		embalseJpa = new EmbalseJpa();
+            	embalseJpa.setCodigo(embalse.getId());
+            	embalseJpa.setEmbalse(embalse.getNombre());
+            	
+            	String codZona = embalse.getId().split("-")[0];
+            	ZonaJpa zonaJpa = zonaService.getByCode(codZona);
+            	if (!Objects.isNull(zonaJpa)) {
+            		embalseJpa.setZona(zonaJpa);
+            	}
+                
+            	embalseService.write(embalseJpa);
+                log.info("Writed {}", embalseJpa.toString());
+        	}
         }
     }
 

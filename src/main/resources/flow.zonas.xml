@@ -10,12 +10,29 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 	<!-- Batch de ingesta de datos de niveles de embalses a través del SAIH -->
-	<batch:job id="importJob" job-repository="jobRepository">
-		<batch:flow parent="flow.import" id="importJob.flow.import"/>
+	<batch:flow id="flow.zonas">
+		<batch:step id="flow.zonas.importStep">
+			<batch:tasklet>
+				<batch:chunk reader="zonasImporterReader"
+					processor="zonasProcessor"
+					writer="zonasImporterWriter" commit-interval="5">
+					
+					<batch:listeners>
+						<batch:listener ref="customSkipListener" />
+						<batch:listener ref="customChunkListener" />
+					</batch:listeners>
+				</batch:chunk>
+			</batch:tasklet>
+			
+			<batch:listeners>
+				<batch:listener ref="timeStepListener" />
+			</batch:listeners>
+		</batch:step>
 		
-		<batch:listeners>
-			<batch:listener ref="importJobListener" />
-		</batch:listeners>
-	</batch:job>
+	</batch:flow>
+
+	<!-- Thread safe Reader -->
+	<bean id="zonasImporterReader"
+		class="net.bounceme.chronos.chguadalquivir.reader.ZonasItemReader"/>
 
 </beans>

@@ -2,7 +2,7 @@ package net.bounceme.chronos.chguadalquivir.repository;
 
 import java.util.List;
 
-import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
+import net.bounceme.chronos.chguadalquivir.model.batch.BatchJobExecution;
 
 public interface BatchJobExecutionRepository {
 

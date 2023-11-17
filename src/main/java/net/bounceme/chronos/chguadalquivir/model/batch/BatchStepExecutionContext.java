@@ -1,4 +1,4 @@
-package net.bounceme.chronos.chguadalquivir.model;
+package net.bounceme.chronos.chguadalquivir.model.batch;
 
 import java.io.Serializable;
 
@@ -14,24 +14,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
-@Table(name="BATCH_JOB_EXECUTION_CONTEXT")
+@Table(name="BATCH_STEP_EXECUTION_CONTEXT")
 @Data
-public class BatchJobExecutionContext implements Serializable {
+public class BatchStepExecutionContext implements Serializable {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1253176492036388728L;
+	private static final long serialVersionUID = 458065714471650814L;
 	
 	@JsonIgnore
 	@Id
 	@OneToOne
-	@JoinColumn(name = "JOB_EXECUTION_ID")
-	private BatchJobExecution jobExecution;
+	@JoinColumn(name = "STEP_EXECUTION_ID")
+	private BatchStepExecution stepExecution;
 	
 	@Column(name="SHORT_CONTEXT")
 	private String shortContext;
 	
 	@Column(name="SERIALIZED_CONTEXT")
 	private String serializedContext;
+
 }

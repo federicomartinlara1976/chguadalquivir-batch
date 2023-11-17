@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
+import net.bounceme.chronos.chguadalquivir.model.batch.BatchJobExecution;
 import net.bounceme.chronos.chguadalquivir.repository.BatchJobExecutionRepository;
 
 @Repository

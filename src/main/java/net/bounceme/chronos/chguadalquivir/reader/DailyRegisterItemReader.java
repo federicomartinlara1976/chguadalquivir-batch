@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
 import net.bounceme.chronos.chguadalquivir.reader.mapping.EmbalseRowMapper;
@@ -26,7 +26,7 @@ import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 @Component
 @Slf4j
-public class DailyRegisterItemReader extends ItemStreamSupport implements ItemReader<Embalse> {
+public class DailyRegisterItemReader extends ItemStreamSupport implements ItemReader<RegistroDiarioEmbalse> {
 
 	@Value("${application.importJob.url}")
 	private String url;
@@ -84,8 +84,8 @@ public class DailyRegisterItemReader extends ItemStreamSupport implements ItemRe
 	 *
 	 */
 	@Override
-	public Embalse read() {
-		Embalse nextElement = null;
+	public RegistroDiarioEmbalse read() {
+		RegistroDiarioEmbalse nextElement = null;
 
 		if (index < records.size()) {
 			ZonaElement ze = records.get(index);

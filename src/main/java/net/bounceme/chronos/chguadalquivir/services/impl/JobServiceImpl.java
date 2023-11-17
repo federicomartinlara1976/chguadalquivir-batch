@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import lombok.SneakyThrows;
-import net.bounceme.chronos.chguadalquivir.model.BatchJobExecution;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
+import net.bounceme.chronos.chguadalquivir.model.batch.BatchJobExecution;
 import net.bounceme.chronos.chguadalquivir.repository.BatchJobExecutionRepository;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 

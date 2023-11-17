@@ -1,4 +1,4 @@
-package net.bounceme.chronos.chguadalquivir.model;
+package net.bounceme.chronos.chguadalquivir.model.batch;
 
 import java.io.Serializable;
 import java.util.Date;

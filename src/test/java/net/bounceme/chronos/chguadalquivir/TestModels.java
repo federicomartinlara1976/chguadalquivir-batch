@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.model.Status;
 import net.bounceme.chronos.chguadalquivir.model.Task;
@@ -37,7 +37,7 @@ public class TestModels {
 
 	@Test
 	public void testEmbalseModel() {
-		Embalse embalse = new Embalse();
+		RegistroDiarioEmbalse embalse = new RegistroDiarioEmbalse();
 		embalse.setId("id");
 		embalse.setEmbalse("Embalse");
 		embalse.setCod_zona("cod_zona");
