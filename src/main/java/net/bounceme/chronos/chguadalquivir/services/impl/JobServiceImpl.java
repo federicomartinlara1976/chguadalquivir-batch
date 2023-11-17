@@ -80,14 +80,6 @@ public class JobServiceImpl implements JobService {
 	}
 
 	/**
-	 * @param applicationJobs
-	 * @return
-	 */
-	public BatchJobExecution getLastJob(List<String> applicationJobs) {
-		return batchJobExecutionRepository.getLastJobExecution(applicationJobs);
-	}
-
-	/**
 	 *
 	 */
 	@Override
@@ -148,5 +140,10 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public List<BatchJobExecution> getLastExecutions(Integer numExecutions) {
 		return batchJobExecutionRepository.getLastJobExecutions(numExecutions);
+	}
+
+	@Override
+	public BatchJobExecution getLastJob(List<String> jobs) {
+		return batchJobExecutionRepository.getLastJobExecution(jobs);
 	}
 }

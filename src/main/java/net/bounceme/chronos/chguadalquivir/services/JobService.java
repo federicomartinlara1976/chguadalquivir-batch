@@ -62,4 +62,6 @@ public interface JobService {
 	 * @return
 	 */
 	List<BatchJobExecution> getLastExecutions(Integer numExecutions);
+	
+	
 }
