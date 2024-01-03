@@ -190,6 +190,12 @@
 			<artifactId>c3p0</artifactId>
 			<version>0.9.5.5</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>tech.tablesaw</groupId>
+    		<artifactId>tablesaw-core</artifactId>
+    		<version>LATEST</version>
+		</dependency>
 
 	</dependencies>
 
