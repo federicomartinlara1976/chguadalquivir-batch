@@ -87,15 +87,6 @@ public class TestTasklets {
 		}
 	}
 	
-	private ChunkContext createChunkContext(String name, List<Execution> executions) {
-		JobExecution jobExecution = createJobExecution();
-		jobExecution.getExecutionContext().put("EXECUTIONS", executions);
-		
-		StepContext stepContext = new StepContext(new StepExecution(name, jobExecution));
-		ChunkContext chunkContext = new ChunkContext(stepContext);
-		return chunkContext;
-	}
-	
 	private ChunkContext createChunkContext(String name, Map<String, Long> stepTimes) {
 		JobExecution jobExecution = createJobExecution();
 		jobExecution.getExecutionContext().put("STEP_TIMES", stepTimes);
@@ -111,30 +102,6 @@ public class TestTasklets {
 	
 	private StepExecution createStepExecution(String name, JobExecution jobExecution) {
 		return new StepExecution(name, jobExecution);
-	}
-	
-	private List<Execution> buildExecutions() {
-		List<Execution> executions = new ArrayList<>();
-		
-		Execution execution = Execution.builder().id("2023-01-23").value(1).executionTime(1896L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-24").value(1).executionTime(1923L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-25").value(1).executionTime(1642L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-26").value(1).executionTime(1828L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-27").value(1).executionTime(1805L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-28").value(1).executionTime(1665L).build();
-		executions.add(execution);
-		
-		return executions;
 	}
 	
 	private List<Execution> buildExecution() {

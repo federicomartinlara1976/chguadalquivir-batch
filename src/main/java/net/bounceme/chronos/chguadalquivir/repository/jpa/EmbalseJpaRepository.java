@@ -10,6 +10,6 @@ import net.bounceme.chronos.chguadalquivir.model.jpa.EmbalseJpa;
 @Repository
 public interface EmbalseJpaRepository extends JpaRepository<EmbalseJpa, String> {
 
-	Optional<EmbalseJpa> findById(String codigo);
+	Optional<EmbalseJpa> findByCodigo(String codigo);
 
 }

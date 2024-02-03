@@ -18,7 +18,7 @@
 	<description>Recover data from C. H. Guadalquivir</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<jsoup.version>1.15.3</jsoup.version>
 
 		<jacoco.version>0.7.9</jacoco.version>
@@ -305,14 +305,14 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
-				<finalName>chguadalquivir-dev</finalName>
+				<finalName>chguadalquivir-batch-dev</finalName>
 			</build>
 		</profile>
 
 		<profile>
 			<id>pro</id>
 			<build>
-				<finalName>chguadalquivir</finalName>
+				<finalName>chguadalquivir-batch</finalName>
 			</build>
 		</profile>
 	</profiles>
