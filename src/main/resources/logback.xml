@@ -32,10 +32,10 @@
   	</appender>
   	
   	<appender name="JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    	<file>/home/federico/logs/chguadalquivir-batch-json.log</file>
+    	<file>${LOG_DIR}/chguadalquivir-batch-json.log</file>
     	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       		<!-- daily rollover -->
-      		<fileNamePattern>/home/federico/logs/chguadalquivir-batch-json.%d{dd-MM-yyyy}.%i.log</fileNamePattern>
+      		<fileNamePattern>${LOG_DIR}/chguadalquivir-batch-json.%d{dd-MM-yyyy}.%i.log</fileNamePattern>
       		<timeBasedFileNamingAndTriggeringPolicy
           		class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
           		<!-- or whenever the file size reaches 50MB -->
