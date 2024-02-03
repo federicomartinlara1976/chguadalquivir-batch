@@ -11,10 +11,10 @@
     </appender>
     
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    	<file>/home/federico/logs/chguadalquivir-batch.log</file>
+    	<file>${LOG_DIR}/chguadalquivir-batch.log</file>
     	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       		<!-- daily rollover -->
-      		<fileNamePattern>/home/federico/logs/chguadalquivir-batch.%d{dd-MM-yyyy}.%i.log</fileNamePattern>
+      		<fileNamePattern>${LOG_DIR}/chguadalquivir-batch.%d{dd-MM-yyyy}.%i.log</fileNamePattern>
       		<timeBasedFileNamingAndTriggeringPolicy
           		class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
           		<!-- or whenever the file size reaches 50MB -->
