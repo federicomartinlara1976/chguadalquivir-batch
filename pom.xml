@@ -14,7 +14,7 @@
 	<groupId>net.bounceme.chronos</groupId>
 	<artifactId>chguadalquivir</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CHGuadalquivir</name>
+	<name>chguadalquivir-batch</name>
 	<description>Recover data from C. H. Guadalquivir</description>
 
 	<properties>
