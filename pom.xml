@@ -12,7 +12,7 @@
 	</parent>
 
 	<groupId>net.bounceme.chronos</groupId>
-	<artifactId>chguadalquivir</artifactId>
+	<artifactId>chguadalquivir-batch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>chguadalquivir-batch</name>
 	<description>Recover data from C. H. Guadalquivir</description>
