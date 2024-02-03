@@ -297,5 +297,24 @@
 
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<finalName>chguadalquivir-dev</finalName>
+			</build>
+		</profile>
+
+		<profile>
+			<id>pro</id>
+			<build>
+				<finalName>chguadalquivir</finalName>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
