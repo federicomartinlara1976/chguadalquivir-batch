@@ -81,12 +81,12 @@
         </encoder>
     </appender>
 
-    <logger name="net.bounceme.chronos.chguadalquivir" level="info" additivity="false">
+    <logger name="net.bounceme.chronos.chguadalquivir" level="${LOG_LEVEL}" additivity="false">
         <appender-ref ref="GELF"/>
         <appender-ref ref="FILE"/>
     </logger>
 
-    <root level="error">
+    <root level="${LOG_LEVEL}">
         <appender-ref ref="GELF"/>
         <appender-ref ref="FILE"/>
     </root>
