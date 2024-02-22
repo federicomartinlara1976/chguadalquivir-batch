@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
 import net.bounceme.chronos.chguadalquivir.model.Task;
-import net.bounceme.chronos.chguadalquivir.model.batch.BatchJobExecution;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
 @CrossOrigin(origins = {"*"})
@@ -75,64 +73,6 @@ public class JobController {
 			log.info("Cron de {}", task.getName());
 			String scheduling = jobService.getJobScheduling(task.getName());
 			response.put("scheduling", scheduling);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			response.put("error", e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@GetMapping("/last")
-	public ResponseEntity<Map<String, Object>> lastJob() {
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			List<String> jobs = jobService.getAllJobs();
-			BatchJobExecution batchJobExecution = jobService.getLastJob(jobs);
-			response.put("jobExecution", batchJobExecution);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			response.put("error", e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@GetMapping("/job/{jobInstanceId}")
-	public ResponseEntity<Map<String, Object>> getJob(@PathVariable Long jobInstanceId) {
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			BatchJobExecution batchJobExecution = jobService.getJob(jobInstanceId);
-			response.put("jobExecution", batchJobExecution);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			response.put("error", e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@GetMapping("/lastjobs")
-	public ResponseEntity<Map<String, Object>> lastJobs() {
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			List<String> jobs = jobService.getAllJobs();
-			List<BatchJobExecution> batchJobExecutions = jobService.getLastJobs(5, jobs);
-			response.put("jobExecutions", batchJobExecutions);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			response.put("error", e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@GetMapping("/lastexecutions")
-	public ResponseEntity<Map<String, Object>> lastExecutions() {
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			List<BatchJobExecution> batchJobExecutions = jobService.getLastExecutions(100);
-			response.put("jobExecutions", batchJobExecutions);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
 			response.put("error", e.getMessage());

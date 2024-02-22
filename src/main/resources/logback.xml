@@ -84,11 +84,13 @@
     <logger name="net.bounceme.chronos.chguadalquivir" level="${LOG_LEVEL}" additivity="false">
         <appender-ref ref="GELF"/>
         <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
     </logger>
 
     <root level="${LOG_LEVEL}">
         <appender-ref ref="GELF"/>
         <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
     </root>
 
 </configuration>

@@ -21,12 +21,12 @@ import org.springframework.util.Assert;
 
 import lombok.SneakyThrows;
 import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
-import net.bounceme.chronos.chguadalquivir.model.batch.BatchJobExecution;
-import net.bounceme.chronos.chguadalquivir.repository.BatchJobExecutionRepository;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
 @Service
 public class JobServiceImpl implements JobService {
+	
+	private static final String PROPERTY_FORMAT = "application.%s.cron";
 
 	@Autowired
 	private ApplicationContext ctx;
@@ -36,9 +36,6 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobExplorer jobExplorer;
-
-	@Autowired
-	private BatchJobExecutionRepository batchJobExecutionRepository;
 
 	@Autowired
 	private Environment env;
@@ -95,19 +92,11 @@ public class JobServiceImpl implements JobService {
 			Job job = ctx.getBean(name, Job.class);
 			Assert.notNull(job, "job null");
 
-			String property = new StringBuilder("application.").append(name).append(".cron").toString();
+			String property = String.format(PROPERTY_FORMAT, name);
 			return env.getProperty(property);
 		} catch (NoSuchBeanDefinitionException e) {
 			throw new Exception("Tarea no encontrada");
 		}
-	}
-
-	/**
-	 *
-	 */
-	@Override
-	public List<BatchJobExecution> getLastJobs(Integer numJobs, List<String> applicationJobs) {
-		return batchJobExecutionRepository.getLastJobExecutions(numJobs, applicationJobs);
 	}
 	
 	/**
@@ -128,22 +117,4 @@ public class JobServiceImpl implements JobService {
         
         return jobNames;
     }
-
-	@Override
-	public BatchJobExecution getJob(Long jobInstanceId) {
-		return batchJobExecutionRepository.getJobExecution(jobInstanceId);
-	}
-
-	/**
-	 *
-	 */
-	@Override
-	public List<BatchJobExecution> getLastExecutions(Integer numExecutions) {
-		return batchJobExecutionRepository.getLastJobExecutions(numExecutions);
-	}
-
-	@Override
-	public BatchJobExecution getLastJob(List<String> jobs) {
-		return batchJobExecutionRepository.getLastJobExecution(jobs);
-	}
 }

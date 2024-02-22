@@ -32,7 +32,7 @@ import net.bounceme.chronos.chguadalquivir.model.jpa.ZonaJpa;
 		transactionManagerRef = "jpaTransactionManager")
 public class JpaDataSourceConfiguration {
 
-	@Bean(name= "jpaDataSource")
+	@Bean(name="jpaDataSource")
 	public DataSource dataSource(@Autowired JpaProperties c3P0Properties) throws PropertyVetoException {
 		ComboPooledDataSource pooledDataSource = new ComboPooledDataSource();
 		pooledDataSource.setDriverClass(c3P0Properties.getDriverClass());
