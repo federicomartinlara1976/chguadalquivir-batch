@@ -77,7 +77,7 @@
             </fullPatternLayout>
             <numbersAsString>false</numbersAsString>
             <staticField>application:CHGuadalquivir</staticField>
-            <staticField>environment:DEV</staticField>
+            <staticField>environment:${ENV}</staticField>
         </encoder>
     </appender>
 
