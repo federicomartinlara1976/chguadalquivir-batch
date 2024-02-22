@@ -36,6 +36,8 @@ spring:
 server:
   port : ${PORT}
 #  servlet.context-path: /chguadalquivir
+
+env: ${ENV}
   
 batch:
   jdbc:
