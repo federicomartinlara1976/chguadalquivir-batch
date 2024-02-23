@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +33,7 @@ public class JobController {
 
 	@PostMapping("/execute")
 	@SneakyThrows
-	public ResponseEntity<Map<String, Object>> executeTask(@Valid @RequestBody Task task, BindingResult result) {
+	public ResponseEntity<Map<String, Object>> executeTask(@Valid @RequestBody Task task) {
 		Map<String, Object> response = new HashMap<>();
 
 		log.info("Ejecutar: {}", task.getName());
@@ -44,7 +43,7 @@ public class JobController {
 	}
 
 	@PostMapping("/scheduling")
-	public ResponseEntity<Map<String, Object>> schedulingJob(@Valid @RequestBody Task task, BindingResult result) {
+	public ResponseEntity<Map<String, Object>> schedulingJob(@Valid @RequestBody Task task) {
 		Map<String, Object> response = new HashMap<>();
 
 		String scheduling = jobService.getJobScheduling(task.getName());
