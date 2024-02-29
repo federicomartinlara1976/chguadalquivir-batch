@@ -60,3 +60,14 @@ application:
     cron: 0 45 9 ? * 1,2,3,4,5  
     url: https://www.chguadalquivir.es/saih/EmbalNiv.aspx
     
+eureka:
+  client:
+    register-with-eureka: true
+    service-url.defaultZone: http://localhost:8761/eureka
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    
