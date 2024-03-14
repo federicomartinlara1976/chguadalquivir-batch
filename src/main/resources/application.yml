@@ -34,8 +34,9 @@ spring:
   data.mongodb.uri: mongodb://localhost:27017/EmbalsesCHG
   
 server:
+  servlet:
+    context-path: /chguadalquivir
   port : ${PORT}
-#  servlet.context-path: /chguadalquivir
 
 env: ${ENV}
   
