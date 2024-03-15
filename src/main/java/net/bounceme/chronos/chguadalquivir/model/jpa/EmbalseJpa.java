@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,7 +32,10 @@ public class EmbalseJpa implements Serializable {
 	@Column(name = "capacidad")
 	private Float capacidad;
 	
-	@ManyToOne
+	@Column(name = "men")
+	private Float men;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="cod_zona", referencedColumnName = "codigo")
 	private ZonaJpa zona;
 }

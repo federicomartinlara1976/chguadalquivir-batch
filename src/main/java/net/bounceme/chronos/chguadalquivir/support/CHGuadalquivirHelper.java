@@ -122,6 +122,11 @@ public class CHGuadalquivirHelper {
 	public String parseDate(Date date) {
 		return dateFormat.format(date);
 	}
+	
+	@SneakyThrows
+	public Date fromString(String sDate) {
+		return dateFormat.parse(sDate);
+	}
 
 	/**
 	 * @param input

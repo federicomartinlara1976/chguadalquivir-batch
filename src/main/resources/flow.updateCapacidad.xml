@@ -13,7 +13,7 @@
 	<batch:flow id="flow.updateCapacidad">
 		<batch:step id="flow.updateCapacidad.importStep">
 			<batch:tasklet>
-				<batch:chunk reader="embalseReader"
+				<batch:chunk reader="registrosEmbalsesReader"
 					processor="capacidadProcessor"
 					writer="embalseImporterWriter" commit-interval="5">
 					
@@ -30,5 +30,9 @@
 		</batch:step>
 		
 	</batch:flow>
+	
+	<!-- Thread safe Reader -->
+	<bean id="registrosEmbalsesReader"
+		class="net.bounceme.chronos.chguadalquivir.reader.RegistrosEmbalsesItemReader"/>
 
 </beans>

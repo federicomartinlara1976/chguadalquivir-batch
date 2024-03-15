@@ -1,31 +1,24 @@
 package net.bounceme.chronos.chguadalquivir.processor;
 
-import java.util.Date;
-
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
-import net.bounceme.chronos.chguadalquivir.services.RegistroService;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 
 @Component
-@Slf4j
-public class CapacidadProcessor implements ItemProcessor<Embalse, Embalse> {
-	
-	@Autowired
-	private RegistroService registroService;
+public class CapacidadProcessor implements ItemProcessor<RegistroDiarioEmbalse, Embalse> {
 
 	@Override
-	public Embalse process(Embalse item) throws Exception {
-		Float capacidad = registroService.getCapacidad(item.getId(), new Date());
-		log.info("Embalse: {}, capacidad: {}", item.getNombre(), capacidad);
+	public Embalse process(RegistroDiarioEmbalse item) throws Exception {
+		Embalse embalse = Embalse.builder()
+				.id(item.getCodigo())
+				.nombre(item.getEmbalse())
+				.capacidad(item.getCapacidad())
+				.men(item.getMEN())
+				.build();
 		
-		item.setCapacidad(capacidad);
-		
-		
-		return item;
+		return embalse;
 	}
 
 }

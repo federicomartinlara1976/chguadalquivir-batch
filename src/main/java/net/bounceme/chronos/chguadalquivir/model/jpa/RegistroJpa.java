@@ -37,9 +37,6 @@ public class RegistroJpa implements Serializable {
 	@Column(name = "porcentaje")
 	private Float porcentaje;
 	
-	@Column(name = "capacidad")
-	private Float capacidad;
-	
 	@Column(name = "volumen")
 	private Float volumen;
 	

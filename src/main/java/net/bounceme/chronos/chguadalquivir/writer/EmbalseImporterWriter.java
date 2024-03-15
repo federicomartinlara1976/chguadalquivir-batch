@@ -34,16 +34,21 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
             	embalseJpa.setCodigo(embalse.getId());
             	embalseJpa.setEmbalse(embalse.getNombre());
             	embalseJpa.setCapacidad(embalse.getCapacidad());
+            	embalseJpa.setMen(embalse.getMen());
             	
             	String codZona = embalse.getId().split("-")[0];
             	ZonaJpa zonaJpa = zonaService.getByCode(codZona);
             	if (!Objects.isNull(zonaJpa)) {
             		embalseJpa.setZona(zonaJpa);
             	}
-                
-            	embalseService.write(embalseJpa);
-                log.info("Writed {}", embalseJpa.toString());
         	}
+        	else {
+        		embalseJpa.setCapacidad(embalse.getCapacidad());
+            	embalseJpa.setMen(embalse.getMen());
+        	}
+        	
+        	embalseService.write(embalseJpa);
+            log.info("Writed {}", embalseJpa.toString());
         }
     }
 

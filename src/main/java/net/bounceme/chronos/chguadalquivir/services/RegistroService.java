@@ -13,5 +13,5 @@ public interface RegistroService {
 	
 	RegistroJpa write(RegistroJpa registroJpa);
 	
-	Float getCapacidad(String codigoEmbalse, Date fecha);
+	Float getMen(String codigoEmbalse, Date fecha);
 }
