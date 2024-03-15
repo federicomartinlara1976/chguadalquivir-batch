@@ -50,7 +50,7 @@ public class DiarioImporterWriter implements ItemWriter<Embalse> {
         		RegistroJpa registroJpa = new RegistroJpa();
         		registroJpa.setEmbalse(embalseJpa);
         		registroJpa.setPorcentaje(registro.getPorcentaje());
-        		registroJpa.setCapacidad(registro.getCapacidad());
+        		//registroJpa.setCapacidad(registro.getCapacidad());
         		registroJpa.setVolumen(registro.getVolumen());
         		registroJpa.setNivel(registro.getNivel());
         		registroJpa.setMEN(registro.getMEN());

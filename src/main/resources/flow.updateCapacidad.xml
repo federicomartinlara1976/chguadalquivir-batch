@@ -31,8 +31,4 @@
 		
 	</batch:flow>
 
-	<!-- Thread safe Reader -->
-	<bean id="embalseReader"
-		class="net.bounceme.chronos.chguadalquivir.reader.EmbalsesItemReader"/>
-
 </beans>

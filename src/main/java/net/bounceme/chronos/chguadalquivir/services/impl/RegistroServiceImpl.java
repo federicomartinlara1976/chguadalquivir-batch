@@ -39,10 +39,10 @@ public class RegistroServiceImpl implements RegistroService {
 	}
 	
 	@Override
-	@Transactional(value = "jpaTransactionManager", readOnly = true)
+	@Transactional("jpaTransactionManager")
 	public Float getCapacidad(String codigoEmbalse, Date fecha) {
 		log.info("Embalse: {}, fecha: {}", codigoEmbalse, fecha);
-		Float capacidad = registroJpaRepository.getCapacidad(fecha, codigoEmbalse);
-		return capacidad;
+		RegistroJpa registro = registroJpaRepository.getRegistro(fecha, codigoEmbalse);
+		return registro.getCapacidad();
 	}
 }
