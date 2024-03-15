@@ -3,7 +3,6 @@ package net.bounceme.chronos.chguadalquivir.writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.batch.item.ItemWriter;
@@ -62,7 +61,6 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
 		registroJpa.setPorcentaje(e.getPorcentaje());
 		registroJpa.setVolumen(e.getVolumen());
 		registroJpa.setNivel(e.getNivel());
-		registroJpa.setMEN(e.getMEN());
 		
 		Date fecha = dateFormat.parse(e.getId());
 		registroJpa.setFecha(fecha);
