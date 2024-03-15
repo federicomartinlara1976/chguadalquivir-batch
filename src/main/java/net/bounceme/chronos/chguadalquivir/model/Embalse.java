@@ -24,4 +24,6 @@ public class Embalse implements Serializable {
 	private String id;
 
 	private String nombre;
+	
+	private Float capacidad;
 }

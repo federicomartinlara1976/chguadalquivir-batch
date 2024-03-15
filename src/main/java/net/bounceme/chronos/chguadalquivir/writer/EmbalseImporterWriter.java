@@ -33,6 +33,7 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
         		embalseJpa = new EmbalseJpa();
             	embalseJpa.setCodigo(embalse.getId());
             	embalseJpa.setEmbalse(embalse.getNombre());
+            	embalseJpa.setCapacidad(embalse.getCapacidad());
             	
             	String codZona = embalse.getId().split("-")[0];
             	ZonaJpa zonaJpa = zonaService.getByCode(codZona);

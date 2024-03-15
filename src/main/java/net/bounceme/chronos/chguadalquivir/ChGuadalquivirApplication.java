@@ -12,10 +12,12 @@ import org.springframework.context.annotation.ImportResource;
 	"classpath:importZonas.xml",
 	"classpath:importEmbalses.xml",
 	"classpath:importDiario.xml",
+	"classpath:updateCapacidad.xml",
 	"classpath:flow.import.xml",
 	"classpath:flow.zonas.xml",
 	"classpath:flow.embalses.xml",
-	"classpath:flow.diario.xml"
+	"classpath:flow.diario.xml",
+	"classpath:flow.updateCapacidad.xml"
 })
 public class ChGuadalquivirApplication {
 
