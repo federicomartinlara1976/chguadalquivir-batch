@@ -38,8 +38,8 @@ public class EmbalseRowMapper implements ElementMapper<RegistroDiarioEmbalse> {
 		String sNivel = zonaElement.getElement().select("tr > td:eq(2) span").first().text();
 		embalse.setNivel(Float.valueOf(sNivel.replace(",", ".")));
 		
-		String sCapacidad = zonaElement.getElement().select("tr > td:eq(4)").first().text();
-		embalse.setCapacidad(Float.valueOf(sCapacidad.replace(",", ".")));
+//		String sCapacidad = zonaElement.getElement().select("tr > td:eq(4)").first().text();
+//		embalse.setCapacidad(Float.valueOf(sCapacidad.replace(",", ".")));
 		
 		String sVolumen = zonaElement.getElement().select("tr > td:eq(5) span").first().text();
 		embalse.setVolumen(Float.valueOf(sVolumen.replace(",", ".")));
