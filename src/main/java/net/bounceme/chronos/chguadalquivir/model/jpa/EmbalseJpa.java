@@ -28,6 +28,9 @@ public class EmbalseJpa implements Serializable {
 	@Column(name = "embalse")
 	private String embalse;
 	
+	@Column(name = "capacidad")
+	private Float capacidad;
+	
 	@ManyToOne
 	@JoinColumn(name="cod_zona", referencedColumnName = "codigo")
 	private ZonaJpa zona;
