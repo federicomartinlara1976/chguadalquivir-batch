@@ -12,13 +12,13 @@
 	</parent>
 
 	<groupId>net.bounceme.chronos</groupId>
-	<artifactId>chguadalquivir</artifactId>
+	<artifactId>chguadalquivir-batch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CHGuadalquivir</name>
+	<name>chguadalquivir-batch</name>
 	<description>Recover data from C. H. Guadalquivir</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<jsoup.version>1.15.3</jsoup.version>
 
 		<jacoco.version>0.7.9</jacoco.version>
@@ -147,6 +147,19 @@
 			<version>4.0.2</version>
 			<scope>compile</scope>
 		</dependency>
+		
+		<!-- Json appender -->
+		<dependency>
+        	<groupId>ch.qos.logback.contrib</groupId>
+        	<artifactId>logback-json-classic</artifactId>
+        	<version>0.1.5</version>
+	    </dependency>
+	
+	    <dependency>
+	        <groupId>ch.qos.logback.contrib</groupId>
+	        <artifactId>logback-jackson</artifactId>
+	        <version>0.1.5</version>
+	    </dependency>
 
 		<!-- Postgresql, for testing funcionalities -->
 		<dependency>
@@ -189,8 +202,31 @@
 			<artifactId>c3p0</artifactId>
 			<version>0.9.5.5</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>tech.tablesaw</groupId>
+    		<artifactId>tablesaw-core</artifactId>
+    		<version>LATEST</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
 
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>2021.0.3</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -290,5 +326,24 @@
 
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<finalName>chguadalquivir-batch-dev</finalName>
+			</build>
+		</profile>
+
+		<profile>
+			<id>pro</id>
+			<build>
+				<finalName>chguadalquivir-batch</finalName>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "c3p0.postgres")
-public class C3P0PostgresProperties {
+@ConfigurationProperties(prefix = "spring.datasource.chguadalquivir")
+public class JpaProperties {
     
 	@Getter
     @Setter

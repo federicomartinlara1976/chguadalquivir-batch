@@ -9,8 +9,15 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource({
     "classpath:applicationContext.xml",
 	"classpath:importJob.xml",
-	"classpath:lastExecutions.xml",
-	"classpath:statExecutions.xml"
+	"classpath:importZonas.xml",
+	"classpath:importEmbalses.xml",
+	"classpath:importDiario.xml",
+	"classpath:updateCapacidad.xml",
+	"classpath:flow.import.xml",
+	"classpath:flow.zonas.xml",
+	"classpath:flow.embalses.xml",
+	"classpath:flow.diario.xml",
+	"classpath:flow.updateCapacidad.xml"
 })
 public class ChGuadalquivirApplication {
 

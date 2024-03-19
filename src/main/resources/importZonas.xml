@@ -9,18 +9,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-	<!-- Batch que obtiene datos de las últimas 5 ejecuciones de mongo y crea un CSV con ellas -->
-	<batch:job id="lastExecutions" job-repository="jobRepository">
-		<batch:step id="lastExecutionsStep">
-			<batch:tasklet allow-start-if-complete="true">
-				<batch:chunk reader="executionsItemReader"
-					writer="executionsWriter" commit-interval="1"/>
-			</batch:tasklet>
-		</batch:step>
+	<batch:job id="importZonas" job-repository="jobRepository">
+		<batch:flow parent="flow.zonas" id="importZonas.flow.zonas"/>
 		
 		<batch:listeners>
-			<batch:listener ref="lastExecutionsListener" />
-		</batch:listeners>		
+			<batch:listener ref="importJobListener" />
+		</batch:listeners>
 	</batch:job>
 
 </beans>

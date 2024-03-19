@@ -13,17 +13,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
 import net.bounceme.chronos.chguadalquivir.reader.mapping.EmbalseRowMapper;
 import net.bounceme.chronos.chguadalquivir.reader.mapping.StatExecutionsFieldMapper;
-import net.bounceme.chronos.chguadalquivir.services.ExecutionStatsService;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 @SpringBootTest
@@ -38,9 +36,6 @@ public class TestMappers {
 	
 	@Autowired
 	private EmbalseRowMapper embalseRowMapper;
-	
-	@MockBean
-	private ExecutionStatsService executionStatsService;
 	
 	@Value("${application.importJob.url}")
 	private String url;
@@ -76,7 +71,7 @@ public class TestMappers {
 				for (int i = inicio; i < elements.size(); i++) {
 					ZonaElement ze = ZonaElement.builder().zona(zona).element(elements.get(i)).build();
 					
-					Embalse embalse = embalseRowMapper.map(ze);
+					RegistroDiarioEmbalse embalse = embalseRowMapper.map(ze);
 					assertNotNull(embalse);
 					log.info("{}, {}", embalse.toString(), embalse.hashCode());
 				}

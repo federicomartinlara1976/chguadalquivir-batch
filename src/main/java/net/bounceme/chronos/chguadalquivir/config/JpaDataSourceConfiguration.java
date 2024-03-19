@@ -20,19 +20,20 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
+import net.bounceme.chronos.chguadalquivir.model.jpa.EmbalseJpa;
+import net.bounceme.chronos.chguadalquivir.model.jpa.RegistroJpa;
+import net.bounceme.chronos.chguadalquivir.model.jpa.ZonaJpa;
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-  basePackages = {"net.bounceme.chronos.chguadalquivir.repository"},
-  entityManagerFactoryRef = "postgresEntityManagerFactory",
-  transactionManagerRef = "postgresTransactionManager"
-)
-public class PostgresDataSourceConfiguration {
+		basePackages = {"net.bounceme.chronos.chguadalquivir.repository.jpa"},
+		entityManagerFactoryRef = "jpaEntityManagerFactory",
+		transactionManagerRef = "jpaTransactionManager")
+public class JpaDataSourceConfiguration {
 
-	@Bean(name = "postgresDataSource")
-	public DataSource postgresDataSource(@Autowired C3P0PostgresProperties c3P0Properties) throws PropertyVetoException {
+	@Bean(name="jpaDataSource")
+	public DataSource dataSource(@Autowired JpaProperties c3P0Properties) throws PropertyVetoException {
 		ComboPooledDataSource pooledDataSource = new ComboPooledDataSource();
 		pooledDataSource.setDriverClass(c3P0Properties.getDriverClass());
 		pooledDataSource.setUser(c3P0Properties.getUser());
@@ -43,24 +44,23 @@ public class PostgresDataSourceConfiguration {
 
 		return pooledDataSource;
 	}
-	
-	@Bean(name = "postgresEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean postgresEntityManagerFactory(
-      @Qualifier("postgresDataSource") DataSource dataSource,
-      EntityManagerFactoryBuilder builder) {
-		Map<String, String> properties = new HashMap<>();
-		properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-		
-        return builder
-          .dataSource(dataSource)
-          .packages(ExecutionStats.class)
-          .properties(properties)
-          .build();
-    }
 
-    @Bean(name = "postgresTransactionManager")
-    public PlatformTransactionManager postgresTransactionManager(
-      @Qualifier("postgresEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
-    }
+	@Bean(name = "jpaEntityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean batchEntityManagerFactory(
+			@Qualifier("jpaDataSource") DataSource dataSource, EntityManagerFactoryBuilder builder) {
+		Map<String, String> properties = new HashMap<>();
+		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		
+		return builder.dataSource(dataSource)
+				.packages(ZonaJpa.class, EmbalseJpa.class, RegistroJpa.class)
+				.properties(properties)
+				.persistenceUnit("jpa-unit")
+				.build();
+	}
+
+	@Bean(name = "jpaTransactionManager")
+	public PlatformTransactionManager batchTransactionManager(
+			@Qualifier("jpaEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+		return new JpaTransactionManager(entityManagerFactory);
+	}
 }

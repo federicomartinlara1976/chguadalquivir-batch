@@ -2,6 +2,7 @@ package net.bounceme.chronos.chguadalquivir.config;
 
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +17,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+	
+	@Value("${spring.application.name}")
+	private String name;
+	
+	@Value("${spring.application.description}")
+	private String description;
 
 	@Bean
 	public Docket apiDocket() {
@@ -30,8 +37,8 @@ public class SwaggerConfig {
 	
 	private ApiInfo getApiInfo() {
 		return new ApiInfo(
-				"CHGuadalquivir batch Api controller",
-				"Api de control para el batch de chguadalquivir",
+				name,
+				description,
 				"0.0.1-SNAPSHOT",
 				"https://github.com/federicomartinlara1976/chguadalquivir-batch/blob/master/LICENSE",
 				new Contact("CHGuadalquivir", "https://github.com/federicomartinlara1976/chguadalquivir-batch", "federicomartinlara1976@gmail.com"),

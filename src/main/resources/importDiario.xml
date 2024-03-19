@@ -9,22 +9,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-	<!-- Batch que obtiene datos de las últimas 5 ejecuciones de un CSV y hace estadísticas -->
-	<batch:job id="statExecutions" job-repository="jobRepository">
-		<batch:step id="statExecutionsStep" next="summarizeStatsStep">
-			<batch:tasklet allow-start-if-complete="true">
-				<batch:chunk reader="statExecutionsFileItemReader"
-					writer="statsExecutionWriter" commit-interval="1"/>
-			</batch:tasklet>
-		</batch:step>
-		
-		<batch:step id="summarizeStatsStep">
-			<batch:tasklet ref="summarizeStatsExecutionTasklet"/>
-		</batch:step>
+	<batch:job id="importDiario" job-repository="jobRepository">
+		<batch:flow parent="flow.diario" id="importDiario.flow.diario"/>
 		
 		<batch:listeners>
-			<batch:listener ref="statExecutionsListener" />
-		</batch:listeners>		
+			<batch:listener ref="importJobListener" />
+		</batch:listeners>
 	</batch:job>
 
 </beans>

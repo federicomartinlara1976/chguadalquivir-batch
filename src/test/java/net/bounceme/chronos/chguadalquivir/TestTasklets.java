@@ -26,10 +26,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.flow.IsExecutedDecider;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
-import net.bounceme.chronos.chguadalquivir.model.ExecutionStats;
 import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
-import net.bounceme.chronos.chguadalquivir.services.ExecutionStatsService;
-import net.bounceme.chronos.chguadalquivir.tasklet.SummarizeStatsExecutionTasklet;
 import net.bounceme.chronos.chguadalquivir.tasklet.UpdateExecutionTasklet;
 
 @SpringBootTest
@@ -40,36 +37,16 @@ public class TestTasklets {
 	private static final FlowExecutionStatus EXECUTED = new FlowExecutionStatus("EXECUTED");
 	
 	@Autowired
-	private SummarizeStatsExecutionTasklet summarizeStatsExecutionTasklet;
-	
-	@Autowired
 	private UpdateExecutionTasklet updateExecutionTasklet; 
 	
 	@Autowired
 	private IsExecutedDecider isExecutedDecider;
 	
 	@MockBean
-	private ExecutionStatsService executionStatsService;
-	
-	@MockBean
 	private ExecutionsRepository executionsRepository;
 	
 	@Value("${application.importJob.url}")
 	private String url;
-	
-	@Test
-	public void testSummarizeStatsExecutionTasklet() {
-		try {
-			ChunkContext chunkContext = createChunkContext("summarizeStatsStep", buildExecutions());
-			
-			Mockito.doNothing().when(executionStatsService).save(Mockito.isA(ExecutionStats.class));
-			
-			RepeatStatus status = summarizeStatsExecutionTasklet.execute(null, chunkContext);
-			assertEquals(RepeatStatus.FINISHED, status);
-		} catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
-	}
 	
 	@Test
 	public void testUpdateExecutionTasklet() {
@@ -110,15 +87,6 @@ public class TestTasklets {
 		}
 	}
 	
-	private ChunkContext createChunkContext(String name, List<Execution> executions) {
-		JobExecution jobExecution = createJobExecution();
-		jobExecution.getExecutionContext().put("EXECUTIONS", executions);
-		
-		StepContext stepContext = new StepContext(new StepExecution(name, jobExecution));
-		ChunkContext chunkContext = new ChunkContext(stepContext);
-		return chunkContext;
-	}
-	
 	private ChunkContext createChunkContext(String name, Map<String, Long> stepTimes) {
 		JobExecution jobExecution = createJobExecution();
 		jobExecution.getExecutionContext().put("STEP_TIMES", stepTimes);
@@ -134,30 +102,6 @@ public class TestTasklets {
 	
 	private StepExecution createStepExecution(String name, JobExecution jobExecution) {
 		return new StepExecution(name, jobExecution);
-	}
-	
-	private List<Execution> buildExecutions() {
-		List<Execution> executions = new ArrayList<>();
-		
-		Execution execution = Execution.builder().id("2023-01-23").value(1).executionTime(1896L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-24").value(1).executionTime(1923L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-25").value(1).executionTime(1642L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-26").value(1).executionTime(1828L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-27").value(1).executionTime(1805L).build();
-		executions.add(execution);
-		
-		execution = Execution.builder().id("2023-01-28").value(1).executionTime(1665L).build();
-		executions.add(execution);
-		
-		return executions;
 	}
 	
 	private List<Execution> buildExecution() {

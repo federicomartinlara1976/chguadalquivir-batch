@@ -23,19 +23,6 @@ public interface JobService {
 	JobInstance getLastJobInstance(String name);
 	
 	/**
-	 * @param jobs 
-	 * @return
-	 */
-	BatchJobExecution getLastJob(List<String> jobs);
-	
-	/**
-	 * @param numJobs
-	 * @param applicationJobs
-	 * @return
-	 */
-	List<BatchJobExecution> getLastJobs(Integer numJobs, List<String> applicationJobs);
-	
-	/**
 	 * @return
 	 */
 	List<String> getJobNames();
@@ -50,16 +37,4 @@ public interface JobService {
 	 * @return
 	 */
 	List<String> getAllJobs();
-	
-	/**
-	 * @param jobInstanceId
-	 * @return
-	 */
-	BatchJobExecution getJob(Long jobInstanceId);
-
-	/**
-	 * @param numExecutions
-	 * @return
-	 */
-	List<BatchJobExecution> getLastExecutions(Integer numExecutions);
 }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
 import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
 
@@ -13,11 +13,11 @@ import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
  *
  */
 @Component
-public class EmbalseRowMapper implements ElementMapper<Embalse> {
+public class EmbalseRowMapper implements ElementMapper<RegistroDiarioEmbalse> {
 
 	@Override
-	public Embalse map(ZonaElement zonaElement) {
-		Embalse embalse = new Embalse();
+	public RegistroDiarioEmbalse map(ZonaElement zonaElement) {
+		RegistroDiarioEmbalse embalse = new RegistroDiarioEmbalse();
 		
 		String info = zonaElement.getElement().select("tr > td.MaquetacionLeft").first().html();
 		

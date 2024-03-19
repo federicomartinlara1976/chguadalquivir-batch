@@ -9,7 +9,10 @@ import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class ImportJobListener extends AbstractListener {
 	
 	/**
@@ -27,6 +30,7 @@ public class ImportJobListener extends AbstractListener {
 		
 		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
 			if (!Objects.isNull(alreadyExecuted) && Boolean.TRUE.equals(alreadyExecuted)) {
+				log.error("La tarea ya ha sido ejecutada");
 				jobExecution.setExitStatus(new ExitStatus("NOOP", "La tarea ya ha sido ejecutada"));
 			}
 		}

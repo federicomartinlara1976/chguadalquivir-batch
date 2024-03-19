@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.model.Execution;
 import net.bounceme.chronos.chguadalquivir.reader.DailyRegisterItemReader;
 import net.bounceme.chronos.chguadalquivir.reader.ExecutionsItemReader;
@@ -53,7 +53,7 @@ public class TestReaders {
 	@Test
 	public void testDailyRegisterItemReader() {
 		try {
-			Embalse embalse;
+			RegistroDiarioEmbalse embalse;
 			while ((embalse = dailyRegisterItemReader.read()) != null) {
 				log.info(embalse.toString());
 			}
