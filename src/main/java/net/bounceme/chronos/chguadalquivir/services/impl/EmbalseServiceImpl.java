@@ -23,6 +23,7 @@ public class EmbalseServiceImpl implements EmbalseService {
 	}
 
 	@Override
+	@Transactional(value = "jpaTransactionManager", readOnly = true)
 	public EmbalseJpa getByCode(String code) {
 		Optional<EmbalseJpa> oEmbalseJpa = embalseJpaRepository.findById(code);
 		return oEmbalseJpa.isPresent() ? oEmbalseJpa.get() : null;
