@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,9 @@ import net.bounceme.chronos.chguadalquivir.services.RegistroService;
 @Component
 @Slf4j
 public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEmbalse> {
+	
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
 	
 	@Autowired
 	private RegistroDiarioEmbalseRepository registroDiarioEmbalseRepository;
