@@ -90,6 +90,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>net.bounceme.chronos.chronoslibs</groupId>
+			<artifactId>chronos-data-utils</artifactId>
+			<version>1.0.5-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
