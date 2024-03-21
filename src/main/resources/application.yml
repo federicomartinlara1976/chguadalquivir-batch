@@ -61,6 +61,9 @@ batch:
   initialize-schema: always
 
 application:
+  topic: mail-exchange
+  queue: CHGEventos
+
   importJob:
     cron: 0 45 9 ? * 1,2,3,4,5  
     url: https://www.chguadalquivir.es/saih/EmbalNiv.aspx
