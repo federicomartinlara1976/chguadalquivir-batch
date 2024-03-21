@@ -8,20 +8,22 @@ import java.util.Optional;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
-import net.bounceme.chronos.chguadalquivir.model.dto.EmbalseJpaDTO;
-import net.bounceme.chronos.chguadalquivir.model.dto.RegistroJpaDTO;
 import net.bounceme.chronos.chguadalquivir.repository.RegistroDiarioEmbalseRepository;
 import net.bounceme.chronos.chguadalquivir.repository.RepositoryCollectionCustom;
-import net.bounceme.chronos.chguadalquivir.services.EmbalseService;
-import net.bounceme.chronos.chguadalquivir.services.RegistroService;
+import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
+import net.bounceme.chronos.dto.chguadalquivir.RegistroDiarioDTO;
 
 @Component
 @Slf4j
 public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEmbalse> {
+	
+	@Value("${application.queue}")
+	private String queueName;
 	
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
@@ -31,12 +33,6 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
 	
 	@Autowired
 	private RepositoryCollectionCustom repositoryCollectionCustom;
-	
-	@Autowired
-	private EmbalseService embalseService;
-	
-	@Autowired
-	private RegistroService registroService;
 	
 	@Autowired
 	private SimpleDateFormat dateFormat;
@@ -53,24 +49,29 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
         }
     }
 
+	@SuppressWarnings("rawtypes")
 	private void writeRegistroDiario(RegistroDiarioEmbalse e) throws Exception {
 		// Set id
     	e.setId(dateFormat.format(e.getFecha()));
     	registroDiarioEmbalseRepository.save(e);
+    	log.info("Writed {}", e.toString());
     	
-    	EmbalseJpaDTO embalseJpa = embalseService.getByCode(e.getCodigo());
+    	Date fecha = dateFormat.parse(e.getId());
+    	
+    	RegistroDiarioDTO registroDiarioDTO = RegistroDiarioDTO.builder()
+    			.codigoEmbalse(e.getCodigo())
+    			.porcentaje(e.getPorcentaje())
+    			.volumen(e.getVolumen())
+    			.nivel(e.getNivel())
+    			.fecha(fecha)
+    			.build();
 		
-    	RegistroJpaDTO registroJpa = new RegistroJpaDTO();
-		registroJpa.setEmbalse(embalseJpa);
-		registroJpa.setPorcentaje(e.getPorcentaje());
-		registroJpa.setVolumen(e.getVolumen());
-		registroJpa.setNivel(e.getNivel());
+		MessageDTO messageDTO = MessageDTO.builder()
+				.className(RegistroDiarioDTO.class.getName())
+				.data(registroDiarioDTO)
+				.build();
 		
-		Date fecha = dateFormat.parse(e.getId());
-		registroJpa.setFecha(fecha);
-		
-		registroService.write(registroJpa);
-		log.info("Writed {}, {}", e.toString(), registroJpa.toString());
+		rabbitTemplate.convertAndSend(queueName, messageDTO);
 	}
 
 }
