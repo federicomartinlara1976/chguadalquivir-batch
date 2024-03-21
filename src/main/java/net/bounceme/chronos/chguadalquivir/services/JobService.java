@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.batch.core.JobInstance;
 
 import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
-import net.bounceme.chronos.jpa.model.batch.BatchJobExecution;
 
 public interface JobService {
 	
