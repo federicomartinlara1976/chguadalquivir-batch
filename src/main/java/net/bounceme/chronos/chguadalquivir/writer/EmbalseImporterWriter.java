@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
-import net.bounceme.chronos.chguadalquivir.model.jpa.EmbalseJpa;
-import net.bounceme.chronos.chguadalquivir.model.jpa.ZonaJpa;
+import net.bounceme.chronos.chguadalquivir.model.dto.EmbalseJpaDTO;
+import net.bounceme.chronos.chguadalquivir.model.dto.ZonaJpaDTO;
 import net.bounceme.chronos.chguadalquivir.services.EmbalseService;
 import net.bounceme.chronos.chguadalquivir.services.ZonaService;
 
@@ -27,17 +27,17 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
     @Override
     public synchronized void write(List<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {
-        	EmbalseJpa embalseJpa = embalseService.getByCode(embalse.getId());
+        	EmbalseJpaDTO embalseJpa = embalseService.getByCode(embalse.getId());
         	
         	if (Objects.isNull(embalseJpa)) {
-        		embalseJpa = new EmbalseJpa();
+        		embalseJpa = new EmbalseJpaDTO();
             	embalseJpa.setCodigo(embalse.getId());
             	embalseJpa.setEmbalse(embalse.getNombre());
             	embalseJpa.setCapacidad(embalse.getCapacidad());
             	embalseJpa.setMen(embalse.getMen());
             	
             	String codZona = embalse.getId().split("-")[0];
-            	ZonaJpa zonaJpa = zonaService.getByCode(codZona);
+            	ZonaJpaDTO zonaJpa = zonaService.getByCode(codZona);
             	if (!Objects.isNull(zonaJpa)) {
             		embalseJpa.setZona(zonaJpa);
             	}

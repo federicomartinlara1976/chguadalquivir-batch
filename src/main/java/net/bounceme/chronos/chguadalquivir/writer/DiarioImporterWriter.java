@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
-import net.bounceme.chronos.chguadalquivir.model.jpa.EmbalseJpa;
-import net.bounceme.chronos.chguadalquivir.model.jpa.RegistroJpa;
+import net.bounceme.chronos.chguadalquivir.model.dto.EmbalseJpaDTO;
+import net.bounceme.chronos.chguadalquivir.model.dto.RegistroJpaDTO;
 import net.bounceme.chronos.chguadalquivir.repository.RegistroDiarioEmbalseRepository;
 import net.bounceme.chronos.chguadalquivir.repository.RepositoryCollectionCustom;
 import net.bounceme.chronos.chguadalquivir.services.EmbalseService;
@@ -40,14 +40,14 @@ public class DiarioImporterWriter implements ItemWriter<Embalse> {
     @Override
     public synchronized void write(List<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {
-        	EmbalseJpa embalseJpa = embalseService.getByCode(embalse.getId());
+        	EmbalseJpaDTO embalseJpa = embalseService.getByCode(embalse.getId());
         	
         	repositoryCollectionCustom.setCollectionName(embalseJpa.getCodigo());
         	
         	List<RegistroDiarioEmbalse> registros = registroDiarioEmbalseRepository.findAll();
             
         	for (RegistroDiarioEmbalse registro : registros) {
-        		RegistroJpa registroJpa = new RegistroJpa();
+        		RegistroJpaDTO registroJpa = new RegistroJpaDTO();
         		registroJpa.setEmbalse(embalseJpa);
         		registroJpa.setPorcentaje(registro.getPorcentaje());
         		registroJpa.setVolumen(registro.getVolumen());

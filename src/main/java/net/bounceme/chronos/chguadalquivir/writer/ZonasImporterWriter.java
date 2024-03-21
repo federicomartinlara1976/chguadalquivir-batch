@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
-import net.bounceme.chronos.chguadalquivir.model.jpa.ZonaJpa;
+import net.bounceme.chronos.chguadalquivir.model.dto.ZonaJpaDTO;
 import net.bounceme.chronos.chguadalquivir.services.ZonaService;
 
 @Component
@@ -22,9 +22,9 @@ public class ZonasImporterWriter implements ItemWriter<Zona> {
     @Override
     public synchronized void write(List<? extends Zona> items) throws Exception {
         for (Zona zona : items) {
-            ZonaJpa zonaJpa = zonaService.getByCode(zona.getCodigo());
+            ZonaJpaDTO zonaJpa = zonaService.getByCode(zona.getCodigo());
             if (Objects.isNull(zonaJpa)) {
-            	zonaJpa = new ZonaJpa();
+            	zonaJpa = new ZonaJpaDTO();
                 zonaJpa.setCodigo(zona.getCodigo());
                 zonaJpa.setNombre(zona.getNombre());
                 zonaJpa.setDescripcion(zona.getDescripcion());

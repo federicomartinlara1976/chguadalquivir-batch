@@ -2,13 +2,13 @@ package net.bounceme.chronos.chguadalquivir.services;
 
 import java.util.List;
 
-import net.bounceme.chronos.chguadalquivir.model.jpa.RegistroJpa;
+import net.bounceme.chronos.chguadalquivir.model.dto.RegistroJpaDTO;
 
 public interface RegistroService {
 	
-	List<RegistroJpa> listAll();
+	List<RegistroJpaDTO> listAll();
 	
-	RegistroJpa getByCode(Long code);
+	RegistroJpaDTO getByCode(Long code);
 	
-	RegistroJpa write(RegistroJpa registroJpa);
+	RegistroJpaDTO write(RegistroJpaDTO registroJpaDTO);
 }

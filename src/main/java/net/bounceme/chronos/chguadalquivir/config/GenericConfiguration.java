@@ -2,6 +2,7 @@ package net.bounceme.chronos.chguadalquivir.config;
 
 import java.text.SimpleDateFormat;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,11 @@ public class GenericConfiguration {
 	@Scope("prototype")
 	public ObjectMapper objectMapper() {
 		return new ObjectMapper();
+	}
+	
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 	
 	@Bean

@@ -2,13 +2,13 @@ package net.bounceme.chronos.chguadalquivir.services;
 
 import java.util.List;
 
-import net.bounceme.chronos.chguadalquivir.model.jpa.EmbalseJpa;
+import net.bounceme.chronos.chguadalquivir.model.dto.EmbalseJpaDTO;
 
 public interface EmbalseService {
 	
-	List<EmbalseJpa> listAll();
+	List<EmbalseJpaDTO> listAll();
 	
-	EmbalseJpa getByCode(String code);
+	EmbalseJpaDTO getByCode(String code);
 	
-	EmbalseJpa write(EmbalseJpa embalseJpa);
+	EmbalseJpaDTO write(EmbalseJpaDTO embalseJpaDTO);
 }

@@ -2,13 +2,13 @@ package net.bounceme.chronos.chguadalquivir.services;
 
 import java.util.List;
 
-import net.bounceme.chronos.chguadalquivir.model.jpa.ZonaJpa;
+import net.bounceme.chronos.chguadalquivir.model.dto.ZonaJpaDTO;
 
 public interface ZonaService {
 	
-	List<ZonaJpa> listAll();
+	List<ZonaJpaDTO> listAll();
 	
-	ZonaJpa getByCode(String code);
+	ZonaJpaDTO getByCode(String code);
 	
-	ZonaJpa write(ZonaJpa zonaJpa);
+	ZonaJpaDTO write(ZonaJpaDTO zonaJpaDTO);
 }

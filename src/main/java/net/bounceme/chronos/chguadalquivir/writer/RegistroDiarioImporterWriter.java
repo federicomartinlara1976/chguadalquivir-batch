@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
-import net.bounceme.chronos.chguadalquivir.model.jpa.EmbalseJpa;
-import net.bounceme.chronos.chguadalquivir.model.jpa.RegistroJpa;
+import net.bounceme.chronos.chguadalquivir.model.dto.EmbalseJpaDTO;
+import net.bounceme.chronos.chguadalquivir.model.dto.RegistroJpaDTO;
 import net.bounceme.chronos.chguadalquivir.repository.RegistroDiarioEmbalseRepository;
 import net.bounceme.chronos.chguadalquivir.repository.RepositoryCollectionCustom;
 import net.bounceme.chronos.chguadalquivir.services.EmbalseService;
@@ -54,9 +54,9 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
     	e.setId(dateFormat.format(e.getFecha()));
     	registroDiarioEmbalseRepository.save(e);
     	
-    	EmbalseJpa embalseJpa = embalseService.getByCode(e.getCodigo());
+    	EmbalseJpaDTO embalseJpa = embalseService.getByCode(e.getCodigo());
 		
-    	RegistroJpa registroJpa = new RegistroJpa();
+    	RegistroJpaDTO registroJpa = new RegistroJpaDTO();
 		registroJpa.setEmbalse(embalseJpa);
 		registroJpa.setPorcentaje(e.getPorcentaje());
 		registroJpa.setVolumen(e.getVolumen());
