@@ -93,6 +93,12 @@
 			<groupId>net.bounceme.chronos.chronoslibs</groupId>
 			<artifactId>chronos-data-utils</artifactId>
 			<version>1.0.5-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>ch.qos.reload4j</groupId>
+					<artifactId>reload4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -158,19 +164,6 @@
 			<version>4.0.2</version>
 			<scope>compile</scope>
 		</dependency>
-		
-		<!-- Json appender -->
-		<dependency>
-        	<groupId>ch.qos.logback.contrib</groupId>
-        	<artifactId>logback-json-classic</artifactId>
-        	<version>0.1.5</version>
-	    </dependency>
-	
-	    <dependency>
-	        <groupId>ch.qos.logback.contrib</groupId>
-	        <artifactId>logback-jackson</artifactId>
-	        <version>0.1.5</version>
-	    </dependency>
 
 		<!-- Postgresql, for testing funcionalities -->
 		<dependency>
