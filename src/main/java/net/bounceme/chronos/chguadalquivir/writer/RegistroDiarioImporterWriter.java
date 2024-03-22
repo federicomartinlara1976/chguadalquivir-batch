@@ -53,7 +53,7 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
 	private void writeRegistroDiario(RegistroDiarioEmbalse e) throws Exception {
 		// Set id
     	e.setId(dateFormat.format(e.getFecha()));
-    	registroDiarioEmbalseRepository.save(e);
+    	//registroDiarioEmbalseRepository.save(e);
     	log.info("Writed {}", e.toString());
     	
     	Date fecha = dateFormat.parse(e.getId());
