@@ -1,54 +1,45 @@
 package net.bounceme.chronos.chguadalquivir.writer;
 
 import java.util.List;
-import java.util.Objects;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
-import net.bounceme.chronos.chguadalquivir.model.dto.EmbalseJpaDTO;
-import net.bounceme.chronos.chguadalquivir.model.dto.ZonaJpaDTO;
-import net.bounceme.chronos.chguadalquivir.services.EmbalseService;
-import net.bounceme.chronos.chguadalquivir.services.ZonaService;
+import net.bounceme.chronos.dto.chguadalquivir.EmbalseDTO;
+import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
 
 @Component
 @Slf4j
 public class EmbalseImporterWriter implements ItemWriter<Embalse> {
 	
-	@Autowired
-	private ZonaService zonaService;
+	@Value("${application.queue}")
+	private String queueName;
 	
 	@Autowired
-	private EmbalseService embalseService;
+	private RabbitTemplate rabbitTemplate;
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public synchronized void write(List<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {
-        	EmbalseJpaDTO embalseJpa = embalseService.getByCode(embalse.getId());
         	
-        	if (Objects.isNull(embalseJpa)) {
-        		embalseJpa = new EmbalseJpaDTO();
-            	embalseJpa.setCodigo(embalse.getId());
-            	embalseJpa.setEmbalse(embalse.getNombre());
-            	embalseJpa.setCapacidad(embalse.getCapacidad());
-            	embalseJpa.setMen(embalse.getMen());
-            	
-            	String codZona = embalse.getId().split("-")[0];
-            	ZonaJpaDTO zonaJpa = zonaService.getByCode(codZona);
-            	if (!Objects.isNull(zonaJpa)) {
-            		embalseJpa.setZona(zonaJpa);
-            	}
-        	}
-        	else {
-        		embalseJpa.setCapacidad(embalse.getCapacidad());
-            	embalseJpa.setMen(embalse.getMen());
-        	}
-        	
-        	embalseService.write(embalseJpa);
-            log.info("Writed {}", embalseJpa.toString());
+        	EmbalseDTO embalseDTO = EmbalseDTO.builder()
+        			.codigo(embalse.getId())
+        			.embalse(embalse.getNombre())
+        			.build();
+    		
+			MessageDTO messageDTO = MessageDTO.builder()
+    				.className(EmbalseDTO.class.getName())
+    				.data(embalseDTO)
+    				.build();
+    		
+    		rabbitTemplate.convertAndSend(queueName, messageDTO);
+    		log.info("Writed {}", embalseDTO.toString());
         }
     }
 
