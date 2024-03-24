@@ -1,6 +1,6 @@
 spring:
   application:
-    name: CHGuadalquivir
+    name: chguadalquivir-batch
     description: Recover data from C. H. Guadalquivir
 
   main.allow-bean-definition-overriding: true
@@ -29,7 +29,7 @@ spring:
   
 server:
   servlet:
-    context-path: /chguadalquivir
+    context-path: /chguadalquivir-batch
   port : ${PORT}
 
 env: ${ENV}
