@@ -22,7 +22,6 @@ import net.bounceme.chronos.chguadalquivir.model.ExecutionResult;
 import net.bounceme.chronos.chguadalquivir.model.Task;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
-@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/jobs")
 @Slf4j
