@@ -87,7 +87,7 @@
         <appender-ref ref="CONSOLE"/>
     </logger>
     
-    <logger name="com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver" level="error" additivity="false">
+    <logger name="com.netflix.discovery.shared.resolver.aws" level="error" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
     
