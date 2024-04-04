@@ -30,7 +30,7 @@ spring:
 server:
   servlet:
     context-path: /chguadalquivir-batch
-  port : ${PORT}
+  port : ${PORT:0}
 
 env: ${ENV}
   
