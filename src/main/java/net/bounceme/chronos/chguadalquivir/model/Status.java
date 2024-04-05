@@ -27,4 +27,8 @@ public class Status implements Serializable {
 	private String response;
 	
 	private String description;
+	
+	private String instanceId;
+	
+	private Integer port;
 }

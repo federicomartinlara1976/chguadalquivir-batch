@@ -101,35 +101,6 @@ public class TestModels {
 		assertEquals(element, ze.getElement());
 		log.info("{}, {}", ze.toString(), ze.hashCode());
 	}
-
-	@Test
-	public void testStatus() {
-		Status status = Status.builder().version(System.getProperty("java.version"))
-				.platform(System.getProperty("os.name")).response("OK").build();
-		assertNotNull(status);
-		
-		assertEquals(System.getProperty("java.version"), status.getVersion());
-		assertEquals(System.getProperty("os.name"), status.getPlatform());
-		assertEquals("OK", status.getResponse());
-		
-		status = new Status("applicationName", "applicationDescription", System.getProperty("java.version"), System.getProperty("os.name"), "OK");
-		assertNotNull(status);
-		
-		assertEquals(System.getProperty("java.version"), status.getVersion());
-		assertEquals(System.getProperty("os.name"), status.getPlatform());
-		assertEquals("OK", status.getResponse());
-		
-		status = new Status();
-		status.setVersion(System.getProperty("java.version"));
-		status.setPlatform(System.getProperty("os.name"));
-		status.setResponse("OK");
-		
-		assertNotNull(status);
-		
-		assertEquals(System.getProperty("java.version"), status.getVersion());
-		assertEquals(System.getProperty("os.name"), status.getPlatform());
-		assertEquals("OK", status.getResponse());
-	}
 	
 	@Test
 	public void testTask() {

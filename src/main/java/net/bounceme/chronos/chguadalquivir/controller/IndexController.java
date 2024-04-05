@@ -18,14 +18,26 @@ public class IndexController {
 	
 	@Value("${spring.application.description}")
 	private String applicationDescription;
+	
+	@Value("${server.port}")
+	private Integer port;
+	
+	@Value("${eureka.instance.instance-id}")
+	private String instanceId;
 
 	/**
 	 * @return
 	 */
 	@GetMapping("/status")
 	public ResponseEntity<Status> status() {
-		Status status = Status.builder().applicationName(applicationName).description(applicationDescription).version(System.getProperty("java.version"))
-				.platform(System.getProperty("os.name")).response("OK").build();
+		Status status = Status.builder()
+				.applicationName(applicationName)
+				.description(applicationDescription)
+				.version(System.getProperty("java.version"))
+				.platform(System.getProperty("os.name"))
+				.instanceId(instanceId)
+				.port(port)
+				.response("OK").build();
 		
 		return new ResponseEntity<>(status, HttpStatus.OK);
 	}
