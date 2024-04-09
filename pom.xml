@@ -372,7 +372,7 @@
 		</profile>
 
 		<profile>
-			<id>prod</id>
+			<id>pro</id>
 			<build>
 				<finalName>chguadalquivir-batch</finalName>
 			</build>
