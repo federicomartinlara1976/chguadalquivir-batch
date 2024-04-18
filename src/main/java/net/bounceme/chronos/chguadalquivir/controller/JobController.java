@@ -22,7 +22,7 @@ import net.bounceme.chronos.chguadalquivir.model.Task;
 import net.bounceme.chronos.chguadalquivir.services.JobService;
 
 @RestController
-@RequestMapping("/api/jobs")
+@RequestMapping("/jobs")
 @Slf4j
 public class JobController {
 
