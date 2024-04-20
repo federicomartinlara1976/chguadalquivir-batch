@@ -76,7 +76,7 @@
                 <pattern>%m%n</pattern>
             </fullPatternLayout>
             <numbersAsString>false</numbersAsString>
-            <staticField>application:CHGuadalquivir</staticField>
+            <staticField>application:chguadalquivir-batch</staticField>
             <staticField>environment:${ENV}</staticField>
         </encoder>
     </appender>
