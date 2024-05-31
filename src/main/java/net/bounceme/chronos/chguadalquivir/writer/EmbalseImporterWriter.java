@@ -31,6 +31,8 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
         	EmbalseDTO embalseDTO = EmbalseDTO.builder()
         			.codigo(embalse.getId())
         			.embalse(embalse.getNombre())
+        			.capacidad(embalse.getCapacidad())
+        			.men(embalse.getMen())
         			.build();
     		
 			MessageDTO messageDTO = MessageDTO.builder()

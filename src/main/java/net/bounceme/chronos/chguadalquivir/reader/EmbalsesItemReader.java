@@ -1,7 +1,6 @@
 package net.bounceme.chronos.chguadalquivir.reader;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;
