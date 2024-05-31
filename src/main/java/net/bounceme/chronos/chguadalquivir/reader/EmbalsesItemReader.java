@@ -44,9 +44,10 @@ public class EmbalsesItemReader extends ItemStreamSupport implements ItemReader<
 		records.forEach(embalse -> {
 			repositoryCollectionCustom.setCollectionName(embalse.getId());
             
-            Optional<RegistroDiarioEmbalse> oRegistroDiario = registroDiarioEmbalseRepository.findById("2024-03-14");
-            embalse.setCapacidad(oRegistroDiario.get().getCapacidad());
-            embalse.setMen(oRegistroDiario.get().getMEN());
+            List<RegistroDiarioEmbalse> registros = registroDiarioEmbalseRepository.findAll();
+            RegistroDiarioEmbalse registro = registros.get(0);
+            embalse.setCapacidad(registro.getCapacidad());
+            embalse.setMen(registro.getMEN());
 		});
 		
 		index = 0;
