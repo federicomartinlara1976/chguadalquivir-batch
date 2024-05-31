@@ -1,6 +1,7 @@
 package net.bounceme.chronos.chguadalquivir.reader;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;
@@ -8,12 +9,21 @@ import org.springframework.batch.item.ItemStreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.repository.EmbalseRepository;
+import net.bounceme.chronos.chguadalquivir.repository.RegistroDiarioEmbalseRepository;
+import net.bounceme.chronos.chguadalquivir.repository.RepositoryCollectionCustom;
 
 public class EmbalsesItemReader extends ItemStreamSupport implements ItemReader<Embalse> {
 
 	@Autowired
 	private EmbalseRepository embalseRepository;
+	
+	@Autowired
+	private RepositoryCollectionCustom repositoryCollectionCustom;
+	
+	@Autowired
+	private RegistroDiarioEmbalseRepository registroDiarioEmbalseRepository;
 
 	private List<Embalse> records;
 
@@ -30,6 +40,15 @@ public class EmbalsesItemReader extends ItemStreamSupport implements ItemReader<
 	private void initialize() {
 		records = embalseRepository.findAll();
 
+		// Por cada embalse, rellenar capacidad y men
+		records.forEach(embalse -> {
+			repositoryCollectionCustom.setCollectionName(embalse.getId());
+            
+            Optional<RegistroDiarioEmbalse> oRegistroDiario = registroDiarioEmbalseRepository.findById("2024-03-14");
+            embalse.setCapacidad(oRegistroDiario.get().getCapacidad());
+            embalse.setMen(oRegistroDiario.get().getMEN());
+		});
+		
 		index = 0;
 	}
 
