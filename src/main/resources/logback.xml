@@ -62,7 +62,7 @@
         <useCompression>true</useCompression>
         <messageIdSupplier class="de.siegmar.logbackgelf.MessageIdSupplier"/>
         <encoder class="de.siegmar.logbackgelf.GelfEncoder">
-            <originHost>localhost</originHost>
+            <originHost>${LOG_ORIGIN}</originHost>
             <includeRawMessage>false</includeRawMessage>
             <includeMarker>true</includeMarker>
             <includeMdcData>true</includeMdcData>
