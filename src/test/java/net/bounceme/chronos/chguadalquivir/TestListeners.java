@@ -77,6 +77,14 @@ public class TestListeners {
 		ExitStatus status = timeStepListener.afterStep(stepExecution);
 		
 		assertEquals(ExitStatus.COMPLETED, status);
+		
+		jobExecution.getExecutionContext().put("STEP_TIMES", null);
+		
+		stepExecution = new StepExecution("step", jobExecution);
+		timeStepListener.beforeStep(stepExecution);
+		status = timeStepListener.afterStep(stepExecution);
+		
+		assertEquals(ExitStatus.COMPLETED, status);
 	}
 	
 	@Test
