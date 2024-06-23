@@ -8,13 +8,39 @@
             </Pattern>
         </layout>
     </appender>
+    
+    <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
+        <graylogHost>${LOG_SERVER}</graylogHost>
+        <graylogPort>12201</graylogPort>
+        <maxChunkSize>508</maxChunkSize>
+        <useCompression>true</useCompression>
+        <messageIdSupplier class="de.siegmar.logbackgelf.MessageIdSupplier"/>
+        <encoder class="de.siegmar.logbackgelf.GelfEncoder">
+            <originHost>${LOG_ORIGIN}</originHost>
+            <includeRawMessage>false</includeRawMessage>
+            <includeMarker>true</includeMarker>
+            <includeMdcData>true</includeMdcData>
+            <includeCallerData>false</includeCallerData>
+            <includeRootCauseData>false</includeRootCauseData>
+            <includeLevelName>false</includeLevelName>
+            <shortPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%m%nopex</pattern>
+            </shortPatternLayout>
+            <fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%m%n</pattern>
+            </fullPatternLayout>
+            <numbersAsString>false</numbersAsString>
+            <staticField>application:chguadalquivir-batch</staticField>
+            <staticField>environment:${ENV}</staticField>
+        </encoder>
+    </appender>
 
     <logger name="net.bounceme.chronos.chguadalquivir" level="info" additivity="false">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="GELF"/>
     </logger>
 
     <root level="error">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="GELF"/>
     </root>
 
 </configuration>

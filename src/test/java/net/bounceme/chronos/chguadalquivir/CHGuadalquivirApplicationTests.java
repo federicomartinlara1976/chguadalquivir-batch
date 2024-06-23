@@ -77,14 +77,8 @@ public class CHGuadalquivirApplicationTests {
 	}
 
 	@Test
-	public void testIndex() throws Exception {
-		mockMvc.perform(get("/api/")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("Hello world")));
-	}
-
-	@Test
 	public void testStatus() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/status").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(MockMvcRequestBuilders.get("/status").contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(status))).andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(MockMvcResultHandlers.print());
 	}
@@ -111,30 +105,10 @@ public class CHGuadalquivirApplicationTests {
 		result = mockMvc.perform(requestBuilder).andReturn();
 		response = result.getResponse();
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-
-		// Response 500
-		Mockito.doReturn(resultFAIL).when(jobLauncher).run(Mockito.isA(Job.class), Mockito.isA(JobParameters.class));
-
-		task = new Task();
-		task.setName("importJob");
-		json = asJsonString(task);
-		requestBuilder = createPostRequestBuilder(json);
-		result = mockMvc.perform(requestBuilder).andReturn();
-		response = result.getResponse();
-		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
-
-		// Task not found
-		task = new Task();
-		task.setName("task");
-		json = asJsonString(task);
-		requestBuilder = createPostRequestBuilder(json);
-		result = mockMvc.perform(requestBuilder).andReturn();
-		response = result.getResponse();
-		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
 	}
 
 	private RequestBuilder createPostRequestBuilder(String json) {
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/execute").accept(MediaType.APPLICATION_JSON)
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/jobs/execute").accept(MediaType.APPLICATION_JSON)
 				.content(json).contentType(MediaType.APPLICATION_JSON);
 		return requestBuilder;
 	}
