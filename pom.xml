@@ -18,7 +18,7 @@
 	<description>Recover data from C. H. Guadalquivir</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>
 		<jsoup.version>1.15.3</jsoup.version>
 
@@ -111,7 +111,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>net.bounceme.chronos.chronoslibs</groupId>
+			<groupId>net.bounceme.chronos.libs</groupId>
 			<artifactId>chronos-data-utils</artifactId>
 			<version>1.0.5-SNAPSHOT</version>
 			<exclusions>
@@ -136,13 +136,6 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		
-		<!-- Support JPA -->
-		<dependency>
-			<groupId>net.bounceme.chronos.jpa</groupId>
-			<artifactId>support-jpa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- HTML parser -->
