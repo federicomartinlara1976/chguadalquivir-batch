@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import net.bounceme.chronos.chguadalquivir.model.Status;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/chguadalquivir-batch")
 public class IndexController {
 
 	@Value("${spring.application.name}")
