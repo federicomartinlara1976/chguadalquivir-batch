@@ -7,6 +7,8 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +22,17 @@ public class RabbitConfig {
 	@Value("${application.topic}")
 	private String topicName;
 	
-	/**
-	 * @return
-	 */
-	@Bean
+	@Value("${application.notification.queue}")
+	private String queueNotificationName;
+	
+	@Bean(name = "queue")
     public Queue queue() {
         return new Queue(queueName, true);
+    }
+	
+	@Bean(name = "queueNotifications")
+    public Queue queueNotifications() {
+        return new Queue(queueNotificationName, true);
     }
 	
 	@Bean
@@ -33,9 +40,22 @@ public class RabbitConfig {
         return new TopicExchange(topicName);
     }
 
-    @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
+    @Bean(name = "binding")
+    public Binding binding(
+    		@Autowired
+    		@Qualifier("queue") 
+    		Queue queue, 
+    		TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(queueName);
+    }
+    
+    @Bean(name = "bindingNotifications")
+    public Binding bindingNotifications(
+    		@Autowired
+    		@Qualifier("queueNotifications") 
+    		Queue queue, 
+    		TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(queueNotificationName);
     }
     
     @Bean

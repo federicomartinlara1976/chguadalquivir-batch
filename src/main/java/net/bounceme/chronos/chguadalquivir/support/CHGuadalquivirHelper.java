@@ -28,6 +28,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
+import net.bounceme.chronos.chguadalquivir.model.dto.NotificacionDTO;
+import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
 
 @Component
 @Scope("prototype")
@@ -136,5 +138,17 @@ public class CHGuadalquivirHelper {
 	public Double round(Double input, Integer scale) {
 		BigDecimal bd = BigDecimal.valueOf(input).setScale(scale, RoundingMode.HALF_EVEN);
 		return bd.doubleValue();
+	}
+	
+	/**
+	 * @param notificacion
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public MessageDTO createNotificacion(NotificacionDTO notificacion) {
+		return MessageDTO.builder()
+				.className(NotificacionDTO.class.getName())
+				.data(notificacion)
+				.build();
 	}
 }
