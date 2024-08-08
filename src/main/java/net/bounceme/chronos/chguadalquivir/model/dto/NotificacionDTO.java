@@ -1,7 +1,6 @@
 package net.bounceme.chronos.chguadalquivir.model.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +20,7 @@ public class NotificacionDTO implements Serializable {
 	
 	private String aplicacion;
 	
-	private Date fecha;
+	private Long timestamp;
 	
 	private String mensaje;
 }

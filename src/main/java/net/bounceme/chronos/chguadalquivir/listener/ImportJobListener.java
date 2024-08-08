@@ -62,7 +62,7 @@ public class ImportJobListener extends AbstractListener {
 	private void sendNotificacion(String mensaje) {
 		NotificacionDTO notificacion = NotificacionDTO.builder()
 				.aplicacion("chguadalquivir-batch")
-				.fecha(new Date())
+				.timestamp(System.currentTimeMillis())
 				.mensaje(mensaje)
 				.build();
 		
