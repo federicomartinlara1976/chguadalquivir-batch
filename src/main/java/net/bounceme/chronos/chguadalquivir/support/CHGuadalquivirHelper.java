@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
-import net.bounceme.chronos.chguadalquivir.model.dto.NotificacionDTO;
+import net.bounceme.chronos.dto.NotificacionDTO;
 import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
 
 @Component
