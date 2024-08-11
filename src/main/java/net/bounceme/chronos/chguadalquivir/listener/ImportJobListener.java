@@ -1,6 +1,5 @@
 package net.bounceme.chronos.chguadalquivir.listener;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -14,8 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.dto.NotificacionDTO;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
+import net.bounceme.chronos.dto.NotificacionDTO;
 import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
 
 @Component
