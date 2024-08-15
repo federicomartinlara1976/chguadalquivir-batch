@@ -50,10 +50,10 @@ public class ImportJobListener extends AbstractListener {
 				
 				sendNotificacion("La tarea ya ha sido ejecutada");
 			}
-		}
-		else {
-			jobExecution.setExitStatus(new ExitStatus("COMPLETED", "La tarea ha sido ejecutada correctamente"));
-			sendNotificacion("La tarea ha sido ejecutada correctamente");
+			else {
+				jobExecution.setExitStatus(new ExitStatus("COMPLETED", "La tarea ha sido ejecutada correctamente"));
+				sendNotificacion("La tarea ha sido ejecutada correctamente");
+			}
 		}
 	}
 
