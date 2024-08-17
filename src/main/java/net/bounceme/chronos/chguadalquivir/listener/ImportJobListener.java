@@ -48,19 +48,20 @@ public class ImportJobListener extends AbstractListener {
 				log.error("La tarea ya ha sido ejecutada");
 				jobExecution.setExitStatus(new ExitStatus("NOOP", "La tarea ya ha sido ejecutada"));
 				
-				sendNotificacion("La tarea ya ha sido ejecutada");
+				sendNotificacion("La tarea ya ha sido ejecutada", "WARNING");
 			}
 			else {
 				jobExecution.setExitStatus(new ExitStatus("COMPLETED", "La tarea ha sido ejecutada correctamente"));
-				sendNotificacion("La tarea ha sido ejecutada correctamente");
+				sendNotificacion("La tarea ha sido ejecutada correctamente", "OK");
 			}
 		}
 	}
 
 	@SuppressWarnings("rawtypes")
-	private void sendNotificacion(String mensaje) {
+	private void sendNotificacion(String mensaje, String tipo) {
 		NotificacionDTO notificacion = NotificacionDTO.builder()
 				.aplicacion("chguadalquivir-batch")
+				.tipo(tipo)
 				.timestamp(System.currentTimeMillis())
 				.mensaje(mensaje)
 				.build();
