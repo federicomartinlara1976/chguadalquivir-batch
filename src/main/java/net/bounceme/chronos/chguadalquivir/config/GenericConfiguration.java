@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import org.modelmapper.ModelMapper;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
@@ -16,6 +17,7 @@ import net.bounceme.chronos.chguadalquivir.validation.impl.ValidatorServiceImpl;
 
 @Configuration
 @EnableBatchProcessing
+@ComponentScan(basePackages = {"net.bounceme.chronos.notifications"})
 public class GenericConfiguration {
 	
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
