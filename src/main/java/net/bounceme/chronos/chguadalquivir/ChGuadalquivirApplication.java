@@ -1,9 +1,13 @@
 package net.bounceme.chronos.chguadalquivir;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ImportResource;
+
+import net.bounceme.chronos.notifications.services.NotificationService;
 
 @SpringBootApplication(exclude={BatchAutoConfiguration.class})
 @ImportResource({
@@ -19,9 +23,19 @@ import org.springframework.context.annotation.ImportResource;
 	"classpath:flow.diario.xml",
 	"classpath:flow.updateCapacidad.xml"
 })
-public class ChGuadalquivirApplication {
+public class ChGuadalquivirApplication implements CommandLineRunner {
+
+	@Autowired
+	private NotificationService notificationService;
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChGuadalquivirApplication.class, args);
+		SpringApplicationBuilder builder = new SpringApplicationBuilder(ChGuadalquivirApplication.class);
+		builder.headless(false);
+		builder.run(args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		notificationService.sendNotification("chguadalquivir-batch", "Proceso automatizado iniciado correctamente", "OK");
 	}
 }
