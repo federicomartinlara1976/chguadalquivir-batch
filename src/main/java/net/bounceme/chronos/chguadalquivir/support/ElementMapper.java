@@ -2,20 +2,18 @@ package net.bounceme.chronos.chguadalquivir.support;
 
 import org.springframework.lang.Nullable;
 
-import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
-
 /**
  * @author federico
  *
  * @param <SOURCE>
  * @param <DEST>
  */
-public interface ElementMapper<T> {
+public interface ElementMapper<E, T> {
 	
 	/**
 	 * @param element
 	 * @return
 	 */
 	@Nullable
-	T map(ZonaElement element);
+	T map(E element);
 }

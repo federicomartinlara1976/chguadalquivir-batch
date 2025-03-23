@@ -4,8 +4,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
-import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
+import net.bounceme.chronos.chguadalquivir.model.PuntoControlElement;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioPluviometria;
 import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
 
 /**
@@ -13,25 +13,16 @@ import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
  *
  */
 @Component
-public class EmbalseRowMapper implements ElementMapper<ZonaElement, RegistroDiarioEmbalse> {
+public class PuntoControlRowMapper implements ElementMapper<PuntoControlElement, RegistroDiarioPluviometria> {
 
 	@Override
-	public RegistroDiarioEmbalse map(ZonaElement zonaElement) {
-		RegistroDiarioEmbalse embalse = new RegistroDiarioEmbalse();
-		
-		String info = zonaElement.getElement().select("tr > td.MaquetacionLeft").first().html();
-		
-		String cod = info.substring(0, 3);
-		String codZona = zonaElement.getZona().getCodigo();
+	public RegistroDiarioPluviometria map(PuntoControlElement pElement) {
+		RegistroDiarioPluviometria registro = new RegistroDiarioPluviometria();
 		
 		// Datos generales
-		embalse.setEmbalse(info);
-		embalse.setCod_zona(codZona);
-		embalse.setCodigo(codZona + "-" + cod);
-		embalse.setZona(zonaElement.getZona().getDescripcion());
-		embalse.setFecha(new Date());
+		registro.setFecha(new Date());
 		
-		// Cifras
+		/* Cifras
 		String sMen = zonaElement.getElement().select("tr > td:eq(1)").first().text();
 		embalse.setMEN(Float.valueOf(sMen.replace(",", ".")));
 		
@@ -46,8 +37,8 @@ public class EmbalseRowMapper implements ElementMapper<ZonaElement, RegistroDiar
 		
 		String sPorcentaje = zonaElement.getElement().select("tr > td:eq(7)").first().text();
 		embalse.setPorcentaje(Float.valueOf(sPorcentaje.replace(",", ".")));
-		
-		return embalse;
+		*/
+		return registro;
 	}
 
 }
