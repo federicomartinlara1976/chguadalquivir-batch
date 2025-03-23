@@ -18,8 +18,6 @@ public class PuntoControlElement implements Serializable {
 	 */
 	private static final long serialVersionUID = -1887374261691607915L;
 	
-	private Zona zona;
-	
 	@Transient
 	private Element element;
 }

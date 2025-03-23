@@ -22,10 +22,15 @@ public class PuntoControlRowMapper implements ElementMapper<PuntoControlElement,
 		// Datos generales
 		registro.setFecha(new Date());
 		
-		/* Cifras
-		String sMen = zonaElement.getElement().select("tr > td:eq(1)").first().text();
-		embalse.setMEN(Float.valueOf(sMen.replace(",", ".")));
+		String nombre = pElement.getElement().select("tr > td:eq(1)").first().text();
+		registro.setNombre(nombre);
 		
+		String[] tokens = nombre.split(" ");
+		registro.setCodigo(tokens[0]);
+		
+		registro.setZona(tokens[tokens.length - 1]);
+		
+		/* Cifras
 		String sNivel = zonaElement.getElement().select("tr > td:eq(2) span").first().text();
 		embalse.setNivel(Float.valueOf(sNivel.replace(",", ".")));
 		

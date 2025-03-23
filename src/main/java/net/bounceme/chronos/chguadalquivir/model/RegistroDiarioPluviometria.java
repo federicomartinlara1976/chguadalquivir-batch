@@ -3,8 +3,6 @@ package net.bounceme.chronos.chguadalquivir.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -27,28 +25,11 @@ public class RegistroDiarioPluviometria implements Serializable {
     @Field("_id")
 	private String id;
 
-	private String Embalse;
-	
-	private String cod_zona;
+	private String nombre;
 	
 	private String zona;
 	
 	private String codigo;
-	
-	@NotNull
-	private Float porcentaje;
-	
-	@NotNull
-	private Float Capacidad;
-	
-	@NotNull
-	private Float Volumen;
-	
-	@NotNull
-	private Float MEN;
-	
-	@NotNull
-	private Float Nivel;
 	
 	@Transient
 	private Date fecha;

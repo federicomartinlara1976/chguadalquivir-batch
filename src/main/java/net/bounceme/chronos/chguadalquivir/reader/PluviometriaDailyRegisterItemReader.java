@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.PuntoControlElement;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioPluviometria;
@@ -27,9 +25,6 @@ public class PluviometriaDailyRegisterItemReader extends ItemStreamSupport imple
 
 	@Value("${application.pluviometria.url}")
 	private String url;
-
-	@Autowired
-	private ObjectMapper mapper;
 
 	@Autowired
 	private CHGuadalquivirHelper helper;
@@ -58,7 +53,7 @@ public class PluviometriaDailyRegisterItemReader extends ItemStreamSupport imple
 			Elements elements = doc.select("table#ContentPlaceHolder1_GridLluviaTiempoReal > tbody > tr");
 	
 			for (int i = 1; i < elements.size(); i++) {
-				PuntoControlElement pe = PuntoControlElement.builder().build();
+				PuntoControlElement pe = PuntoControlElement.builder().element(elements.get(i)).build();
 					
 				records.add(pe);
 			}
@@ -79,7 +74,10 @@ public class PluviometriaDailyRegisterItemReader extends ItemStreamSupport imple
 
 		if (index < records.size()) {
 			PuntoControlElement pe = records.get(index);
+			
 			nextElement = elementMapper.map(pe);
+			log.info("{}", nextElement.toString());
+			
 			index++;
 		} else {
 			index = 0;
