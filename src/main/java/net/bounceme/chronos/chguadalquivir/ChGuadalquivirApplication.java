@@ -21,7 +21,8 @@ import net.bounceme.chronos.notifications.services.NotificationService;
 	"classpath:flow.zonas.xml",
 	"classpath:flow.embalses.xml",
 	"classpath:flow.diario.xml",
-	"classpath:flow.updateCapacidad.xml"
+	"classpath:flow.updateCapacidad.xml",
+	"classpath:flow.pluviometria.xml"
 })
 public class ChGuadalquivirApplication implements CommandLineRunner {
 
