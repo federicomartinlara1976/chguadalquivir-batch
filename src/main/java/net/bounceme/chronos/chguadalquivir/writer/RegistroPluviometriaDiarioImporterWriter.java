@@ -15,7 +15,7 @@ public class RegistroPluviometriaDiarioImporterWriter implements ItemWriter<Regi
     @Override
     public synchronized void write(List<? extends RegistroDiarioPluviometria> items) throws Exception {
         for (RegistroDiarioPluviometria e : items) {
-            log.info("{}", e.toString());
+            log.info("Writing {}", e.toString());
         }
     }
 }
