@@ -1,0 +1,4 @@
+${spring.application.name}
+Versión: ${spring.application.version}
+Perfil activo: ${spring.profiles.active}
+Fecha de compilación: ${build.date}

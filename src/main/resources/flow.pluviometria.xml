@@ -11,12 +11,8 @@
 
 	<!-- Batch de ingesta de datos de niveles de embalses a través del SAIH -->
 	<batch:flow id="flow.pluviometria">
-		<batch:decision id="flow.pluviometria.stepFlowDecider" decider="isExecutedDecider">
-            <batch:next on="NO_EXECUTED" to="flow.pluviometria.importStep" />
-            <batch:next on="EXECUTED" to="flow.pluviometria.countExecutionStep" />
-        </batch:decision>
 	
-		<batch:step id="flow.pluviometria.importStep" next="flow.pluviometria.countExecutionStep">
+		<batch:step id="flow.pluviometria.importStep">
 			<batch:tasklet>
 				<batch:chunk reader="registroPluviometriaDiarioItemReader"
 					processor="registroPluviometriaDiarioProcessor"
@@ -36,10 +32,6 @@
 			<batch:listeners>
 				<batch:listener ref="timeStepListener" />
 			</batch:listeners>
-		</batch:step>
-		
-		<batch:step id="flow.import.countExecutionStep">
-			<batch:tasklet ref="updateExecutionTasklet"/>
 		</batch:step>
 		
 	</batch:flow>
