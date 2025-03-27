@@ -2,10 +2,9 @@ package net.bounceme.chronos.chguadalquivir.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Transient;
-
 import org.jsoup.nodes.Element;
 
+import jakarta.persistence.Transient;
 import lombok.Builder;
 import lombok.Data;
 

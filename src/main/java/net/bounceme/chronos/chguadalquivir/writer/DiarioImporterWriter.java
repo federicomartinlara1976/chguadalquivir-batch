@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +40,7 @@ public class DiarioImporterWriter implements ItemWriter<Embalse> {
 
     @Override
     @SuppressWarnings("rawtypes")
-    public synchronized void write(List<? extends Embalse> items) throws Exception {
+    public synchronized void write(Chunk<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {
         	repositoryCollectionCustom.setCollectionName(embalse.getId());
         	
