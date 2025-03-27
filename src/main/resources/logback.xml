@@ -10,59 +10,14 @@
     	</encoder>
     </appender>
     
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/chguadalquivir-batch.log</file>
-    	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<!-- daily rollover -->
-      		<fileNamePattern>${LOG_DIR}/chguadalquivir-batch.%d{dd-MM-yyyy}.%i.log</fileNamePattern>
-      		<timeBasedFileNamingAndTriggeringPolicy
-          		class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-          		<!-- or whenever the file size reaches 50MB -->
-        		<maxFileSize>50MB</maxFileSize>
-      		</timeBasedFileNamingAndTriggeringPolicy>
-      		<!-- keep 30 days' worth of history -->
-      		<maxHistory>30</maxHistory>
-    	</rollingPolicy>
-    	<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-      		<charset>UTF-8</charset>
-      		<layout class="ch.qos.logback.classic.PatternLayout">
-        		<pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
-      		</layout>         
-    	</encoder>
-  	</appender>
-  	
-  	<appender name="JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    	<file>${LOG_DIR}/chguadalquivir-batch-json.log</file>
-    	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<!-- daily rollover -->
-      		<fileNamePattern>${LOG_DIR}/chguadalquivir-batch-json.%d{dd-MM-yyyy}.%i.log</fileNamePattern>
-      		<timeBasedFileNamingAndTriggeringPolicy
-          		class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-          		<!-- or whenever the file size reaches 50MB -->
-        		<maxFileSize>50MB</maxFileSize>
-      		</timeBasedFileNamingAndTriggeringPolicy>
-      		<!-- keep 30 days' worth of history -->
-      		<maxHistory>30</maxHistory>
-    	</rollingPolicy>
-    	<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-      		<charset>UTF-8</charset>
-      		<layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
-        		<jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
-            		<prettyPrint>true</prettyPrint>
-        		</jsonFormatter>
-        		<timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
-    		</layout>         
-    	</encoder>
-  	</appender>
-    
     <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
-        <graylogHost>${LOG_SERVER}</graylogHost>
+        <graylogHost>192.168.1.135</graylogHost>
         <graylogPort>12201</graylogPort>
         <maxChunkSize>508</maxChunkSize>
         <useCompression>true</useCompression>
         <messageIdSupplier class="de.siegmar.logbackgelf.MessageIdSupplier"/>
         <encoder class="de.siegmar.logbackgelf.GelfEncoder">
-            <originHost>${LOG_ORIGIN}</originHost>
+            <originHost>192.168.1.135</originHost>
             <includeRawMessage>false</includeRawMessage>
             <includeMarker>true</includeMarker>
             <includeMdcData>true</includeMdcData>
@@ -77,13 +32,12 @@
             </fullPatternLayout>
             <numbersAsString>false</numbersAsString>
             <staticField>application:chguadalquivir-batch</staticField>
-            <staticField>environment:${ENV}</staticField>
+            <staticField>environment:dev</staticField>
         </encoder>
     </appender>
 
-    <logger name="net.bounceme.chronos.chguadalquivir" level="${LOG_LEVEL}" additivity="false">
+    <logger name="net.bounceme.chronos.chguadalquivir" level="info" additivity="false">
         <appender-ref ref="GELF"/>
-        <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
     
@@ -91,9 +45,8 @@
         <appender-ref ref="CONSOLE"/>
     </logger>
     
-    <root level="${LOG_LEVEL}">
+    <root level="info">
         <appender-ref ref="GELF"/>
-        <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 
