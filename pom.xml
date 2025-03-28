@@ -13,7 +13,7 @@
 
 	<groupId>net.bounceme.chronos</groupId>
 	<artifactId>chguadalquivir-batch</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>chguadalquivir-batch</name>
 	<description>Recover data from C. H. Guadalquivir</description>
 
@@ -339,9 +339,6 @@
 	<profiles>
 		<profile>
 			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 		</profile>
 
 		<profile>
