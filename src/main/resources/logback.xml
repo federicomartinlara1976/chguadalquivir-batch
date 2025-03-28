@@ -36,12 +36,12 @@
         </encoder>
     </appender>
 
-    <logger name="net.bounceme.chronos.chguadalquivir" level="debug" additivity="false">
+    <logger name="net.bounceme.chronos.chguadalquivir" level="${log.level}" additivity="false">
         <appender-ref ref="GELF"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
     
-    <root level="debug">
+    <root level="${log.level}">
         <appender-ref ref="GELF"/>
         <appender-ref ref="CONSOLE"/>
     </root>
