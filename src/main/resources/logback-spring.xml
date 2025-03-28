@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+	<springProperty name="LOG_LEVEL" source="log.level" defaultValue="info"/>
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
       		<charset>UTF-8</charset>
@@ -36,12 +38,12 @@
         </encoder>
     </appender>
 
-    <logger name="net.bounceme.chronos.chguadalquivir" level="${log.level}" additivity="false">
+    <logger name="net.bounceme.chronos.chguadalquivir" level="${LOG_LEVEL}" additivity="false">
         <appender-ref ref="GELF"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
     
-    <root level="${log.level}">
+    <root level="${LOG_LEVEL}">
         <appender-ref ref="GELF"/>
         <appender-ref ref="CONSOLE"/>
     </root>
