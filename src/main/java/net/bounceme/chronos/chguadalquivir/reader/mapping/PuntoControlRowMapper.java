@@ -28,21 +28,29 @@ public class PuntoControlRowMapper implements ElementMapper<PuntoControlElement,
 		String[] tokens = nombre.split(" ");
 		registro.setCodigo(tokens[0]);
 		
-		registro.setZona(tokens[tokens.length - 1]);
+		String zona = tokens[tokens.length - 1];
+		zona = zona.substring(1, zona.length() - 1);
+		registro.setZona(zona);
 		
-		/* Cifras
-		String sNivel = zonaElement.getElement().select("tr > td:eq(2) span").first().text();
-		embalse.setNivel(Float.valueOf(sNivel.replace(",", ".")));
+		// Cifras
+		String horaActual = pElement.getElement().select("tr > td:eq(2)").first().text();
+		registro.setHoraActual(Float.valueOf(horaActual.replace(",", ".")));
 		
-		String sCapacidad = zonaElement.getElement().select("tr > td:eq(4)").first().text();
-		embalse.setCapacidad(Float.valueOf(sCapacidad.replace(",", ".")));
+		String horaAnterior = pElement.getElement().select("tr > td:eq(3)").first().text();
+		registro.setHoraAnterior(Float.valueOf(horaAnterior.replace(",", ".")));
 		
-		String sVolumen = zonaElement.getElement().select("tr > td:eq(5) span").first().text();
-		embalse.setVolumen(Float.valueOf(sVolumen.replace(",", ".")));
+		String ultimas12Horas = pElement.getElement().select("tr > td:eq(4)").first().text();
+		registro.setUltimas12Horas(Float.valueOf(ultimas12Horas.replace(",", ".")));
 		
-		String sPorcentaje = zonaElement.getElement().select("tr > td:eq(7)").first().text();
-		embalse.setPorcentaje(Float.valueOf(sPorcentaje.replace(",", ".")));
-		*/
+		String hoy = pElement.getElement().select("tr > td:eq(5)").first().text();
+		registro.setHoy(Float.valueOf(hoy.replace(",", ".")));
+		
+		String ayer = pElement.getElement().select("tr > td:eq(6)").first().text();
+		registro.setAyer(Float.valueOf(ayer.replace(",", ".")));
+		
+		String unidadMedida = pElement.getElement().select("tr > td:eq(7)").first().text();
+		registro.setUnidadMedida(unidadMedida);
+
 		return registro;
 	}
 

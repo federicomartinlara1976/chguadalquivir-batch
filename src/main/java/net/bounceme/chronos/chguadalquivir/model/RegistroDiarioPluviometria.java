@@ -31,6 +31,18 @@ public class RegistroDiarioPluviometria implements Serializable {
 	
 	private String codigo;
 	
+	private Float horaActual;
+	
+	private Float horaAnterior;
+	
+	private Float ultimas12Horas;
+	
+	private Float hoy;
+	
+	private Float ayer;
+	
+	private String unidadMedida;
+	
 	@Transient
 	private Date fecha;
 }
