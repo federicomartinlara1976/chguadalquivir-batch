@@ -246,7 +246,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>chguadalquivir-batch-${project.version}-${spring.profiles.active}</finalName>
+		<finalName>chguadalquivir-batch-${spring.profiles.active}</finalName>
 	
 		<resources>
 			<resource>
