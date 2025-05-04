@@ -1,15 +1,13 @@
 spring:
   application:
     name: chguadalquivir-batch
-    version: @project.version@
+    version: 1.0.1
 
   profiles:
-    active: @spring.profiles.active@
+    active: ${spring.profiles.active}
   
   config.import: "optional:configserver:"
   cloud:
     config:
       enabled: true
       uri: http://localhost:8888
-
-build.date: @maven.build.timestamp@
