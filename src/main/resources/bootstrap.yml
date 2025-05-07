@@ -4,7 +4,7 @@ spring:
     version: 1.0.1
 
   profiles:
-    active: ${spring.profiles.active}
+    active: @spring.profiles.active@
   
   config.import: "optional:configserver:"
   cloud:

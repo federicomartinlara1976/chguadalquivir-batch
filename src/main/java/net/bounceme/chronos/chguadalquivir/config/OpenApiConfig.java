@@ -19,13 +19,10 @@ public class OpenApiConfig {
 	@Value("${spring.profiles.active}")
 	String appProfile;
 
-	@Value("${build.date}")
-	String fechaCompilacion;
-
 	OpenAPI customOpenAPI() {
 		String descripcion = String.format(
-				"<b>%s</b>Versión: <b>%s</b><br>Perfil activo: <b>%s</b><br>Fecha de compilación: %s", appName,
-				appVersion, appProfile, fechaCompilacion);
+				"<b>%s</b>Versión: <b>%s</b><br>Perfil activo: <b>%s</b>", appName,
+				appVersion, appProfile);
 
 		return new OpenAPI().info(new Info().title("CHGuadalquivir-batch").version(appVersion).description(descripcion))
 				.addServersItem(new Server().url("").description("Default server URL"));
