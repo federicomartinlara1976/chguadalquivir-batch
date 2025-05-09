@@ -10,14 +10,12 @@ import lombok.Data;
 
 @Builder(toBuilder = true)
 @Data
-public class ZonaElement implements Serializable {
+public class PuntoControlElement implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1887374261691607915L;
-	
-	private Zona zona;
 	
 	@Transient
 	private Element element;

@@ -30,10 +30,19 @@ public class PeriodicTasks {
 	@Autowired
 	@Qualifier("importJob")
 	private Job importJob;
+	
+	@Autowired
+	@Qualifier("importPluviometria")
+	private Job importPluviometriaJob;
 
 	@Scheduled(cron = "${application.importJob.cron}")
     public void importJobTask() {
 		executeJob(importJob);
+    }
+	
+	@Scheduled(cron = "${application.pluviometria.cron}")
+    public void importPluviometriaTask() {
+		executeJob(importPluviometriaJob);
     }
 	
 	/**

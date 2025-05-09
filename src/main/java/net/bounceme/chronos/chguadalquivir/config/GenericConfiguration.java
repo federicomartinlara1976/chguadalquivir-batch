@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioPluviometria;
 import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
 import net.bounceme.chronos.chguadalquivir.validation.impl.ValidatorServiceImpl;
 
@@ -24,24 +25,30 @@ public class GenericConfiguration {
 
 	@Bean
 	@Scope("prototype")
-	public ObjectMapper objectMapper() {
+	ObjectMapper objectMapper() {
 		return new ObjectMapper();
 	}
 	
 	@Bean
-	public ModelMapper modelMapper() {
+	ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
 	
 	@Bean
 	@Scope("prototype")
-	public SimpleDateFormat dateFormat() {
+	SimpleDateFormat dateFormat() {
 		return new SimpleDateFormat(DATE_FORMAT);
 	}
 	
 	@Bean
 	@Scope("prototype")
-	public ValidatorService<RegistroDiarioEmbalse> embalseValidatorService() {
+	ValidatorService<RegistroDiarioEmbalse> embalseValidatorService() {
+		return new ValidatorServiceImpl<>();
+	}
+	
+	@Bean
+	@Scope("prototype")
+	ValidatorService<RegistroDiarioPluviometria> pluviometriaValidatorService() {
 		return new ValidatorServiceImpl<>();
 	}
 }

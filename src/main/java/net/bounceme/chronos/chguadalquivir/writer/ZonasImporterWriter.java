@@ -1,8 +1,7 @@
 package net.bounceme.chronos.chguadalquivir.writer;
 
-import java.util.List;
-
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +24,7 @@ public class ZonasImporterWriter implements ItemWriter<Zona> {
 
     @SuppressWarnings("rawtypes")
 	@Override
-    public synchronized void write(List<? extends Zona> items) throws Exception {
+    public synchronized void write(Chunk<? extends Zona> items) throws Exception {
         for (Zona zona : items) {
         	ZonaDTO zonaDTO = ZonaDTO.builder()
         			.codigo(zona.getCodigo())

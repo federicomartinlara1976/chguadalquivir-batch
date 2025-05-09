@@ -2,10 +2,10 @@ package net.bounceme.chronos.chguadalquivir.writer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +38,7 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
 	private SimpleDateFormat dateFormat;
 
     @Override
-    public synchronized void write(List<? extends RegistroDiarioEmbalse> items) throws Exception {
+    public synchronized void write(Chunk<? extends RegistroDiarioEmbalse> items) throws Exception {
         for (RegistroDiarioEmbalse e : items) {
             repositoryCollectionCustom.setCollectionName(e.getCodigo());
             

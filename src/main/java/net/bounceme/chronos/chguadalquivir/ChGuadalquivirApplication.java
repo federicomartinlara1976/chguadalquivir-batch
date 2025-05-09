@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ImportResource;
 
+import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.notifications.services.NotificationService;
 
 @SpringBootApplication(exclude={BatchAutoConfiguration.class})
@@ -21,8 +22,10 @@ import net.bounceme.chronos.notifications.services.NotificationService;
 	"classpath:flow.zonas.xml",
 	"classpath:flow.embalses.xml",
 	"classpath:flow.diario.xml",
-	"classpath:flow.updateCapacidad.xml"
+	"classpath:flow.updateCapacidad.xml",
+	"classpath:flow.pluviometria.xml"
 })
+@Slf4j
 public class ChGuadalquivirApplication implements CommandLineRunner {
 
 	@Autowired
@@ -36,6 +39,8 @@ public class ChGuadalquivirApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		String version = System.getProperty("java.version");
+		log.debug("Java version: {}", version);
 		notificationService.sendNotification("chguadalquivir-batch", "Proceso automatizado iniciado correctamente", "OK");
 	}
 }

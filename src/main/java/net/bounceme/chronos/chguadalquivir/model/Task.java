@@ -2,8 +2,7 @@ package net.bounceme.chronos.chguadalquivir.model;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
-
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -8,14 +8,13 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
 
 @Document(collection = "#{@repositoryCollectionCustom.getCollectionName()}")
 @ToString
 @Data
-public class RegistroDiarioEmbalse implements Serializable {
+public class RegistroDiarioPluviometria implements Serializable {
 
 	/**
 	 * 
@@ -26,28 +25,23 @@ public class RegistroDiarioEmbalse implements Serializable {
     @Field("_id")
 	private String id;
 
-	private String Embalse;
-	
-	private String cod_zona;
+	private String nombre;
 	
 	private String zona;
 	
 	private String codigo;
 	
-	@NotNull
-	private Float porcentaje;
+	private Float horaActual;
 	
-	@NotNull
-	private Float Capacidad;
+	private Float horaAnterior;
 	
-	@NotNull
-	private Float Volumen;
+	private Float ultimas12Horas;
 	
-	@NotNull
-	private Float MEN;
+	private Float hoy;
 	
-	@NotNull
-	private Float Nivel;
+	private Float ayer;
+	
+	private String unidadMedida;
 	
 	@Transient
 	private Date fecha;

@@ -17,5 +17,14 @@
 			<batch:listener ref="importJobListener" />
 		</batch:listeners>
 	</batch:job>
+	
+	<!-- Batch de ingesta de datos de estaciones pluviométricas a través del SAIH -->
+	<batch:job id="importPluviometria" job-repository="jobRepository">
+		<batch:flow parent="flow.pluviometria" id="importPluviometria.flow.import"/>
+		
+		<batch:listeners>
+			<batch:listener ref="importJobListener" />
+		</batch:listeners>
+	</batch:job>
 
 </beans>

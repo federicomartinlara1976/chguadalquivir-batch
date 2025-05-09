@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
-import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
+import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioPluviometria;
 import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
 
 /**
@@ -17,20 +17,20 @@ import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
  */
 @Component
 @Slf4j
-public class RegistroValidator implements Validator<RegistroDiarioEmbalse> {
+public class RegistroPluviometriaValidator implements Validator<RegistroDiarioPluviometria> {
 	
 	@Autowired
-	private ValidatorService<RegistroDiarioEmbalse> validatorService;
+	private ValidatorService<RegistroDiarioPluviometria> validatorService;
 
 	@Override
-	public void validate(RegistroDiarioEmbalse value) {
+	public void validate(RegistroDiarioPluviometria value) {
 		try {
 			validatorService.validate(value);
 		} catch (ConstraintViolationException e) {
 			for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
 				log.error(violation.getMessage());
 			}
-			throw new ValidationException(String.format("El embalse [%s] no se va a procesar", value.getCodigo()));
+			throw new ValidationException(String.format("El registro [%s] no se va a procesar", value.getCodigo()));
 		}
 	}
 }

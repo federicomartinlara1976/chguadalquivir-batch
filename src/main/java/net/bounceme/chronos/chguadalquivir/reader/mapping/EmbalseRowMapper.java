@@ -13,7 +13,7 @@ import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
  *
  */
 @Component
-public class EmbalseRowMapper implements ElementMapper<RegistroDiarioEmbalse> {
+public class EmbalseRowMapper implements ElementMapper<ZonaElement, RegistroDiarioEmbalse> {
 
 	@Override
 	public RegistroDiarioEmbalse map(ZonaElement zonaElement) {
