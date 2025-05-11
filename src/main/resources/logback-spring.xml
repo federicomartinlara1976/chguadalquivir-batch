@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<springProperty name="LOG_LEVEL" source="log.level" defaultValue="info"/>
+	<springProperty name="LOG_LEVEL" source="log.level" defaultValue="debug"/>
 	<springProperty name="PROFILE_ACTIVE" source="spring.profiles.active" defaultValue="dev"/>
 	<springProperty name="GRAYLOG_SERVER" source="graylog.server" defaultValue="localhost"/>
 	<springProperty name="GRAYLOG_PORT" source="graylog.port" defaultValue="12201"/>
