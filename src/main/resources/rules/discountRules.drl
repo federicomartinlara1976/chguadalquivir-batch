@@ -1,13 +1,12 @@
 package rules;
 
-import java.util.*;
 import net.bounceme.chronos.chguadalquivir.model.*;
 
 dialect  "mvel"
 
-rule "Adjust Product Price"
+rule "Ajuste de precio de producto"
 	when
     	$p : ProductPrice(basePrice > 2 )
     then
-    	System.out.println("EJECUTANDO -Adjust Product Price- para el producto [" + $p + "]");
+    	System.out.println("EJECUTANDO -Ajuste de precio de producto- para el producto [" + $p + "]");
 end
