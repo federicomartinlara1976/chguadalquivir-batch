@@ -40,7 +40,7 @@ public class PeriodicTasks {
 		executeJob(importJob);
     }
 	
-	@Scheduled(cron = "${application.pluviometria.cron}")
+	@Scheduled(cron = "${application.importPluviometria.cron}")
     public void importPluviometriaTask() {
 		executeJob(importPluviometriaJob);
     }
