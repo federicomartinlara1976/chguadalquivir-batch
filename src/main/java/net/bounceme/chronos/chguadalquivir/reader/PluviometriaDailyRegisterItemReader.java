@@ -23,7 +23,7 @@ import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 @Slf4j
 public class PluviometriaDailyRegisterItemReader extends ItemStreamSupport implements ItemReader<RegistroDiarioPluviometria> {
 
-	@Value("${application.pluviometria.url}")
+	@Value("${application.importPluviometria.url}")
 	private String url;
 
 	@Autowired
