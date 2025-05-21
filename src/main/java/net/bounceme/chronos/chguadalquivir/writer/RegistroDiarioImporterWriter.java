@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.repository.RegistroDiarioEmbalseRepository;
 import net.bounceme.chronos.chguadalquivir.repository.RepositoryCollectionCustom;
-import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
+import net.bounceme.chronos.dto.MessageDTO;
 import net.bounceme.chronos.dto.chguadalquivir.RegistroDiarioDTO;
 
 @Component

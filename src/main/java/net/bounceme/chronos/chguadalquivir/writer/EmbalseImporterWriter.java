@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.dto.MessageDTO;
 import net.bounceme.chronos.dto.chguadalquivir.EmbalseDTO;
-import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
 
 @Component
 @Slf4j

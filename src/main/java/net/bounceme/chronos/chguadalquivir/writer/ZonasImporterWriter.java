@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
-import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
+import net.bounceme.chronos.dto.MessageDTO;
 import net.bounceme.chronos.dto.chguadalquivir.ZonaDTO;
 
 @Component

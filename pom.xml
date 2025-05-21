@@ -28,6 +28,8 @@
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 		<sonar.scm.disabled>true</sonar.scm.disabled>
 		<sonar.language>java</sonar.language>
+		
+		<chronoslibs.version>1.0.0</chronoslibs.version>
 	</properties>
 
 	<dependencies>
@@ -112,7 +114,7 @@
 		<dependency>
 			<groupId>net.bounceme.chronos.libs</groupId>
 			<artifactId>chronos-data-utils</artifactId>
-			<version>1.0.5-SNAPSHOT</version>
+			<version>${chronoslibs.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>ch.qos.reload4j</groupId>
@@ -124,7 +126,7 @@
 		<dependency>
 			<groupId>net.bounceme.chronos.libs</groupId>
 			<artifactId>chronos-notification-utils</artifactId>
-			<version>1.0.5-SNAPSHOT</version>
+			<version>${chronoslibs.version}</version>
 		</dependency>
 
 		<dependency>
