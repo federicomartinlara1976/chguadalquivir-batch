@@ -36,6 +36,7 @@ public class PuntoControlImporterWriter implements ItemWriter<PuntoControl> {
         	PuntoControlDTO puntoControlDTO = PuntoControlDTO.builder()
         			.id(punto.getId())
         			.nombre(punto.getNombre())
+        			.zona(punto.getZona())
         			.build();
     		
 			MessageDTO messageDTO = MessageDTO.builder()
