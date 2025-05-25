@@ -14,14 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
+import net.bounceme.chronos.chguadalquivir.model.PuntoControl;
 import net.bounceme.chronos.chguadalquivir.model.PuntoControlElement;
-import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioPluviometria;
-import net.bounceme.chronos.chguadalquivir.reader.mapping.RegistroPuntoControlRowMapper;
+import net.bounceme.chronos.chguadalquivir.reader.mapping.PuntoControlRowMapper;
 import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 @Component
 @Slf4j
-public class PluviometriaDailyRegisterItemReader extends ItemStreamSupport implements ItemReader<RegistroDiarioPluviometria> {
+public class PuntosControlItemReader extends ItemStreamSupport implements ItemReader<PuntoControl> {
 
 	@Value("${application.importPluviometria.url}")
 	private String url;
@@ -30,7 +30,7 @@ public class PluviometriaDailyRegisterItemReader extends ItemStreamSupport imple
 	private CHGuadalquivirHelper helper;
 
 	@Autowired
-	private RegistroPuntoControlRowMapper elementMapper;
+	private PuntoControlRowMapper elementMapper;
 
 	private List<PuntoControlElement> records;
 
@@ -69,8 +69,8 @@ public class PluviometriaDailyRegisterItemReader extends ItemStreamSupport imple
 	 *
 	 */
 	@Override
-	public RegistroDiarioPluviometria read() {
-		RegistroDiarioPluviometria nextElement = null;
+	public PuntoControl read() {
+		PuntoControl nextElement = null;
 
 		if (index < records.size()) {
 			PuntoControlElement pe = records.get(index);

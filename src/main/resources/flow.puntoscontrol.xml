@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<batch:flow id="flow.puntoscontrol">
+		<batch:step id="flow.puntoscontrol.importStep">
+			<batch:tasklet>
+				<batch:chunk reader="puntoControlReader"
+					processor="puntoControlProcessor"
+					writer="puntoControlImporterWriter" commit-interval="5">
+					
+					<batch:listeners>
+						<batch:listener ref="customSkipListener" />
+						<batch:listener ref="customChunkListener" />
+					</batch:listeners>
+				</batch:chunk>
+			</batch:tasklet>
+			
+			<batch:listeners>
+				<batch:listener ref="timeStepListener" />
+			</batch:listeners>
+		</batch:step>
+		
+	</batch:flow>
+
+	<!-- Thread safe Reader -->
+	<bean id="puntoControlReader"
+		class="net.bounceme.chronos.chguadalquivir.reader.PuntosControlItemReader"/>
+
+</beans>

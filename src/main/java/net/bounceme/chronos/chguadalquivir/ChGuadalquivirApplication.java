@@ -16,6 +16,7 @@ import net.bounceme.chronos.notifications.services.NotificationService;
 	"classpath:importJob.xml",
 	"classpath:importZonas.xml",
 	"classpath:importEmbalses.xml",
+	"classpath:importPuntosControl.xml",
 	"classpath:importDiario.xml",
 	"classpath:updateCapacidad.xml",
 	"classpath:flow.import.xml",
@@ -23,7 +24,8 @@ import net.bounceme.chronos.notifications.services.NotificationService;
 	"classpath:flow.embalses.xml",
 	"classpath:flow.diario.xml",
 	"classpath:flow.updateCapacidad.xml",
-	"classpath:flow.pluviometria.xml"
+	"classpath:flow.pluviometria.xml",
+	"classpath:flow.puntoscontrol.xml"
 })
 @Slf4j
 public class ChGuadalquivirApplication implements CommandLineRunner {
