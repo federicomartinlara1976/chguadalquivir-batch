@@ -76,7 +76,6 @@ public class PluviometriaDailyRegisterItemReader extends ItemStreamSupport imple
 			PuntoControlElement pe = records.get(index);
 			
 			nextElement = elementMapper.map(pe);
-			log.info("{}", nextElement.toString());
 			
 			index++;
 		} else {

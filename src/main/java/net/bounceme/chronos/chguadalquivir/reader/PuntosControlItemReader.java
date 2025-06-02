@@ -76,7 +76,6 @@ public class PuntosControlItemReader extends ItemStreamSupport implements ItemRe
 			PuntoControlElement pe = records.get(index);
 			
 			nextElement = elementMapper.map(pe);
-			log.info("{}", nextElement.toString());
 			
 			index++;
 		} else {
