@@ -22,7 +22,7 @@
 		<spring-cloud.version>2023.0.5</spring-cloud.version>
 		<jsoup.version>1.15.3</jsoup.version>
 
-		<jacoco.version>0.7.9</jacoco.version>
+		<jacoco.version>0.8.12</jacoco.version>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
@@ -294,47 +294,32 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.version}</version>
-				<configuration>
-					<destFile>${sonar.jacoco.reportPath}</destFile>
-					<append>true</append>
-				</configuration>
 				<executions>
 					<execution> <!-- 1 -->
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-						<configuration>
-							<destFile>${project.build.directory}/jacoco-ut.exec</destFile>
-						</configuration>
-					</execution>
-					<execution> <!-- 2 -->
-						<id>pre-integration-prepare</id>
-						<goals>
-							<goal>prepare-agent-integration</goal>
-						</goals>
 					</execution>
 					<execution> <!-- 3 -->
 						<id>report</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>merge</goal>
-						</goals>
-						<configuration>
-							<fileSets>
-								<fileSet>
-									<directory>${project.build.directory}</directory>
-									<includes>
-										<include>*.exec</include>
-									</includes>
-								</fileSet>
-							</fileSets>
-						</configuration>
-					</execution>
-					<execution> <!-- 4 -->
-						<id>merged-report-generation</id>
-						<phase>verify</phase>
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<executions>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report-only</goal>
 						</goals>
 					</execution>
 				</executions>
