@@ -26,7 +26,7 @@ public class TimeStepListener implements StepExecutionListener {
 	@Override
 	public ExitStatus afterStep(StepExecution stepExecution) {
 		Long duration = System.currentTimeMillis() - startTime;
-		log.info("STEPLISTENER: Se ha terminado de ejecutar el step con nombre: {}, tiempo transcurrido {} ms",
+		log.info("STEPLISTENER: Se ha terminado de ejecutar el step con nombre: {}, ha tardado {} ms",
 				stepExecution.getStepName(), duration);
 		
 		Map<String, Long> stepTimes = (Map<String, Long>) stepExecution.getJobExecution().getExecutionContext().get("STEP_TIMES");
