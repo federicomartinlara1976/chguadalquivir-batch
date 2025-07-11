@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
 
 # Copia el JAR construido (ajusta el nombre si usas Maven/Gradle)
-COPY target/chguadalquivir-batch-1.0.1.jar app.jar
+COPY target/chguadalquivir-batch-prod.jar app.jar
 
 # Puerto expuesto (el mismo que usa tu Spring Boot)
 EXPOSE 8090
