@@ -11,14 +11,12 @@ public class CapacidadProcessor implements ItemProcessor<RegistroDiarioEmbalse, 
 
 	@Override
 	public Embalse process(RegistroDiarioEmbalse item) throws Exception {
-		Embalse embalse = Embalse.builder()
+		return Embalse.builder()
 				.id(item.getCodigo())
 				.nombre(item.getEmbalse())
 				.capacidad(item.getCapacidad())
 				.men(item.getMEN())
 				.build();
-		
-		return embalse;
 	}
 
 }

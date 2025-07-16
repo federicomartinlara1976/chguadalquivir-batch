@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.jsoup.nodes.Element;
 
-import jakarta.persistence.Transient;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,6 +18,5 @@ public class ZonaElement implements Serializable {
 	
 	private Zona zona;
 	
-	@Transient
-	private Element element;
+	private transient Element element;
 }

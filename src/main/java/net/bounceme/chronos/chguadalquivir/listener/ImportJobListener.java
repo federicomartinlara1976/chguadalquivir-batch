@@ -7,7 +7,6 @@ import java.util.Objects;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +16,14 @@ import net.bounceme.chronos.notifications.services.NotificationService;
 @Slf4j
 public class ImportJobListener extends AbstractListener {
 	
-	@Autowired
+	private static final String EXECUTED_TASK = "La tarea ya ha sido ejecutada";
+	
 	private NotificationService notificationService;
 	
+	public ImportJobListener(NotificationService notificationService) {
+		this.notificationService = notificationService;
+	}
+
 	/**
 	 *
 	 */
@@ -35,10 +39,10 @@ public class ImportJobListener extends AbstractListener {
 		
 		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
 			if (!Objects.isNull(alreadyExecuted) && Boolean.TRUE.equals(alreadyExecuted)) {
-				log.error("La tarea ya ha sido ejecutada");
-				jobExecution.setExitStatus(new ExitStatus("NOOP", "La tarea ya ha sido ejecutada"));
+				log.error(EXECUTED_TASK);
+				jobExecution.setExitStatus(new ExitStatus("NOOP", EXECUTED_TASK));
 				
-				notificationService.sendNotification("chguadalquivir-batch", "La tarea ya ha sido ejecutada", "WARNING");
+				notificationService.sendNotification("chguadalquivir-batch", EXECUTED_TASK, "WARNING");
 			}
 			else {
 				jobExecution.setExitStatus(new ExitStatus("COMPLETED", "La tarea ha sido ejecutada correctamente"));

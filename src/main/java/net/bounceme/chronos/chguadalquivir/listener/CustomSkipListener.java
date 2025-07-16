@@ -14,11 +14,11 @@ public class CustomSkipListener implements SkipListener<Object, Object> {
     public void onSkipInRead(Throwable t) {
         StringBuilder message = new StringBuilder("ERROR en LECTURA: ");
 
-        if (t instanceof FlatFileParseException) {
+        if (t instanceof FlatFileParseException exception) {
             message.append("Linea ")
-                    .append(((FlatFileParseException)t).getLineNumber())
+                    .append(exception.getLineNumber())
                     .append(": Error de formato para la siguiente entrada: ")
-                    .append(((FlatFileParseException)t).getInput());
+                    .append(exception.getInput());
         } else {
             message.append(t.getMessage());
         }

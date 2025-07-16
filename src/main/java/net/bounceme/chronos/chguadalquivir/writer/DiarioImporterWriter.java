@@ -26,19 +26,26 @@ public class DiarioImporterWriter implements ItemWriter<Embalse> {
 	@Value("${application.queue}")
 	private String queueName;
 	
-	@Autowired
 	private RabbitTemplate rabbitTemplate;
 	
-	@Autowired
 	private RegistroDiarioEmbalseRepository registroDiarioEmbalseRepository;
 	
-	@Autowired
 	private RepositoryCollectionCustom repositoryCollectionCustom;
 	
-	@Autowired
 	private SimpleDateFormat dateFormat;
 
-    @Override
+    public DiarioImporterWriter(RabbitTemplate rabbitTemplate,
+			RegistroDiarioEmbalseRepository registroDiarioEmbalseRepository,
+			RepositoryCollectionCustom repositoryCollectionCustom, SimpleDateFormat dateFormat) {
+		this.rabbitTemplate = rabbitTemplate;
+		this.registroDiarioEmbalseRepository = registroDiarioEmbalseRepository;
+		this.repositoryCollectionCustom = repositoryCollectionCustom;
+		this.dateFormat = dateFormat;
+	}
+
+
+
+	@Override
     @SuppressWarnings("rawtypes")
     public synchronized void write(Chunk<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {

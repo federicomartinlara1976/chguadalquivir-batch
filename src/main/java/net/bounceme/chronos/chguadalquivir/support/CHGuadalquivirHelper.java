@@ -18,7 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -36,8 +35,11 @@ public class CHGuadalquivirHelper {
 
 	private static final String VALUE = "value";
 
-	@Autowired
 	private SimpleDateFormat dateFormat;
+	
+	public CHGuadalquivirHelper(SimpleDateFormat dateFormat) {
+		this.dateFormat = dateFormat;
+	}
 
 	/**
 	 * @param mapper

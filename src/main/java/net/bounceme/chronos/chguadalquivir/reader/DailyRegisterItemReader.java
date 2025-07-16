@@ -11,7 +11,6 @@ import org.jsoup.select.Elements;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemStreamSupport;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -31,19 +30,23 @@ public class DailyRegisterItemReader extends ItemStreamSupport implements ItemRe
 	@Value("${application.importJob.url}")
 	private String url;
 
-	@Autowired
 	private ObjectMapper mapper;
 
-	@Autowired
 	private CHGuadalquivirHelper helper;
 
-	@Autowired
 	private EmbalseRowMapper elementMapper;
 
 	private List<ZonaElement> records;
 
 	private Integer index = 0;
 	
+	public DailyRegisterItemReader(ObjectMapper mapper, CHGuadalquivirHelper helper,
+			EmbalseRowMapper elementMapper) {
+		this.mapper = mapper;
+		this.helper = helper;
+		this.elementMapper = elementMapper;
+	}
+
 	@Override
 	public void open(ExecutionContext executionContext) {
 		initialize();

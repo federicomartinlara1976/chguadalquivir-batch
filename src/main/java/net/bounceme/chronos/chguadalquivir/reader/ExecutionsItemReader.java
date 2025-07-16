@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import net.bounceme.chronos.chguadalquivir.model.Execution;
@@ -15,15 +14,18 @@ import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 @Component
 public class ExecutionsItemReader implements ItemReader<Execution>, InitializingBean {
 
-	@Autowired
 	private CHGuadalquivirHelper helper;
 
-	@Autowired
 	private ExecutionsRepository executionsRepository;
 
 	private List<Execution> records;
 
 	private Integer index = 0;
+
+	public ExecutionsItemReader(CHGuadalquivirHelper helper, ExecutionsRepository executionsRepository) {
+		this.helper = helper;
+		this.executionsRepository = executionsRepository;
+	}
 
 	@Override
 	public void afterPropertiesSet() {

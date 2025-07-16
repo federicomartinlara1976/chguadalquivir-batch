@@ -3,7 +3,6 @@ package net.bounceme.chronos.chguadalquivir.writer;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +18,13 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
 	@Value("${application.queue}")
 	private String queueName;
 	
-	@Autowired
 	private RabbitTemplate rabbitTemplate;
+	
+    public EmbalseImporterWriter(RabbitTemplate rabbitTemplate) {
+		this.rabbitTemplate = rabbitTemplate;
+	}
 
-    @SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
 	@Override
     public synchronized void write(Chunk<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {

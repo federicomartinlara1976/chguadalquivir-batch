@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.jsoup.nodes.Element;
 
-import jakarta.persistence.Transient;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,6 +16,5 @@ public class PuntoControlElement implements Serializable {
 	 */
 	private static final long serialVersionUID = -1887374261691607915L;
 	
-	@Transient
-	private Element element;
+	private transient Element element;
 }

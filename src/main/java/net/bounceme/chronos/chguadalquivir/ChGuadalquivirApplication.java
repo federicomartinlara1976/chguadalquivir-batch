@@ -1,6 +1,5 @@
 package net.bounceme.chronos.chguadalquivir;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration;
@@ -30,8 +29,11 @@ import net.bounceme.chronos.notifications.services.NotificationService;
 @Slf4j
 public class ChGuadalquivirApplication implements CommandLineRunner {
 
-	@Autowired
 	private NotificationService notificationService;
+
+	public ChGuadalquivirApplication(NotificationService notificationService) {
+		this.notificationService = notificationService;
+	}
 
 	public static void main(String[] args) {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(ChGuadalquivirApplication.class);
