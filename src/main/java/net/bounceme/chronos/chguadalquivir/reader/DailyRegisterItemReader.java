@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemStream;
 import org.springframework.batch.item.ItemStreamSupport;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 
 @Component
 @Slf4j
-public class DailyRegisterItemReader extends ItemStreamSupport implements ItemReader<RegistroDiarioEmbalse> {
+public class DailyRegisterItemReader implements ItemReader<RegistroDiarioEmbalse>, ItemStream {
 
 	@Value("${application.importJob.url}")
 	private String url;
@@ -38,7 +39,7 @@ public class DailyRegisterItemReader extends ItemStreamSupport implements ItemRe
 
 	private List<ZonaElement> records;
 
-	private Integer index = 0;
+	private Integer index = (Integer) 0;
 	
 	public DailyRegisterItemReader(ObjectMapper mapper, CHGuadalquivirHelper helper,
 			EmbalseRowMapper elementMapper) {
@@ -83,7 +84,7 @@ public class DailyRegisterItemReader extends ItemStreamSupport implements ItemRe
 			records = Collections.emptyList();
 		}
 		
-		index = 0;
+		index = (Integer) 0;
 	}
 
 	/**
@@ -98,7 +99,7 @@ public class DailyRegisterItemReader extends ItemStreamSupport implements ItemRe
 			nextElement = elementMapper.map(ze);
 			index++;
 		} else {
-			index = 0;
+			index = (Integer) 0;
 		}
 
 		return nextElement;
