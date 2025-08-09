@@ -1,5 +1,6 @@
 package net.bounceme.chronos.chguadalquivir.writer;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -60,24 +61,27 @@ public class DiarioImporterWriter implements ItemWriter<Embalse> {
         	
         	List<RegistroDiarioEmbalse> registros = registroDiarioEmbalseRepository.findAll();
             
-        	for (RegistroDiarioEmbalse registro : registros) {
-        		
-        		Date fecha = dateFormat.parse(registro.getId());
-        		
-        		RegistroDiarioDTO registroDiarioDTO = RegistroDiarioDTO.builder()
-            			.codigoEmbalse(embalse.getId())
-            			.porcentaje(registro.getPorcentaje())
-            			.volumen(registro.getVolumen())
-            			.nivel(registro.getNivel())
-            			.fecha(fecha)
-            			.build();
-        		
-        		CHGuadalquivirMessageDTO<RegistroDiarioDTO> messageDTO = helper.buidMessage(registroDiarioDTO,
-        				RegistroDiarioDTO.class, MessageType.REGISTRO_DIARIO);
-        		
-        		rabbitTemplate.convertAndSend(queueName, messageDTO);
-        		log.info("Writed {}", registroDiarioDTO.toString());
-        	}
+        	registros.forEach(registro -> {
+        		try {
+	        		Date fecha = dateFormat.parse(registro.getId());
+	        		
+	        		RegistroDiarioDTO registroDiarioDTO = RegistroDiarioDTO.builder()
+	            			.codigoEmbalse(embalse.getId())
+	            			.porcentaje(registro.getPorcentaje())
+	            			.volumen(registro.getVolumen())
+	            			.nivel(registro.getNivel())
+	            			.fecha(fecha)
+	            			.build();
+	        		
+	        		CHGuadalquivirMessageDTO<RegistroDiarioDTO> messageDTO = helper.buidMessage(registroDiarioDTO,
+	        				RegistroDiarioDTO.class, MessageType.REGISTRO_DIARIO);
+	        		
+	        		rabbitTemplate.convertAndSend(queueName, messageDTO);
+	        		log.info("Writed {}", registroDiarioDTO.toString());
+        		} catch (ParseException e) {
+        			log.error("ERROR:", e);
+        		}
+        	});
         }
     }
 
