@@ -50,10 +50,6 @@ public class DiarioImporterWriter implements ItemWriter<Embalse> {
 		this.helper = helper;
 	}
 
-
-
-
-
 	@Override
     public synchronized void write(Chunk<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {
