@@ -8,7 +8,6 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.job.flow.FlowExecutionStatus;
 import org.springframework.batch.core.job.flow.JobExecutionDecider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -24,11 +23,15 @@ import net.bounceme.chronos.chguadalquivir.repository.ExecutionsRepository;
 @Slf4j
 public class IsExecutedDecider implements JobExecutionDecider {
 
-	@Autowired
 	private ExecutionsRepository executionsRepository;
 
-	@Autowired
 	private SimpleDateFormat dateFormat;
+
+	public IsExecutedDecider(ExecutionsRepository executionsRepository, SimpleDateFormat dateFormat) {
+		super();
+		this.executionsRepository = executionsRepository;
+		this.dateFormat = dateFormat;
+	}
 
 	@Override
 	public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {

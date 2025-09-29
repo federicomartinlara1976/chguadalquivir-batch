@@ -2,6 +2,7 @@ package net.bounceme.chronos.chguadalquivir.flow;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -47,14 +48,10 @@ class IsExecutedDeciderTest {
 
     @BeforeEach
     void setUp() {
-        isExecutedDecider = new IsExecutedDecider();
-        
-        // Inyectar dependencias usando reflection
-        setField(isExecutedDecider, "executionsRepository", executionsRepository);
-        setField(isExecutedDecider, "dateFormat", dateFormat);
+        isExecutedDecider = new IsExecutedDecider(executionsRepository, dateFormat);
         
         // Configurar mocks comunes
-        when(jobExecution.getExecutionContext()).thenReturn(executionContext);
+        lenient().when(jobExecution.getExecutionContext()).thenReturn(executionContext);
     }
 
     @Test
@@ -72,7 +69,7 @@ class IsExecutedDeciderTest {
         assertEquals("NO_EXECUTED", result.getName());
         
         // Verificar que no se marca como ya ejecutado
-        verify(executionContext, never()).put("ALREADY_EXECUTED", eq(Boolean.TRUE));
+        verify(executionContext, never()).put(eq("ALREADY_EXECUTED"), eq(Boolean.TRUE));
     }
 
     @Test
@@ -139,8 +136,8 @@ class IsExecutedDeciderTest {
         Date testDate = new Date();
         String formattedDate = "2023-12-01 10:30:00";
         
-        when(dateFormat.format(testDate)).thenReturn(formattedDate);
-        when(executionsRepository.findByDate(formattedDate)).thenReturn(Collections.emptyList());
+        lenient().when(dateFormat.format(testDate)).thenReturn(formattedDate);
+        lenient().when(executionsRepository.findByDate(formattedDate)).thenReturn(Collections.emptyList());
 
         // When - Se decide el flujo
         FlowExecutionStatus result = isExecutedDecider.decide(jobExecution, stepExecution);
@@ -159,18 +156,6 @@ class IsExecutedDeciderTest {
         // Then - Debe implementar JobExecutionDecider
         assertTrue(org.springframework.batch.core.job.flow.JobExecutionDecider.class
             .isAssignableFrom(IsExecutedDecider.class));
-    }
-
-    @Test
-    void testAutowiredFields() throws NoSuchFieldException {
-        // Given - La clase IsExecutedDecider
-        
-        // Then - Debe tener campos con @Autowired
-        var executionsRepositoryField = IsExecutedDecider.class.getDeclaredField("executionsRepository");
-        assertNotNull(executionsRepositoryField.getAnnotation(org.springframework.beans.factory.annotation.Autowired.class));
-        
-        var dateFormatField = IsExecutedDecider.class.getDeclaredField("dateFormat");
-        assertNotNull(dateFormatField.getAnnotation(org.springframework.beans.factory.annotation.Autowired.class));
     }
 
     @Test
@@ -201,7 +186,7 @@ class IsExecutedDeciderTest {
         isExecutedDecider.decide(jobExecution, stepExecution);
 
         // Then - No debe establecer ALREADY_EXECUTED en el contexto
-        verify(executionContext, never()).put("ALREADY_EXECUTED", eq(Boolean.TRUE));
+        verify(executionContext, never()).put(eq("ALREADY_EXECUTED"), eq(Boolean.TRUE));
     }
 
     @Test
