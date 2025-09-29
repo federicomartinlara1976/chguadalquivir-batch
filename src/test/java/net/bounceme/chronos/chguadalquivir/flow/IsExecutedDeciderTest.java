@@ -136,7 +136,7 @@ class IsExecutedDeciderTest {
         Date testDate = new Date();
         String formattedDate = "2023-12-01 10:30:00";
         
-        lenient().when(dateFormat.format(testDate)).thenReturn(formattedDate);
+        when(dateFormat.format(testDate)).thenReturn(formattedDate);
         lenient().when(executionsRepository.findByDate(formattedDate)).thenReturn(Collections.emptyList());
 
         // When - Se decide el flujo
