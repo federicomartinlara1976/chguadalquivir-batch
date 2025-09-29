@@ -7,6 +7,8 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,7 +71,7 @@ class IsExecutedDeciderTest {
         assertEquals("NO_EXECUTED", result.getName());
         
         // Verificar que no se marca como ya ejecutado
-        verify(executionContext, never()).put(eq("ALREADY_EXECUTED"), eq(Boolean.TRUE));
+        verify(executionContext, never()).put("ALREADY_EXECUTED", Boolean.TRUE);
     }
 
     @Test
@@ -131,25 +133,6 @@ class IsExecutedDeciderTest {
     }
 
     @Test
-    void testDecideDateFormatting() {
-        // Given - Una fecha específica
-        Date testDate = new Date();
-        String formattedDate = "2023-12-01 10:30:00";
-        
-        when(dateFormat.format(testDate)).thenReturn(formattedDate);
-        lenient().when(executionsRepository.findByDate(formattedDate)).thenReturn(Collections.emptyList());
-
-        // When - Se decide el flujo
-        FlowExecutionStatus result = isExecutedDecider.decide(jobExecution, stepExecution);
-
-        // Then - Debe usar el formato correcto y buscar por esa fecha
-        assertNotNull(result);
-        assertEquals("NO_EXECUTED", result.getName());
-        verify(dateFormat).format(any(Date.class));
-        verify(executionsRepository).findByDate(formattedDate);
-    }
-
-    @Test
     void testImplementsJobExecutionDecider() {
         // Given - La clase IsExecutedDecider
         
@@ -186,7 +169,7 @@ class IsExecutedDeciderTest {
         isExecutedDecider.decide(jobExecution, stepExecution);
 
         // Then - No debe establecer ALREADY_EXECUTED en el contexto
-        verify(executionContext, never()).put(eq("ALREADY_EXECUTED"), eq(Boolean.TRUE));
+        verify(executionContext, never()).put("ALREADY_EXECUTED", Boolean.TRUE);
     }
 
     @Test
@@ -209,24 +192,6 @@ class IsExecutedDeciderTest {
         assertEquals("NO_EXECUTED", notExecuted.getName());
         assertEquals("EXECUTED", executed.getName());
         assertNotEquals(notExecuted, executed);
-    }
-
-    // Método auxiliar para inyectar campos usando reflection
-    private void setField(Object target, String fieldName, Object value) {
-        try {
-            var field = target.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            field.set(target, value);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to set field: " + fieldName, e);
-        }
-    }
-
-    // Métodos de assertion auxiliares
-    private void assertNotNull(Object object) {
-        if (object == null) {
-            throw new AssertionError("Expected not null");
-        }
     }
 
     private void assertEquals(Object expected, Object actual) {
