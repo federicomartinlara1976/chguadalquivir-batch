@@ -27,16 +27,16 @@ import net.bounceme.chronos.notifications.services.NotificationService;
 	"classpath:flow.puntoscontrol.xml"
 })
 @Slf4j
-public class ChGuadalquivirApplication implements CommandLineRunner {
+public class CHGuadalquivirApplication implements CommandLineRunner {
 
 	private NotificationService notificationService;
 
-	public ChGuadalquivirApplication(NotificationService notificationService) {
+	public CHGuadalquivirApplication(NotificationService notificationService) {
 		this.notificationService = notificationService;
 	}
 
 	public static void main(String[] args) {
-		SpringApplicationBuilder builder = new SpringApplicationBuilder(ChGuadalquivirApplication.class);
+		SpringApplicationBuilder builder = new SpringApplicationBuilder(CHGuadalquivirApplication.class);
 		builder.headless(false);
 		builder.run(args);
 	}
