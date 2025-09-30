@@ -1,6 +1,8 @@
 package net.bounceme.chronos.chguadalquivir.listener;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -117,8 +119,6 @@ class ImportJobListenerTest {
         
         // Then - Debe establecer exit status como NOOP, loguear error y enviar notificación WARNING
         verify(jobExecution).setExitStatus(new ExitStatus("NOOP", "La tarea ya ha sido ejecutada"));
-        //verify(logger).error("La tarea ya ha sido ejecutada");
-        //verify(notificationService).sendNotification("chguadalquivir-batch", "La tarea ya ha sido ejecutada", "WARNING");
     }
 
     @Test
@@ -225,19 +225,6 @@ class ImportJobListenerTest {
     }
 
     @Test
-    void testExitStatusConfiguration() {
-        // Given - Job completado ya ejecutado
-        when(jobExecution.getStatus()).thenReturn(BatchStatus.COMPLETED);
-        when(executionContext.get("ALREADY_EXECUTED")).thenReturn(Boolean.TRUE);
-        
-        // When - Ejecutamos updateStatus
-        importJobListener.updateStatus(jobExecution);
-        
-        // Then - Debe configurar el exit status correctamente
-        verify(jobExecution).setExitStatus(new ExitStatus("NOOP", "La tarea ya ha sido ejecutada"));
-    }
-
-    @Test
     void testConstants() {
         // Given - Las constantes de la clase
         
@@ -258,18 +245,5 @@ class ImportJobListenerTest {
         // Then - Debe interactuar correctamente con el execution context
         verify(executionContext, times(1)).get("ALREADY_EXECUTED"); // Una en updateStatus
         verify(executionContext).put(eq("STEP_TIMES"), any(HashMap.class));
-    }
-
-    // Métodos de assertion auxiliares
-    private void assertNotNull(Object object) {
-        if (object == null) {
-            throw new AssertionError("Expected not null");
-        }
-    }
-
-    private void assertTrue(boolean condition) {
-        if (!condition) {
-            throw new AssertionError("Expected true");
-        }
     }
 }

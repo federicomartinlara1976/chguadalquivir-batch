@@ -1,5 +1,7 @@
 package net.bounceme.chronos.chguadalquivir.listener;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.contains;
@@ -266,19 +268,6 @@ class CustomSkipListenerTest {
         @Override
         public String toString() {
             return "CustomItem{name='" + name + "', value=" + value + "}";
-        }
-    }
-
-    // Métodos de assertion auxiliares
-    private void assertNotNull(Object object) {
-        if (object == null) {
-            throw new AssertionError("Expected not null");
-        }
-    }
-
-    private void assertTrue(boolean condition) {
-        if (!condition) {
-            throw new AssertionError("Expected true");
         }
     }
 
