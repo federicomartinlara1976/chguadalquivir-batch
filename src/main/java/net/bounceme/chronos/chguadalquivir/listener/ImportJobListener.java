@@ -16,7 +16,7 @@ import net.bounceme.chronos.notifications.services.NotificationService;
 @Slf4j
 public class ImportJobListener extends AbstractListener {
 	
-	private static final String EXECUTED_TASK = "La tarea ya ha sido ejecutada";
+	public static final String EXECUTED_TASK = "La tarea ya ha sido ejecutada";
 	
 	private NotificationService notificationService;
 	

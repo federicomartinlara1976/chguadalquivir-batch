@@ -30,6 +30,7 @@ public class GenericConfiguration {
 	}
 	
 	@Bean
+	@Scope("prototype")
 	ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
