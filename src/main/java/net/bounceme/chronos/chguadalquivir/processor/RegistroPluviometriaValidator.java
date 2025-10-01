@@ -4,10 +4,10 @@ import org.springframework.batch.item.validator.ValidationException;
 import org.springframework.batch.item.validator.Validator;
 import org.springframework.stereotype.Component;
 
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioPluviometria;
+import net.bounceme.chronos.chguadalquivir.support.Utils;
 import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
 
 /**
@@ -29,9 +29,8 @@ public class RegistroPluviometriaValidator implements Validator<RegistroDiarioPl
 		try {
 			validatorService.validate(value);
 		} catch (ConstraintViolationException e) {
-			for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
-				log.error(violation.getMessage());
-			}
+			Utils.logViolations(log, e.getConstraintViolations());
+			
 			throw new ValidationException(String.format("El registro [%s] no se va a procesar", value.getCodigo()));
 		}
 	}
