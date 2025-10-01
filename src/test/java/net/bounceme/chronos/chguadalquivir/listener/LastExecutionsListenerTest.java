@@ -136,6 +136,7 @@ class LastExecutionsListenerTest {
         // Then - Debe establecer el exit status con código y descripción correctos
         verify(jobExecution).setExitStatus(new ExitStatus("COMPLETED", "La tarea ha sido ejecutada correctamente"));
     
+        // Debe tener una aserción, por tanto se pone una por defecto
         assertNull(null);
     }
 
