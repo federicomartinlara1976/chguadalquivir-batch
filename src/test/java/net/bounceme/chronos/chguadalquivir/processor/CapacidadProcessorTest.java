@@ -106,7 +106,7 @@ class CapacidadProcessorTest {
         // Given - Un RegistroDiarioEmbalse con valor nulo en MEN
         RegistroDiarioEmbalse input2 = dataset.getRegistros().get(4);
         
-     // Given - Un RegistroDiarioEmbalse con valor negativo en capacidad
+        // Given - Un RegistroDiarioEmbalse con valor negativo en capacidad
         RegistroDiarioEmbalse input3 = dataset.getRegistros().get(5);
         
         // Given - Un RegistroDiarioEmbalse con valor negativo en MEN
