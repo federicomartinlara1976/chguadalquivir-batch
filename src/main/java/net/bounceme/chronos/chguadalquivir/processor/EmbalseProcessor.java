@@ -9,7 +9,7 @@ import net.bounceme.chronos.chguadalquivir.model.Embalse;
 public class EmbalseProcessor implements ItemProcessor<Embalse, Embalse> {
 
 	@Override
-	public Embalse process(Embalse item) throws Exception {
+	public Embalse process(Embalse item) {
 		return item;
 	}
 
