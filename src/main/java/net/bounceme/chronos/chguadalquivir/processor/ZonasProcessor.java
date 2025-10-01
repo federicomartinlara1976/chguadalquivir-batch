@@ -9,7 +9,7 @@ import net.bounceme.chronos.chguadalquivir.model.Zona;
 public class ZonasProcessor implements ItemProcessor<Zona, Zona> {
 
 	@Override
-	public Zona process(Zona item) throws Exception {
+	public Zona process(Zona item) {
 		return item;
 	}
 

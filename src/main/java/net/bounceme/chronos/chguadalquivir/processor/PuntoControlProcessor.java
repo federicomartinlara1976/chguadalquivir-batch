@@ -9,7 +9,7 @@ import net.bounceme.chronos.chguadalquivir.model.PuntoControl;
 public class PuntoControlProcessor implements ItemProcessor<PuntoControl, PuntoControl> {
 
 	@Override
-	public PuntoControl process(PuntoControl item) throws Exception {
+	public PuntoControl process(PuntoControl item) {
 		return item;
 	}
 
