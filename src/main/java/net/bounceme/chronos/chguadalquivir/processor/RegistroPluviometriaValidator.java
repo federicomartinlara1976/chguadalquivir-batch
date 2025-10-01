@@ -2,7 +2,6 @@ package net.bounceme.chronos.chguadalquivir.processor;
 
 import org.springframework.batch.item.validator.ValidationException;
 import org.springframework.batch.item.validator.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import jakarta.validation.ConstraintViolation;
@@ -19,9 +18,12 @@ import net.bounceme.chronos.chguadalquivir.validation.ValidatorService;
 @Slf4j
 public class RegistroPluviometriaValidator implements Validator<RegistroDiarioPluviometria> {
 	
-	@Autowired
 	private ValidatorService<RegistroDiarioPluviometria> validatorService;
-
+	
+	public RegistroPluviometriaValidator(ValidatorService<RegistroDiarioPluviometria> validatorService) {
+		this.validatorService = validatorService;
+	}
+	
 	@Override
 	public void validate(RegistroDiarioPluviometria value) {
 		try {
