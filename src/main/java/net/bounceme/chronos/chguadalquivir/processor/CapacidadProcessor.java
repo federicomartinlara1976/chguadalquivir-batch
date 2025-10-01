@@ -13,7 +13,7 @@ import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 public class CapacidadProcessor implements ItemProcessor<RegistroDiarioEmbalse, Embalse> {
 
 	@Override
-	public Embalse process(RegistroDiarioEmbalse item) throws Exception {
+	public Embalse process(RegistroDiarioEmbalse item) {
 		Assert.notNull(item, "El registro no puede ser nulo");
 		Assert.isTrue(!Objects.isNull(item.getCapacidad()) && item.getCapacidad() >= 0.0f,
 				"La capacidad no puede ser nula o negativa");
