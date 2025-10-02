@@ -26,14 +26,14 @@ public class EmbalseRowMapper implements ElementMapper<ZonaElement, RegistroDiar
 		
 		// Datos generales
 		embalse.setEmbalse(info);
-		embalse.setCod_zona(codZona);
+		embalse.setCodZona(codZona);
 		embalse.setCodigo(codZona + "-" + cod);
 		embalse.setZona(zonaElement.getZona().getDescripcion());
 		embalse.setFecha(new Date());
 		
 		// Cifras
 		String sMen = zonaElement.getElement().select("tr > td:eq(1)").first().text();
-		embalse.setMEN(Float.valueOf(sMen.replace(",", ".")));
+		embalse.setMen(Float.valueOf(sMen.replace(",", ".")));
 		
 		String sNivel = zonaElement.getElement().select("tr > td:eq(2) span").first().text();
 		embalse.setNivel(Float.valueOf(sNivel.replace(",", ".")));

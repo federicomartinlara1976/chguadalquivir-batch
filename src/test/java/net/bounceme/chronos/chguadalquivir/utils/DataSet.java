@@ -72,7 +72,7 @@ public class DataSet {
 			registro.setCodigo("");
 			registro.setEmbalse("");
 			registro.setCapacidad(0.0f);
-			registro.setMEN(0.0f);
+			registro.setMen(0.0f);
 		}
 		
 		return registro;

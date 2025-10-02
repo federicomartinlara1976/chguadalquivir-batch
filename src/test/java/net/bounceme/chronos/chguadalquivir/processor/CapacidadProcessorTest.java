@@ -40,7 +40,7 @@ class CapacidadProcessorTest {
     }
 
     @Test
-    void testProcess() throws Exception {
+    void testProcess() {
         // Given - Un RegistroDiarioEmbalse con datos completos
         RegistroDiarioEmbalse input = dataset.getRegistros().get(0);
 
@@ -67,7 +67,7 @@ class CapacidadProcessorTest {
     }
 
     @Test
-    void testProcessWithEmptyStrings() throws Exception {
+    void testProcessWithEmptyStrings() {
         // Given - Un RegistroDiarioEmbalse con strings vacíos
         RegistroDiarioEmbalse input = dataset.emptyRegistroDiarioEmbalse(true);
 
@@ -83,7 +83,7 @@ class CapacidadProcessorTest {
     }
 
     @Test
-    void testProcessWithZeroValues() throws Exception {
+    void testProcessWithZeroValues() {
         // Given - Un RegistroDiarioEmbalse con valores cero
         RegistroDiarioEmbalse input = dataset.getRegistros().get(1);
 
@@ -134,7 +134,7 @@ class CapacidadProcessorTest {
     }
 
     @Test
-    void testProcessWithFloatPrecision() throws Exception {
+    void testProcessWithFloatPrecision() {
         // Given - Un RegistroDiarioEmbalse con valores float de alta precisión
         RegistroDiarioEmbalse input = dataset.getRegistros().get(2);
 
@@ -150,12 +150,12 @@ class CapacidadProcessorTest {
     }
 
     @Test
-    void testProcessMultipleItems() throws Exception {
+    void testProcessMultipleItems() {
         // Given - Múltiples RegistroDiarioEmbalse (sin valores negativos)
     	List<RegistroDiarioEmbalse> registros = dataset.getRegistros().stream()
     			.filter(registro -> 
     				(!Objects.isNull(registro.getCapacidad()) && registro.getCapacidad() >= 0.0) &&
-    				(!Objects.isNull(registro.getMEN()) && registro.getMEN() >= 0.0)
+    				(!Objects.isNull(registro.getMen()) && registro.getMen() >= 0.0)
     			).toList();
     	RegistroDiarioEmbalse[] inputs = new RegistroDiarioEmbalse[registros.size()];
     	inputs = registros.toArray(inputs);
@@ -169,7 +169,7 @@ class CapacidadProcessorTest {
             assertEquals(input.getCodigo(), result.getId());
             assertEquals(input.getEmbalse(), result.getNombre());
             assertEquals(input.getCapacidad(), result.getCapacidad());
-            assertEquals(input.getMEN(), result.getMen());
+            assertEquals(input.getMen(), result.getMen());
         }
     }
 

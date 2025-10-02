@@ -50,7 +50,7 @@ public class EmbalsesItemReader extends ItemStreamSupport implements ItemReader<
             List<RegistroDiarioEmbalse> registros = registroDiarioEmbalseRepository.findAll();
             RegistroDiarioEmbalse registro = registros.get(0);
             embalse.setCapacidad(registro.getCapacidad());
-            embalse.setMen(registro.getMEN());
+            embalse.setMen(registro.getMen());
 		});
 		
 		index = 0;

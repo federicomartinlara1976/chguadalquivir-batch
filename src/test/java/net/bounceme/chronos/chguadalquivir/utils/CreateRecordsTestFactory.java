@@ -12,7 +12,7 @@ public class CreateRecordsTestFactory extends CreateRecordsAbstractFactory {
 		registro.setCodigo(codigo);
 		registro.setEmbalse(embalse);
 		registro.setCapacidad(capacidad);
-		registro.setMEN(men);
+		registro.setMen(men);
 		
 		return registro;
 	}

@@ -26,9 +26,11 @@ public class RegistroDiarioEmbalse implements Serializable {
     @Field("_id")
 	private String id;
 
-	private String Embalse;
+	@Field("Embalse")
+	private String embalse;
 	
-	private String cod_zona;
+	@Field("cod_zona")
+	private String codZona;
 	
 	private String zona;
 	
@@ -37,17 +39,21 @@ public class RegistroDiarioEmbalse implements Serializable {
 	@NotNull
 	private Float porcentaje;
 	
+	@Field("Capacidad")
 	@NotNull
-	private Float Capacidad;
+	private Float capacidad;
 	
+	@Field("Volumen")
 	@NotNull
-	private Float Volumen;
+	private Float volumen;
 	
+	@Field("MEN")
 	@NotNull
-	private Float MEN;
+	private Float men;
 	
+	@Field("Nivel")
 	@NotNull
-	private Float Nivel;
+	private Float nivel;
 	
 	@Transient
 	private Date fecha;
