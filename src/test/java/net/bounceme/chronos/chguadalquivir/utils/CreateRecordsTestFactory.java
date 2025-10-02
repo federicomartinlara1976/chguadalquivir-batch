@@ -1,5 +1,8 @@
 package net.bounceme.chronos.chguadalquivir.utils;
 
+import static org.mockito.Mockito.mock;
+
+import jakarta.validation.ConstraintViolation;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 
 public class CreateRecordsTestFactory extends CreateRecordsAbstractFactory {
@@ -15,6 +18,13 @@ public class CreateRecordsTestFactory extends CreateRecordsAbstractFactory {
 		registro.setMen(men);
 		
 		return registro;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ConstraintViolation<RegistroDiarioEmbalse> createViolation() {
+		ConstraintViolation<RegistroDiarioEmbalse> violation = mock(ConstraintViolation.class); 
+		return violation;
 	}
 
 	

@@ -1,8 +1,11 @@
 package net.bounceme.chronos.chguadalquivir.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import jakarta.validation.ConstraintViolation;
 import lombok.Getter;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 
@@ -13,6 +16,9 @@ public class DataSet {
 	@Getter
 	private List<RegistroDiarioEmbalse> registros;
 	
+	@Getter
+	private Set<ConstraintViolation<RegistroDiarioEmbalse>> constraintViolations;
+	
 	public DataSet() {
 		createRecordsFactory = new CreateRecordsTestFactory();
 		
@@ -20,6 +26,18 @@ public class DataSet {
 	}
 	
 	private void initDataSet() {
+		createRegistros();
+		createViolations();
+	}
+	
+	private void createViolations() {
+		constraintViolations = new HashSet<>();
+		constraintViolations.add(createRecordsFactory.createViolation());
+		constraintViolations.add(createRecordsFactory.createViolation());
+		constraintViolations.add(createRecordsFactory.createViolation());
+	}
+
+	private void createRegistros() {
 		RegistroDiarioEmbalse registro1 = createRecordsFactory.createRegistroDiarioEmbalse("EMB123", 
 				"Embalse de Prueba", 
 				1500.5f, 
@@ -79,6 +97,14 @@ public class DataSet {
 	}
 	
 	public RegistroDiarioEmbalse nullRegistroDiarioEmbalse() {
+		return null;
+	}
+	
+	public Set<ConstraintViolation<RegistroDiarioEmbalse>> emptyConstraintViolations() {
+		return new HashSet<>();
+	}
+	
+	public Set<ConstraintViolation<RegistroDiarioEmbalse>> nullConstraintViolations() {
 		return null;
 	}
 }
