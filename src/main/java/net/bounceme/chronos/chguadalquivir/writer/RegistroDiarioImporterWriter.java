@@ -15,7 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.repository.RegistroDiarioEmbalseRepository;
 import net.bounceme.chronos.chguadalquivir.repository.RepositoryCollectionCustom;
-import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
+import net.bounceme.chronos.dto.chguadalquivir.CHGuadalquivirMessageDTO;
+import net.bounceme.chronos.dto.chguadalquivir.MessageType;
 import net.bounceme.chronos.dto.chguadalquivir.RegistroDiarioDTO;
 
 @Component
@@ -49,7 +50,6 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
         }
     }
 
-	@SuppressWarnings("rawtypes")
 	private void writeRegistroDiario(RegistroDiarioEmbalse e) throws Exception {
 		// Set id
     	e.setId(dateFormat.format(e.getFecha()));
@@ -66,10 +66,9 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
     			.fecha(fecha)
     			.build();
 		
-		MessageDTO messageDTO = MessageDTO.builder()
-				.className(RegistroDiarioDTO.class.getName())
-				.data(registroDiarioDTO)
-				.build();
+    	CHGuadalquivirMessageDTO<RegistroDiarioDTO> messageDTO = new CHGuadalquivirMessageDTO<>();
+    	messageDTO.setMessageType(MessageType.REGISTRO_DIARIO);
+    	messageDTO.setData(registroDiarioDTO);
 		
 		rabbitTemplate.convertAndSend(queueName, messageDTO);
 	}

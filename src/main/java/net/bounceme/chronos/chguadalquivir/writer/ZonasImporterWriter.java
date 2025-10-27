@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Zona;
-import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
+import net.bounceme.chronos.dto.chguadalquivir.CHGuadalquivirMessageDTO;
+import net.bounceme.chronos.dto.chguadalquivir.MessageType;
 import net.bounceme.chronos.dto.chguadalquivir.ZonaDTO;
 
 @Component
@@ -22,8 +23,7 @@ public class ZonasImporterWriter implements ItemWriter<Zona> {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 
-    @SuppressWarnings("rawtypes")
-	@Override
+    @Override
     public synchronized void write(Chunk<? extends Zona> items) throws Exception {
         for (Zona zona : items) {
         	ZonaDTO zonaDTO = ZonaDTO.builder()
@@ -32,10 +32,9 @@ public class ZonasImporterWriter implements ItemWriter<Zona> {
         			.descripcion(zona.getDescripcion())
         			.build();
     		
-			MessageDTO messageDTO = MessageDTO.builder()
-    				.className(ZonaDTO.class.getName())
-    				.data(zonaDTO)
-    				.build();
+        	CHGuadalquivirMessageDTO<ZonaDTO> messageDTO = new CHGuadalquivirMessageDTO<>();
+        	messageDTO.setMessageType(MessageType.ZONA);
+        	messageDTO.setData(zonaDTO);
     		
     		rabbitTemplate.convertAndSend(queueName, messageDTO);
     		log.info("Writed {}", zonaDTO.toString());

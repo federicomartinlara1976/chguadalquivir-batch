@@ -9,8 +9,9 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import net.bounceme.chronos.chguadalquivir.model.Embalse;
+import net.bounceme.chronos.dto.chguadalquivir.CHGuadalquivirMessageDTO;
 import net.bounceme.chronos.dto.chguadalquivir.EmbalseDTO;
-import net.bounceme.chronos.dto.chguadalquivir.MessageDTO;
+import net.bounceme.chronos.dto.chguadalquivir.MessageType;
 
 @Component
 @Slf4j
@@ -22,22 +23,23 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 
-    @SuppressWarnings("rawtypes")
-	@Override
+    @Override
     public synchronized void write(Chunk<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {
         	
+        	String codigoZona = embalse.getId().substring(0, 2);
+        	
         	EmbalseDTO embalseDTO = EmbalseDTO.builder()
         			.codigo(embalse.getId())
-        			.embalse(embalse.getNombre())
+        			.nombreEmbalse(embalse.getNombre())
         			.capacidad(embalse.getCapacidad())
         			.men(embalse.getMen())
+        			.codigoZona(codigoZona)
         			.build();
     		
-			MessageDTO messageDTO = MessageDTO.builder()
-    				.className(EmbalseDTO.class.getName())
-    				.data(embalseDTO)
-    				.build();
+        	CHGuadalquivirMessageDTO<EmbalseDTO> messageDTO = new CHGuadalquivirMessageDTO<>();
+        	messageDTO.setMessageType(MessageType.EMBALSE);
+        	messageDTO.setData(embalseDTO);
     		
     		rabbitTemplate.convertAndSend(queueName, messageDTO);
     		log.info("Writed {}", embalseDTO.toString());
