@@ -107,7 +107,7 @@
 		<dependency>
 			<groupId>net.bounceme.chronos.libs</groupId>
 			<artifactId>chronos-data-utils</artifactId>
-			<version>${chronoslibs.version}</version>
+			<version>1.0.0</version>
 			<exclusions>
 				<exclusion>
 					<groupId>ch.qos.reload4j</groupId>
@@ -119,7 +119,7 @@
 		<dependency>
 			<groupId>net.bounceme.chronos.libs</groupId>
 			<artifactId>chronos-notification-utils</artifactId>
-			<version>${chronoslibs.version}</version>
+			<version>1.0.0</version>
 		</dependency>
 
 		<dependency>
