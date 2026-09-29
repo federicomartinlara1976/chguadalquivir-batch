@@ -33,11 +33,14 @@ public class EmbalseImporterWriter implements ItemWriter<Embalse> {
     public synchronized void write(Chunk<? extends Embalse> items) throws Exception {
         for (Embalse embalse : items) {
         	
+        	String codigoZona = embalse.getId().substring(0, 2);
+        	
         	EmbalseDTO embalseDTO = EmbalseDTO.builder()
         			.codigo(embalse.getId())
         			.nombreEmbalse(embalse.getNombre())
         			.capacidad(embalse.getCapacidad())
         			.men(embalse.getMen())
+        			.codigoZona(codigoZona)
         			.build();
     		
         	CHGuadalquivirMessageDTO<EmbalseDTO> messageDTO = helper.buidMessage(embalseDTO,

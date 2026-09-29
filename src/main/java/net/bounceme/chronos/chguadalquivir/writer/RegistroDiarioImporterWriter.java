@@ -62,18 +62,23 @@ public class RegistroDiarioImporterWriter implements ItemWriter<RegistroDiarioEm
 
 	private void writeRegistroDiario(RegistroDiarioEmbalse e) throws Exception {
 		// Set id
-		e.setId(dateFormat.format(e.getFecha()));
-		registroDiarioEmbalseRepository.save(e);
-		log.info("Writed {}", e.toString());
-
-		Date fecha = dateFormat.parse(e.getId());
-
-		RegistroDiarioDTO registroDiarioDTO = RegistroDiarioDTO.builder().codigoEmbalse(e.getCodigo())
-				.porcentaje(e.getPorcentaje()).volumen(e.getVolumen()).nivel(e.getNivel()).fecha(fecha).build();
-
-		CHGuadalquivirMessageDTO<RegistroDiarioDTO> messageDTO = helper.buidMessage(registroDiarioDTO,
+    	e.setId(dateFormat.format(e.getFecha()));
+    	registroDiarioEmbalseRepository.save(e);
+    	log.info("Writed {}", e.toString());
+    	
+    	Date fecha = dateFormat.parse(e.getId());
+    	
+    	RegistroDiarioDTO registroDiarioDTO = RegistroDiarioDTO.builder()
+    			.codigoEmbalse(e.getCodigo())
+    			.porcentaje(e.getPorcentaje())
+    			.volumen(e.getVolumen())
+    			.nivel(e.getNivel())
+    			.fecha(fecha)
+    			.build();
+		
+    	CHGuadalquivirMessageDTO<RegistroDiarioDTO> messageDTO = helper.buidMessage(registroDiarioDTO,
 				RegistroDiarioDTO.class, MessageType.REGISTRO_DIARIO);
-
+		
 		rabbitTemplate.convertAndSend(queueName, messageDTO);
 	}
 
