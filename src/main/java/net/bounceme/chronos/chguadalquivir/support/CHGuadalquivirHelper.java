@@ -150,4 +150,13 @@ public class CHGuadalquivirHelper {
 		
 		return messageDTO;
 	}
+	
+	public Float parseNum(String num) {
+		try {
+			return Float.valueOf(num);
+		} catch (NumberFormatException e) {
+			log.warn("Cadena con valor {} no numérica", num);
+			return BigDecimal.ZERO.floatValue();
+		}
+	}
 }

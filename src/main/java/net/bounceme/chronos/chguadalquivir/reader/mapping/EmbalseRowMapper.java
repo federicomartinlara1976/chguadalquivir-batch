@@ -2,10 +2,12 @@ package net.bounceme.chronos.chguadalquivir.reader.mapping;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import net.bounceme.chronos.chguadalquivir.model.RegistroDiarioEmbalse;
 import net.bounceme.chronos.chguadalquivir.model.ZonaElement;
+import net.bounceme.chronos.chguadalquivir.support.CHGuadalquivirHelper;
 import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
 
 /**
@@ -14,6 +16,9 @@ import net.bounceme.chronos.chguadalquivir.support.ElementMapper;
  */
 @Component
 public class EmbalseRowMapper implements ElementMapper<ZonaElement, RegistroDiarioEmbalse> {
+	
+	@Autowired
+	private CHGuadalquivirHelper helper;
 
 	@Override
 	public RegistroDiarioEmbalse map(ZonaElement zonaElement) {
@@ -33,19 +38,19 @@ public class EmbalseRowMapper implements ElementMapper<ZonaElement, RegistroDiar
 		
 		// Cifras
 		String sMen = zonaElement.getElement().select("tr > td:eq(1)").first().text();
-		embalse.setMen(Float.valueOf(sMen.replace(",", ".")));
+		embalse.setMen(helper.parseNum(sMen.replace(",", ".")));
 		
 		String sNivel = zonaElement.getElement().select("tr > td:eq(2) span").first().text();
-		embalse.setNivel(Float.valueOf(sNivel.replace(",", ".")));
+		embalse.setNivel(helper.parseNum(sNivel.replace(",", ".")));
 		
 		String sCapacidad = zonaElement.getElement().select("tr > td:eq(4)").first().text();
-		embalse.setCapacidad(Float.valueOf(sCapacidad.replace(",", ".")));
+		embalse.setCapacidad(helper.parseNum(sCapacidad.replace(",", ".")));
 		
 		String sVolumen = zonaElement.getElement().select("tr > td:eq(5) span").first().text();
-		embalse.setVolumen(Float.valueOf(sVolumen.replace(",", ".")));
+		embalse.setVolumen(helper.parseNum(sVolumen.replace(",", ".")));
 		
 		String sPorcentaje = zonaElement.getElement().select("tr > td:eq(7)").first().text();
-		embalse.setPorcentaje(Float.valueOf(sPorcentaje.replace(",", ".")));
+		embalse.setPorcentaje(helper.parseNum(sPorcentaje.replace(",", ".")));
 		
 		return embalse;
 	}
